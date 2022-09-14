@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PelayananMahasiswaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,10 @@ Route::view('/cekstatus_surat_mahasiswa','mahasiswa/cekstatus');
 Route::view('/surat_selesai_dekan','dekan/suratselesai');
 Route::view('/surat_tandatangan_dekan','dekan/surattandatangan');
 Route::view('/tandatangan_dekan','dekan/tandatangan');
+
+Route::post('save-surat-aktif-kuliah', [PelayananMahasiswaController::class, 'SuratAktifKuliah']);
+Route::post('save-surat-kp', [PelayananMahasiswaController::class, 'SuratKP']);
+Route::post('save-surat-magang', [PelayananMahasiswaController::class, 'SuratMagang']);
+Route::post('save-surat-pengambilan-data', [PelayananMahasiswaController::class, 'SuratPengambilanData']);
+Route::post('save-permohonan-transkrip-nilai', [PelayananMahasiswaController::class, 'PermohonanTranskripNilai']);
+Route::post('save-surat-rekomendasi', [PelayananMahasiswaController::class, 'SuratRekomendasi']);
