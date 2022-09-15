@@ -92,6 +92,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="/kritik_saran_admin" class="nav-link">
+              <i class="nav-icon fas fa-paper-plane"></i>
+              <p>
+                Kritik & Saran
+              </p>
+            </a>
+          </li>
           <!-- End of Admin -->
 
           <!-- Mahasiswa -->

@@ -24,6 +24,7 @@ Route::view('/permohonan_magang','admin/permohonanmagang');
 Route::view('/pengambilan_data','admin/pengambilandata');
 Route::view('/transkrip_nilai','admin/transkripnilai');
 Route::view('/surat_rekomendasi','admin/suratrekomendasi');
+Route::view('/kritik_saran_admin','admin/kritiksaran');
 
 Route::view('/aktif_kuliah_mahasiswa','mahasiswa/aktivkuliah');
 Route::view('/permohonan_kp_mahasiswa','mahasiswa/permohonankp');
