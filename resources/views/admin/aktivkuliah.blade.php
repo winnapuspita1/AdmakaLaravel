@@ -26,7 +26,7 @@
     <tr>
       <th scope="col">No.</th>
       <th scope="col">Nama</th>
-      <th scope="col">Detail</th>
+      <th scope="col">Aksi</th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +35,7 @@
       <td>Mark</td>
       <td>
       <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
+      <a href ="#" class="btn btn-info"> Forward </a>
       <a href ="#" class="btn btn-success"> Selesai </a>
       </td>
     </tr>
@@ -43,6 +44,7 @@
       <td>Jacob</td>
       <td>
       <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
+      <a href ="#" class="btn btn-info"> Forward </a>
       <a href ="#" class="btn btn-success"> Selesai </a>
       </td>
     </tr>
@@ -51,6 +53,7 @@
       <td>Lusy</td>
       <td>
       <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
+      <a href ="#" class="btn btn-info"> Forward </a>
       <a href ="#" class="btn btn-success"> Selesai </a>
       </td>
     </tr>
