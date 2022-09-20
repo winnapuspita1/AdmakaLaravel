@@ -26,7 +26,7 @@
         @endif
         <div class="p-3">
             <h5 class="mb-3">Surat Pengambilan Data</h5>
-            <div class="border p-5">
+            <div class="card shadow-lg p-5">
                 <div class="row mb-3">
                     <label for="nama" class="col-sm-2">Nama Lengkap</label>
                     <div class="col-sm-10">
