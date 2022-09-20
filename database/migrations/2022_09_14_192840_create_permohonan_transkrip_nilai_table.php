@@ -21,6 +21,8 @@ class CreatePermohonanTranskripNilaiTable extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('keperluan');
+            $table->string('nama_surat')->nullable();
+            $table->string('status_surat')->nullable();
             $table->timestamps();
         });
     }

@@ -24,6 +24,8 @@ class CreateSuratKpTable extends Migration
             $table->string('alamat_surat');
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
+            $table->string('nama_surat')->nullable();
+            $table->string('status_surat')->nullable();
             $table->timestamps();
         });
     }

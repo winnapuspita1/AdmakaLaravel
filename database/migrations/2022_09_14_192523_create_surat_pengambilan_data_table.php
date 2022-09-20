@@ -25,6 +25,8 @@ class CreateSuratPengambilanDataTable extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('judul_skripsi');
+            $table->string('nama_surat')->nullable();
+            $table->string('status_surat')->nullable();
             $table->timestamps();
         });
     }
