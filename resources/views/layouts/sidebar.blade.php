@@ -192,6 +192,59 @@
                 </a>
               </li>
             </ul>
+            <!-- End of Dekan -->
+
+            <!-- Koordinator Akademik -->
+          <li class="nav-header">KOOR AKADEMIK</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-check"></i>
+              <p>
+                Daftar Surat
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/aktif_kuliah_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Aktif Kuliah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/permohonan_kp_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan KP</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/permohonan_magang_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan Magang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/pengambilan_data_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan Pengambilan Data Penelitian</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/transkrip_nilai_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transkrip Nilai Sementara</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/surat_rekomendasi_koorakademik" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Rekomendasi</p>
+                </a>
+              </li>
+            </ul>
+            
+            <!-- End of Koordinator Akademik -->
+
           <li class="nav-item">
             <a href="../kanban.html" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>

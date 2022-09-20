@@ -35,6 +35,14 @@ Route::view('/surat_selesai_dekan','dekan/suratselesai');
 Route::view('/surat_tandatangan_dekan','dekan/surattandatangan');
 Route::view('/tandatangan_dekan','dekan/tandatangan');
 
+Route::view('/aktif_kuliah_koorakademik','koorakademik/aktivkuliah');
+Route::view('/permohonan_kp_koorakademik','koorakademik/permohonankp');
+Route::view('/permohonan_magang_koorakademik','koorakademik/permohonanmagang');
+Route::view('/pengambilan_data_koorakademik','koorakademik/pengambilandata');
+Route::view('/transkrip_nilai_koorakademik','koorakademik/transkripnilai');
+Route::view('/surat_rekomendasi_koorakademik','koorakademik/suratrekomendasi');
+
+
 Route::get('/aktif_kuliah',[PelayananAdminController::class, 'SuratAktifKuliah']);
 Route::get('detail_surat_aktif_kuliah/{id}', [PelayananAdminController::class, 'DetailSuratAktif'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 Route::get('detail_surat_aktif_kuliah/{id}/{edit}', [PelayananAdminController::class, 'DetailSuratAktif'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);

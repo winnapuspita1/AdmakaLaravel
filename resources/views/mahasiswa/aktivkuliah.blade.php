@@ -27,7 +27,7 @@
     <input type="nama" class="form-control" id="InputNamaLengkap" name="nama">
     @foreach($errors->get('nama') as $msg)
      <p class="text-danger font-size:2px">{{ $msg }}</p>
-    @endforeach
+    @endforeach 
   </div>
   <div class="mb-3 mx-3">
     <label for="InputNim" class="form-label">NIM</label>
