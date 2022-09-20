@@ -101,7 +101,7 @@
                             <input class="form-control" type="file" id="" name="dokumen">
                         </div>
                         <div class="">
-                            @if ($edit === true)
+                            @if ($edit === false)
                         <button type="submit" class="btn btn-primary">Upload File</button>
                     @else
                         <button type="submit" class="btn btn-primary">Edit File</button>
