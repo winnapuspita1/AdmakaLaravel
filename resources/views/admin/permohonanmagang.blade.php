@@ -34,7 +34,7 @@
           <div class="tab-pane fade show active" id="pills-belum-diterima" role="tabpanel" aria-labelledby="pills-belum-diterima-tab">
               <div class="ps-5 pe-5">
                   <div class="ps-5 pe-5">
-                      <table id="penjualan" class="display table shadow table-bordered rounded-1" style="width:100%">
+                      <table id="table_id" class="display table shadow table-bordered rounded-1" style="width:100%">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
@@ -67,7 +67,7 @@
           <div class="tab-pane fade" id="pills-diterima" role="tabpanel" aria-labelledby="pills-diterima-tab">
               <div class="ps-5 pe-5">
                   <div class="ps-5 pe-5">
-                      <table id="penitipan" class="display table shadow table-bordered rounded-1" style="width:100%">
+                      <table id="table_id2" class="display table shadow table-bordered rounded-1" style="width:100%">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
@@ -148,6 +148,16 @@
   <script>
     $(document).ready( function () {
         $('#table_id').DataTable({
+          "pageLength": 15,
+          "lengthChange": false,
+          "columnDefs": [
+            { "searchable": false, "targets": 0 }
+          ]
+        });
+    } );
+
+    $(document).ready( function () {
+        $('#table_id2').DataTable({
           "pageLength": 15,
           "lengthChange": false,
           "columnDefs": [
