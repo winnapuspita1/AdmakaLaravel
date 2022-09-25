@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KritikSaranModel;
 use App\Models\PermohonanTranskripNilaiModel;
 use App\Models\SuratAktifKuliahModel;
 use App\Models\SuratKPModel;
@@ -252,6 +253,31 @@ class PelayananMahasiswaController extends Controller
 
         ]);
 
+        return back()->with('success', 'Data Tersimpan!');
+    }
+
+    public function KritikSaran(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'kritik_saran' => 'required|max:255'
+
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect('kritik_saran_mahasiswa')
+                        ->with('failed', 'Gagal Menyimpan Data!')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+ 
+        // Retrieve the validated input...
+        $validated = $validator->validated();
+
+        KritikSaranModel::insert([
+            'nama' => 'belum login',
+            'kritik_saran' => $validated['kritik_saran']
+        ]);
+        
         return back()->with('success', 'Data Tersimpan!');
     }
 }

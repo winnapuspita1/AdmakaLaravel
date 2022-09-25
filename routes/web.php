@@ -19,7 +19,6 @@ Route::get('/', function () {
     return view('admin.dashboard');
 });
 
-Route::view('/kritik_saran_admin','admin/kritiksaran');
 
 Route::view('/aktif_kuliah_mahasiswa','mahasiswa/aktivkuliah');
 Route::view('/permohonan_kp_mahasiswa','mahasiswa/permohonankp');
@@ -85,9 +84,13 @@ Route::get('status_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 
 //hapus permohonan surat
 Route::get('hapus_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'HapusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 
+Route::get('/kritik_saran_admin',[PelayananAdminController::class, 'KritikSaran']);
+Route::get('/delete_kritik_saran_admin/{id}', [PelayananAdminController::class, 'DeleteKritikSaran'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);;
+
 Route::post('save-surat-aktif-kuliah', [PelayananMahasiswaController::class, 'SuratAktifKuliah']);
 Route::post('save-surat-kp', [PelayananMahasiswaController::class, 'SuratKP']);
 Route::post('save-surat-magang', [PelayananMahasiswaController::class, 'SuratMagang']);
 Route::post('save-surat-pengambilan-data', [PelayananMahasiswaController::class, 'SuratPengambilanData']);
 Route::post('save-permohonan-transkrip-nilai', [PelayananMahasiswaController::class, 'PermohonanTranskripNilai']);
 Route::post('save-surat-rekomendasi', [PelayananMahasiswaController::class, 'SuratRekomendasi']);
+Route::post('save-kritik-saran', [PelayananMahasiswaController::class, 'KritikSaran']);

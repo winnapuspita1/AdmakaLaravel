@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KritikSaranModel;
 use App\Models\PermohonanTranskripNilaiModel;
 use App\Models\SuratAktifKuliahModel;
 use App\Models\SuratKPModel;
@@ -294,5 +295,22 @@ class PelayananAdminController extends Controller
         }
 
         return back()->with('success', 'Berhasil Update Data!');
+    }
+
+    public function KritikSaran()
+    {
+        $data = [
+            'data' => KritikSaranModel::get(),
+            'number' => 0
+        ];
+
+        return view('admin.kritiksaran', $data);
+    }
+
+    public function DeleteKritikSaran($id)
+    {
+        KritikSaranModel::where('id', $id)->delete();
+
+        return back()->with('success', 'Berhasil Hapus Data!');
     }
 }

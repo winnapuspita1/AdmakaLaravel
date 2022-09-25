@@ -12,6 +12,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/dist/css/adminlte.min.css')}}">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{asset('DataTables-1.12.1/css/dataTables.bootstrap5.min.css')}}"/>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
   <style>
     table.table-fit {
@@ -107,5 +108,9 @@ s
 <script src="{{asset('assets/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets/dist/js/demo.js')}}"></script>
+<!-- datatable -->
+<script type="text/javascript" src="{{asset('DataTables-1.12.1/js/jquery.dataTables.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('DataTables-1.12.1/js/dataTables.bootstrap5.min.js')}}"></script>
+@yield('script')
 </body>
 </html>

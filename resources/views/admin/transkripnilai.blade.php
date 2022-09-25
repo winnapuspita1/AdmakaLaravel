@@ -53,7 +53,7 @@
                                 <td>{{ $item['nama'] }}</td>
                                 <td>
                                 <a href ="{{url('detail_transkrip_nilai/'.$item['id'])}}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
-                                <a href ="{{url('status_surat/transkrip_nilai/'.$item['id'])}}" class="btn btn-success"> Selesai </a>
+                                <a onclick="myFunction('{{url('status_surat/transkrip_nilai/'.$item['id'])}}')" class="btn btn-success"> Selesai </a>
                                 </td>
                               </tr>
                             @endif  
@@ -90,7 +90,7 @@
                                 <td>
                                   <a href ="#" class="btn btn-info"> Forward </a>
                                   <a href ="{{url('detail_transkrip_nilai/'.$item['id'].'/true')}}" class="btn btn-warning"><i class="nav-icon fas fa-pen"></i> Edit </a>
-                                  <a href ="{{url('hapus_surat/transkrip_nilai/'.$item['id'])}}" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i> Delete </a>
+                                  <button type="button" onclick="myFunctionDelete('{{url('hapus_surat/transkrip_nilai/'.$item['id'])}}')" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i> Delete </button>
                                 </td>
                               </tr>
                             @endif
@@ -105,4 +105,66 @@
     </div>
   </div>
 </div>
+<!-- Modal Selesai-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Surat Selesai</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Surat dialihkan ke bagian diterima?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a id="selesaiBtn" href="" class="btn btn-primary">Ya</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Delete-->
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Hapus Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Anda yakin ingin menghapus data?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <a id="selesaiBtn2" href="" class="btn btn-danger">Ya</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+@endsection
+@section('script')
+  <script>
+    $(document).ready( function () {
+        $('#table_id').DataTable({
+          "pageLength": 15,
+          "lengthChange": false,
+          "columnDefs": [
+            { "searchable": false, "targets": 0 }
+          ]
+        });
+    } );
+    
+    function myFunction(link) {      
+      var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
+      var btn = document.getElementById('selesaiBtn').href = link; 
+      myModal.toggle();
+    }
+
+    function myFunctionDelete(link) {      
+      var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop2'));
+      var btn = document.getElementById('selesaiBtn2').href = link; 
+      myModal.toggle();
+    }
+  </script>
 @endsection
