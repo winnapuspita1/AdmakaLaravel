@@ -92,6 +92,54 @@
               </li>
             </ul>
           </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-file nav-icon"></i>
+              <p>
+                Draft Surat
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/draft_aktif_kuliah" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Aktif Kuliah</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/draft_permohonan_kp" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan KP</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/draft_permohonan_magang" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan Magang</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/draft_pengambilan_data" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Permohonan Pengambilan Data Penelitian</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/draft_transkrip_nilai" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Transkrip Nilai Sementara</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/draft_surat_rekomendasi" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>S.Rekomendasi</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a href="/kritik_saran_admin" class="nav-link">
               <i class="nav-icon fas fa-paper-plane"></i>

@@ -30,6 +30,13 @@ Route::view('/kritik_saran_mahasiswa','mahasiswa/kritiksaran');
 Route::view('/status_surat_mahasiswa','mahasiswa/statussurat');
 Route::view('/cekstatus_surat_mahasiswa','mahasiswa/cekstatus');
 
+Route::view('/draft_aktif_kuliah','admin/draftaktifkuliah');
+Route::view('/draft_permohonan_kp','admin/draftpermohonankp');
+Route::view('/draft_permohonan_magang','admin/draftpermohonanmagang');
+Route::view('/draft_pengambilan_data','admin/draftpengambilandata');
+Route::view('/draft_transkrip_nilai','admin/drafttranskripnilai');
+Route::view('/draft_surat_rekomendasi','admin/draftsuratrekomendasi');
+
 Route::view('/surat_selesai_dekan','dekan/suratselesai');
 Route::view('/surat_tandatangan_dekan','dekan/surattandatangan');
 Route::view('/tandatangan_dekan','dekan/tandatangan');
