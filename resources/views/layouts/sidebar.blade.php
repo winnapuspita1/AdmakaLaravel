@@ -207,6 +207,14 @@
             </a>
             </li>
             <li class="nav-item">
+            <a href="/template_surat_mahasiswa" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>
+                Template Surat
+              </p>
+            </a>
+            </li>
+            <li class="nav-item">
             <a href="/kritik_saran_mahasiswa" class="nav-link">
               <i class="nav-icon fas fa-paper-plane"></i>
               <p>

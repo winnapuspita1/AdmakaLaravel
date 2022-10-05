@@ -7,7 +7,6 @@
       <div class="card-body">
         <div class="tab-content">
 
-          <!-- Menu Belum Diterima -->
           <div class="active tab-pane" id="activity">
           <div class="nav-link active" id="activity" role="tabpanel" aria-labelledby="activity">
             <div class="post">
@@ -17,34 +16,40 @@
   <thead>
     <tr>
       <th scope="col">No.</th>
-      <th scope="col">Judul</th>
+      <th scope="col">Jenis Surat</th>
       <th scope="col">Keterangan</th>
-      <th scope="col">Opsi</th>
+      <th scope="col">File Surat</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+  <tr>
       <th scope="row">1</th>
       <td>Surat Aktif Kuliah</td>
-      <td>Selesai, Digital</td>
       <td>
-      <a href ="/cekstatus_surat_mahasiswa" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Cek Status</a>
+      <a href ="#" class="btn btn-success"><i class="nav-icon fas fa-check"></i> Selesai</a>
+      </td>
+      <td>
+      <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
       </td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>Transkrip Nilai</td>
-      <td>-</td>
+      <td>Surat Permohonan KP</td>
       <td>
-      <a href ="/cekstatus_surat_mahasiswa" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Cek Status</a>
+      <a href ="#" class="btn btn-info"><i class="nav-icon fas fa-spinner"></i> Proses</a>
+      </td>
+      <td>
+      <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
       </td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Surat Permohonan Magang</td>
-      <td>Selesai, Non Digital</td>
       <td>
-      <a href ="/cekstatus_surat_mahasiswa" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Cek Status</a>
+      <a href ="#" class="btn btn-info"><i class="nav-icon fas fa-spinner"></i> Proses</a>
+      </td>
+      <td>
+      <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
       </td>
     </tr>
   </tbody>

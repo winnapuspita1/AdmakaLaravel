@@ -29,6 +29,7 @@ Route::view('/surat_rekomendasi_mahasiswa','mahasiswa/suratrekomendasi');
 Route::view('/kritik_saran_mahasiswa','mahasiswa/kritiksaran');
 Route::view('/status_surat_mahasiswa','mahasiswa/statussurat');
 Route::view('/cekstatus_surat_mahasiswa','mahasiswa/cekstatus');
+Route::view('/template_surat_mahasiswa','mahasiswa/templatesurat');
 
 Route::view('/draft_aktif_kuliah','admin/draftaktifkuliah');
 Route::view('/draft_permohonan_kp','admin/draftpermohonankp');
