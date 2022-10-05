@@ -26,7 +26,7 @@
       <th scope="row">1</th>
       <td>Surat Aktif Kuliah</td>
       <td>
-      <a href ="#" class="btn btn-success"><i class="nav-icon fas fa-check"></i> Selesai</a>
+      <a href ="#" class="btn btn-outline-success"><i class="nav-icon fas fa-check"></i> Selesai</a>
       </td>
       <td>
       <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
@@ -36,20 +36,20 @@
       <th scope="row">2</th>
       <td>Surat Permohonan KP</td>
       <td>
-      <a href ="#" class="btn btn-info"><i class="nav-icon fas fa-spinner"></i> Proses</a>
+      <a href ="#" class="btn btn-outline-info"><i class="nav-icon fas fa-spinner"></i> Proses</a>
       </td>
       <td>
-      <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
+      <a href ="#" class="btn btn-primary disabled"><i class="nav-icon fas fa-download"></i> Cetak</a>
       </td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Surat Permohonan Magang</td>
       <td>
-      <a href ="#" class="btn btn-info"><i class="nav-icon fas fa-spinner"></i> Proses</a>
+      <a href ="#" class="btn btn-outline-dark"><i class="nav-icon fas fa-arrow-down"></i> Diterima</a>
       </td>
       <td>
-      <a href ="#" class="btn btn-primary"><i class="nav-icon fas fa-download"></i> Cetak</a>
+      <a href ="#" class="btn btn-primary disabled"><i class="nav-icon fas fa-download"></i> Cetak</a>
       </td>
     </tr>
   </tbody>
