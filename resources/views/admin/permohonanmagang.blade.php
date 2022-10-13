@@ -4,6 +4,13 @@
 
 @section('content')
 <div>
+  <style>
+    tr td {
+        max-width: 100%;
+        white-space: nowrap;
+    }
+  </style>
+  
   <div class="card">
     @if(session('success'))
     <div class="alert alert-success mt-2 mb-2">
@@ -39,6 +46,8 @@
                           <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Nama</th>
+                            <th scope="col">Tanggal Surat Masuk</th>
+                            <th scope="col">Pukul</th>
                             <th scope="col">Aksi</th>
                           </tr>
                         </thead>
@@ -51,9 +60,22 @@
                               <tr>
                                 <th scope="row">{{ $number+=1 }}</th>
                                 <td>{{ $item['nama'] }}</td>
+                                <td>{{ $item['created_at']->format('d-m-Y') }}</td>
+                                <td>{{ $item['created_at']->format('H:i:s') }}</td>
                                 <td>
-                                <a href ="{{url('detail_permohonan_magang/'.$item['id'])}}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
-                                <a onclick="myFunction('{{url('status_surat/magang/'.$item['id'])}}')" class="btn btn-success"> Selesai </a>
+                                  <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                      </svg>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                      <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/magang/'.$item['id'] . '/Diterima')}}', 'Terima Permohonan Surat', 'Surat dialihkan ke bagian diterima?')">Diterima</a></li>
+                                      <li><a class="dropdown-item" href="#">Proses</a></li>
+                                      <li><a class="dropdown-item" href="#">Selesai</a></li>
+                                    </ul>
+                                  </div>
                                 </td>
                               </tr>
                             @endif
@@ -65,13 +87,17 @@
           </div>
           <!-- Menu Diterima -->
           <div class="tab-pane fade" id="pills-diterima" role="tabpanel" aria-labelledby="pills-diterima-tab">
-              <div class="ps-5 pe-5">
-                  <div class="ps-5 pe-5">
+              <div class="">
+                  <div class="">
                       <table id="table_id2" class="display table shadow table-bordered rounded-1" style="width:100%">
                         <thead>
                           <tr>
                             <th scope="col">No.</th>
                             <th scope="col">Nama</th>
+                            <th scope="col">Tanggal Surat Masuk</th>
+                            <th scope="col">Tanggal Surat Selesai</th>
+                            <th scope="col">Status Surat</th>
+                            <th scope="col">Aksi</th>               
                             <th scope="col">Detail</th>
                           </tr>
                         </thead>
@@ -87,10 +113,28 @@
                               <tr>
                                 <th scope="row">{{ $number+=1 }}</th>
                                 <td>{{ $item['nama'] }}</td>
+                                <td>{{ $item['created_at']->format('d-m-Y') }}</td>
+                                <td>{{ ($item['status_surat'] === 'Selesai')? $item['updated_at']->format('d-m-Y') : '-' }}</td>
+                                <td>{{ $item['status_surat']}}</td>
                                 <td>
-                                  <a href ="#" class="btn btn-info"> Forward </a>
-                                  <a href ="{{url('detail_permohonan_magang/'.$item['id'].'/true')}}" class="btn btn-warning"><i class="nav-icon fas fa-pen"></i> Edit </a>
-                                  <a onclick="myFunctionDelete('{{url('hapus_surat/magang/'.$item['id'])}}')" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i> Delete </a>
+                                  <div class="dropdown">
+                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                                      </svg>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                      <li><a class="dropdown-item" href="#">Diterima</a></li>
+                                      <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/magang/'.$item['id'] . '/Proses Pengerjaan')}}', 'Proses Surat', 'Proses permohonan surat mahasiswa?')">Proses</a></li>
+                                      <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/magang/'.$item['id'] . '/Selesai')}}', 'Surat Selesai', 'Permohonan surat akan dialihkan ke bagian draft.')">Selesai</a></li>
+                                    </ul>
+                                  </div>
+                                </td>
+                                <td>
+                                  <a href ="{{url('detail_permohonan_magang/'.$item['id'])}}" class="btn btn-sm btn-primary"><i class="nav-icon fas fa-eye"></i> Lihat </a>
+                                  <a href ="{{url('detail_permohonan_magang/'.$item['id'].'/true')}}" class="btn btn-sm btn-warning"><i class="nav-icon fas fa-pen"></i> Edit </a>
+                                  <button type="button" onclick="myFunctionDelete('{{url('hapus_surat/magang/'.$item['id'])}}')" class="btn btn-sm btn-danger"><i class="nav-icon fas fa-trash"></i> Delete </button>
                                 </td>
                               </tr>
                             @endif
@@ -111,11 +155,11 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Surat Selesai</h5>
+        <h5 class="modal-title" id="staticBackdropLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Surat dialihkan ke bagian diterima?
+        <p id="modal_body"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -166,7 +210,9 @@
         });
     } );
     
-    function myFunction(link) {      
+    function myFunction(link,heading,body) {      
+      staticBackdropLabel.innerText = heading;
+      modal_body.innerText = body;
       var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
       var btn = document.getElementById('selesaiBtn').href = link; 
       myModal.toggle();

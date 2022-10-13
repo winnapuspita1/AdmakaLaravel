@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->unique();
+            
             $table->enum('role', ['superadmin', 'admin', 'mahasiswa'])->default('mahasiswa');
         });
         
@@ -27,7 +27,7 @@ return new class extends Migration
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),
-               'username' => 'superadmin',
+            
                'role' => 'superadmin'
            )
         );
@@ -40,7 +40,7 @@ return new class extends Migration
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),
-               'username' => 'admin',
+            
                'role' => 'admin'
            )
         );

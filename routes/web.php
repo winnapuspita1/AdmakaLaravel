@@ -72,7 +72,7 @@ Route::get('/detail_surat_rekomendasi/{id}',[PelayananAdminController::class, 'D
 Route::get('/detail_surat_rekomendasi/{id}/{edit}',[PelayananAdminController::class, 'DetailSuratRekomendasi'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 Route::post('/save-surat-rekomendasi-admin',[PelayananAdminController::class, 'SaveSuratRekomendasi']);
 //status surat selesai
-Route::get('status_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'StatusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
+Route::get('status_surat/{jenis_surat}/{id}/{status_surat}', [PelayananAdminController::class, 'StatusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 //hapus permohonan surat
 Route::get('hapus_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'HapusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 

@@ -243,31 +243,31 @@ class PelayananAdminController extends Controller
         return back()->with('failed','Gagal Upload Data!');
     }
 
-    public function StatusSurat($jenis_surat, $id)
+    public function StatusSurat($jenis_surat, $id, $status_surat)
     {
         if ($jenis_surat === "aktif_kuliah") {
             SuratAktifKuliahModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "kp") {
             SuratKPModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "magang") {
             SuratMagangModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "pengambilan_data") {
             SuratPengambilanDataModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "transkrip_nilai") {
             PermohonanTranskripNilaiModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "rekomendasi") {
             SuratRekomendasiModel::where('id', $id)->update([
-                'status_surat' => "Selesai"
+                'status_surat' => $status_surat
             ]);
         } else {
             return back()->with('failed', 'Gagal Update Data!');

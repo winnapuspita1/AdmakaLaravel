@@ -20,7 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        return view('super_admin.register');
     }
 
     /**
@@ -37,18 +37,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+            'role' => ['required', 'in:superadmin,admin,mahasiswa'],
+        ],
+        [
+            'required' => 'Form Tidak Boleh Kosong!',
+            'role.in' => 'Silahkan Pilih Role!'
+        ]
+    );
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role
         ]);
 
-        event(new Registered($user));
+        // event(new Registered($user));
+        //auto login user
+        //Auth::login($user);
 
-        Auth::login($user);
+        $request->session()->flash('success', 'Berhasil Mendaftarkan Akun!!');
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->back();
     }
 }
