@@ -31,11 +31,11 @@ Route::view('/cekstatus_surat_mahasiswa','mahasiswa/cekstatus');
 Route::view('/template_surat_mahasiswa','mahasiswa/templatesurat');
 
 Route::get('/draft_aktif_kuliah', [PelayananAdminController::class, 'DraftAktifKuliah']);
-Route::get('/draft_permohonan_kp',[PelayananAdminController::class, 'DraftKP']);
-Route::view('/draft_permohonan_magang','admin/draftpermohonanmagang');
-Route::view('/draft_pengambilan_data','admin/draftpengambilandata');
-Route::view('/draft_transkrip_nilai','admin/drafttranskripnilai');
-Route::view('/draft_surat_rekomendasi','admin/draftsuratrekomendasi');
+Route::get('/draft_permohonan_kp', [PelayananAdminController::class, 'DraftKP']);
+Route::get('/draft_permohonan_magang', [PelayananAdminController::class, 'DraftMagang']);
+Route::get('/draft_pengambilan_data', [PelayananAdminController::class, 'DraftPengambilanData']);
+Route::get('/draft_transkrip_nilai', [PelayananAdminController::class, 'DraftTranskripNilai']);
+Route::get('/draft_surat_rekomendasi', [PelayananAdminController::class, 'DraftRekomendasi']);
 
 Route::view('/surat_selesai_dekan','dekan/suratselesai');
 Route::view('/surat_tandatangan_dekan','dekan/surattandatangan');

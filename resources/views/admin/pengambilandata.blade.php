@@ -12,20 +12,7 @@
 
 <div>
   <div class="card">
-    <div class="card-header p-2">
-      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-belum-diterima-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-diterima" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Belum Diterima</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-diterima-tab" data-bs-toggle="pill" data-bs-target="#pills-diterima" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Diterima</button>
-        </li>
-    </ul>
-    </div>
-    <!-- /.card-header -->
-
-    <div class="card-body">
-      @if(session('success'))
+    @if(session('success'))
       <div class="alert alert-success mt-2 mb-2">
           {!! session('success') !!}
       </div>
@@ -35,10 +22,23 @@
           {!! session('failed') !!}
       </div>
       @endif
+      <div class="card-header p-2">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-belum-diterima-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-diterima" href="#pills-belum-diterima" type="button" role="tab" aria-controls="pills-home" aria-selected="false" data-toggle="tab">Belum Diterima</a>
+          </li>
+          <li class="nav-item" role="presentation">
+              <a class="nav-link" id="pills-diterima-tab" data-bs-toggle="pill" data-bs-target="#pills-diterima" href="#pills-diterima" type="button" role="tab" aria-controls="pills-profile" aria-selected="false" data-toggle="tab">Diterima</a>
+          </li>
+      </ul>
+      </div>
+    <!-- /.card-header -->
+
+    <div class="card-body">
       <div class="tab-content">
         <div class="tab-content mt-5" id="pills-tabContent">
           <!-- Menu Belum Diterima -->
-          <div class="tab-pane fade show active" id="pills-belum-diterima" role="tabpanel" aria-labelledby="pills-belum-diterima-tab">
+          <div class="tab-pane fade" id="pills-belum-diterima" role="tabpanel" aria-labelledby="pills-belum-diterima-tab">
               <div class="ps-5 pe-5">
                   <div class="ps-5 pe-5">
                       <table id="table_id" class="display table shadow table-bordered rounded-1" style="width:100%">
@@ -105,12 +105,10 @@
                           @php
                             $number = 0;
                           @endphp
+                          @if (isset($data[0]['status_surat']) === true)
                           @foreach ($data as $item)
-                          @php
-                              $status = ((isset($item['status_surat']) === true) ? 'Selesai': 'Belum Selesai');
-                          @endphp
-                          @if ($status === "Selesai")
-                            <tr>
+                            @if ($item['status_surat'] === 'Proses Pengerjaan' || $item['status_surat'] === 'Diterima' || $item['status_surat'] === 'Selesai')
+                              <tr>
                               <th scope="row">{{ $number+=1 }}</th>
                               <td>{{ $item['nama'] }}</td>
                               <td>{{ $item['created_at']->format('d-m-Y') }}</td>
@@ -137,8 +135,9 @@
                                 <button type="button" onclick="myFunctionDelete('{{url('hapus_surat/pengambilan_data/'.$item['id'])}}')" class="btn btn-sm btn-danger"><i class="nav-icon fas fa-trash"></i> Delete </button>
                               </td>
                             </tr>
+                            @endif
+                            @endforeach
                           @endif
-                          @endforeach
                         </tbody>
                       </table>
                   </div>
@@ -223,5 +222,15 @@
       var btn = document.getElementById('selesaiBtn2').href = link; 
       myModal.toggle();
     }
+
+    $(document).ready(function() {
+        $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#pills-tab a[href="' + activeTab + '"]').tab('show');
+        }
+    });
   </script>
 @endsection

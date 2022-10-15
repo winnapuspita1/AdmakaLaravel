@@ -368,6 +368,39 @@ class PelayananAdminController extends Controller
         return view('admin/draftpermohonankp', $data);
     }
 
+    public function DraftMagang()
+    {
+        $data = [
+            'surat' => SuratMagangModel::get(),
+            'num' => 0
+        ];
+        return view('admin/draftpermohonanmagang', $data);
+    }
+    public function DraftPengambilanData()
+    {
+        $data = [
+            'surat' => SuratPengambilanDataModel::get(),
+            'num' => 0
+        ];
+        return view('admin/draftpengambilandata', $data);
+    }
+    public function DraftRekomendasi()
+    {
+        $data = [
+            'surat' => SuratRekomendasiModel::get(),
+            'num' => 0
+        ];
+        return view('admin/draftsuratrekomendasi', $data);
+    }
+    public function DraftTranskripNilai()
+    {
+        $data = [
+            'surat' => PermohonanTranskripNilaiModel::get(),
+            'num' => 0
+        ];
+        return view('admin/drafttranskripnilai', $data);
+    }
+
     public function DraftSurat($jenis_surat, $nama_surat)
     {
         $headers = [
@@ -380,24 +413,19 @@ class PelayananAdminController extends Controller
         } elseif ($jenis_surat === "kp") {
             $pathToFile = storage_path('app').'/SuratKP/'. $nama_surat;
             return response()->file($pathToFile, $headers);
-        }
-        // } elseif ($jenis_surat === "magang") {
-        //     SuratMagangModel::where('id', $id)->update([
-        //         'status_surat' => $status_surat
-        //     ]);
-        // } elseif ($jenis_surat === "pengambilan_data") {
-        //     SuratPengambilanDataModel::where('id', $id)->update([
-        //         'status_surat' => $status_surat
-        //     ]);
-        // } elseif ($jenis_surat === "transkrip_nilai") {
-        //     PermohonanTranskripNilaiModel::where('id', $id)->update([
-        //         'status_surat' => $status_surat
-        //     ]);
-        // } elseif ($jenis_surat === "rekomendasi") {
-        //     SuratRekomendasiModel::where('id', $id)->update([
-        //         'status_surat' => $status_surat
-        //     ]);
-        // } 
+        } elseif ($jenis_surat === "magang") {
+            $pathToFile = storage_path('app').'/SuratMagang/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        } elseif ($jenis_surat === "pengambilan_data") {
+            $pathToFile = storage_path('app').'/SuratPengambilanData/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        } elseif ($jenis_surat === "transkrip_nilai") {
+            $pathToFile = storage_path('app').'/SuratTranskripNilai/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        } elseif ($jenis_surat === "rekomendasi") {
+            $pathToFile = storage_path('app').'/SuratRekomendasi/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        } 
         else {
             return back()->with('failed', 'Gagal Update Data!');
         }
