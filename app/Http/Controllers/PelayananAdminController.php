@@ -246,26 +246,62 @@ class PelayananAdminController extends Controller
     public function StatusSurat($jenis_surat, $id, $status_surat)
     {
         if ($jenis_surat === "aktif_kuliah") {
+            if ($status_surat === 'Selesai') {
+                $surat = SuratAktifKuliahModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             SuratAktifKuliahModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "kp") {
+            if ($status_surat === 'Selesai') {
+                $surat = SuratKPModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             SuratKPModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "magang") {
+            if ($status_surat === 'Selesai') {
+                $surat = SuratMagangModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             SuratMagangModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "pengambilan_data") {
+            if ($status_surat === 'Selesai') {
+                $surat = SuratPengambilanDataModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             SuratPengambilanDataModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "transkrip_nilai") {
+            if ($status_surat === 'Selesai') {
+                $surat = PermohonanTranskripNilaiModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             PermohonanTranskripNilaiModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
         } elseif ($jenis_surat === "rekomendasi") {
+            if ($status_surat === 'Selesai') {
+                $surat = SuratRekomendasiModel::where('id', $id)->get();
+                if ($surat[0]['nama_surat'] === null) {
+                    return back()->with('failed', 'Silahkan Upload File Surat Terlebih Dahulu!');
+                }
+            }
             SuratRekomendasiModel::where('id', $id)->update([
                 'status_surat' => $status_surat
             ]);
@@ -312,5 +348,60 @@ class PelayananAdminController extends Controller
         KritikSaranModel::where('id', $id)->delete();
 
         return back()->with('success', 'Berhasil Hapus Data!');
+    }
+
+    public function DraftAktifKuliah()
+    {
+        $data = [
+            'surat' => SuratAktifKuliahModel::get(),
+            'num' => 0
+        ];
+        return view('admin/draftaktifkuliah', $data);
+    }
+
+    public function DraftKP()
+    {
+        $data = [
+            'surat' => SuratKPModel::get(),
+            'num' => 0
+        ];
+        return view('admin/draftpermohonankp', $data);
+    }
+
+    public function DraftSurat($jenis_surat, $nama_surat)
+    {
+        $headers = [
+            'Content-type' => 'application/pdf',
+        ];
+
+        if ($jenis_surat === "aktif_kuliah") {
+            $pathToFile = storage_path('app').'/SuratAktifKuliah/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        } elseif ($jenis_surat === "kp") {
+            $pathToFile = storage_path('app').'/SuratKP/'. $nama_surat;
+            return response()->file($pathToFile, $headers);
+        }
+        // } elseif ($jenis_surat === "magang") {
+        //     SuratMagangModel::where('id', $id)->update([
+        //         'status_surat' => $status_surat
+        //     ]);
+        // } elseif ($jenis_surat === "pengambilan_data") {
+        //     SuratPengambilanDataModel::where('id', $id)->update([
+        //         'status_surat' => $status_surat
+        //     ]);
+        // } elseif ($jenis_surat === "transkrip_nilai") {
+        //     PermohonanTranskripNilaiModel::where('id', $id)->update([
+        //         'status_surat' => $status_surat
+        //     ]);
+        // } elseif ($jenis_surat === "rekomendasi") {
+        //     SuratRekomendasiModel::where('id', $id)->update([
+        //         'status_surat' => $status_surat
+        //     ]);
+        // } 
+        else {
+            return back()->with('failed', 'Gagal Update Data!');
+        }
+
+        return back()->with('success', 'Berhasil Update Data!');
     }
 }

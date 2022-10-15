@@ -30,8 +30,8 @@ Route::view('/status_surat_mahasiswa','mahasiswa/statussurat');
 Route::view('/cekstatus_surat_mahasiswa','mahasiswa/cekstatus');
 Route::view('/template_surat_mahasiswa','mahasiswa/templatesurat');
 
-Route::view('/draft_aktif_kuliah','admin/draftaktifkuliah');
-Route::view('/draft_permohonan_kp','admin/draftpermohonankp');
+Route::get('/draft_aktif_kuliah', [PelayananAdminController::class, 'DraftAktifKuliah']);
+Route::get('/draft_permohonan_kp',[PelayananAdminController::class, 'DraftKP']);
 Route::view('/draft_permohonan_magang','admin/draftpermohonanmagang');
 Route::view('/draft_pengambilan_data','admin/draftpengambilandata');
 Route::view('/draft_transkrip_nilai','admin/drafttranskripnilai');
@@ -86,6 +86,8 @@ Route::post('save-surat-pengambilan-data', [PelayananMahasiswaController::class,
 Route::post('save-permohonan-transkrip-nilai', [PelayananMahasiswaController::class, 'PermohonanTranskripNilai']);
 Route::post('save-surat-rekomendasi', [PelayananMahasiswaController::class, 'SuratRekomendasi']);
 Route::post('save-kritik-saran', [PelayananMahasiswaController::class, 'KritikSaran']);
+
+Route::get('draft_surat/{jenis_surat}/{nama_surat}', [PelayananAdminController::class, 'DraftSurat']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
