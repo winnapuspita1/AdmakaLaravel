@@ -293,12 +293,12 @@ class PelayananMahasiswaController extends Controller
         $id = auth()->user()->id;
         $data = [
             'number' => 0,
-            'aktif_kuliah' => SuratAktifKuliahModel::where('id', $id)->get(),
-            'kp' => SuratKPModel::where('id', $id)->get(),
-            'magang' => SuratMagangModel::where('id', $id)->get(),
-            'pengambilan_data' => SuratPengambilanDataModel::where('id', $id)->get(),
-            'transkrip_nilai' => PermohonanTranskripNilaiModel::where('id', $id)->get(),
-            'rekomendasi' => SuratRekomendasiModel::where('id', $id)->get(),
+            'aktif_kuliah' => SuratAktifKuliahModel::where('id_mahasiswa', $id)->get(),
+            'kp' => SuratKPModel::where('id_mahasiswa', $id)->get(),
+            'magang' => SuratMagangModel::where('id_mahasiswa', $id)->get(),
+            'pengambilan_data' => SuratPengambilanDataModel::where('id_mahasiswa', $id)->get(),
+            'transkrip_nilai' => PermohonanTranskripNilaiModel::where('id_mahasiswa', $id)->get(),
+            'rekomendasi' => SuratRekomendasiModel::where('id_mahasiswa', $id)->get(),
         ];
         return view('mahasiswa/statussurat', $data);
         
