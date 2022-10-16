@@ -226,6 +226,8 @@
         var activeTab = localStorage.getItem('activeTab');
         if (activeTab) {
             $('#pills-tab a[href="' + activeTab + '"]').tab('show');
+        } else {
+           $('#pills-belum-diterima-tab').tab('show');
         }
     });
   </script>
