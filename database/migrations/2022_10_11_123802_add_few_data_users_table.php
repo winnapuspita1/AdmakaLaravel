@@ -21,9 +21,9 @@ return new class extends Migration
         // Insert some stuff
         DB::table('users')->insert(
            array(
-               'name' => 'Super Admin',
-               'email' => '180155201039@student.umrah.ac.id',
-               'password' => '$2y$10$tzSHgN4oRT0gGA0ob3xXE.hoTcOv.gV1iT72j/NE/J6WWkU9jcbmO',
+               'name' => 'AKUN Super Admin',
+               'email' => 'superadmin@superadmin.com',
+               'password' => '$2y$10$tWeK.zlb2A23W1CLngNqHet3FNkMYPm9IEqXoeLFQugALrftIE4Hu',
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),
@@ -34,9 +34,9 @@ return new class extends Migration
 
         DB::table('users')->insert(
            array(
-               'name' => 'Admin',
-               'email' => '18015520103.9@student.umrah.ac.id',
-               'password' => '$2y$10$tzSHgN4oRT0gGA0ob3xXE.hoTcOv.gV1iT72j/NE/J6WWkU9jcbmO',
+               'name' => 'AKUN Admin',
+               'email' => 'admin@admin.com',
+               'password' => '$2y$10$yfxmdaDAtyU.NWjuBzFgEOiB8LXFir2MXyDzsTwjT3suwcK1rdPEW',
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),

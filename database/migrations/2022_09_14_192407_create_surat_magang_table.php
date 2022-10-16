@@ -26,6 +26,7 @@ class CreateSuratMagangTable extends Migration
             $table->date('tanggal_selesai');
             $table->string('nama_surat')->nullable();
             $table->string('status_surat')->nullable();
+            $table->integer('id_mahasiswa');
             $table->timestamps();
         });
     }

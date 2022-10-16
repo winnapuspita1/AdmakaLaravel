@@ -25,6 +25,7 @@ class SuratMagangModel extends Model
         'tujuan_surat' ,
         'alamat_surat' ,
         'tanggal_mulai' ,
-        'tanggal_selesai'
+        'tanggal_selesai',
+        'id_mahasiswa'
     ];
 }

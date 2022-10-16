@@ -23,6 +23,7 @@ class CreateSuratAktifKuliahTable extends Migration
             $table->string('keperluan');
             $table->string('nama_surat')->nullable();
             $table->string('status_surat')->nullable();
+            $table->integer('id_mahasiswa');
             $table->timestamps();
         });
     }

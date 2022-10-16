@@ -3,7 +3,17 @@
     <!-- Brand Logo -->
     <a href="../../index3.html" class="brand-link">
       <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin</span>
+      <span class="brand-text font-weight-light">
+          @if(auth()->user()->role === 'superadmin')
+          {{
+            'Super Admin' 
+          }}
+          @elseif (auth()->user()->role === 'admin')
+          {{'Admin'}}
+          @elseif (auth()->user()->role === 'mahasiswa')
+          {{'Mahasiswa'}}
+          @endif
+      </span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +24,7 @@
           <img src="{{asset('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Winna Puspita</a>
+          <a href="#" class="d-block">{{auth()->user()->name}}</a>
         </div>
       </div>
 
@@ -32,7 +42,7 @@
 
       <!--sidebar-->
       <!-- Sidebar Menu -->
-<nav class="mt-2">
+      <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -44,7 +54,37 @@
               </p>
             </a>
           </li>
-           <!-- Admin -->
+          <!--Super Admin -->
+          @if (auth()->user()->role === 'superadmin')
+          <li class="nav-header">SUPER ADMIN</li>
+            <li class="nav-item">
+              <a href="{{ url('manajemen-akun') }}" class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-rolodex nav-icon" viewBox="0 0 16 16">
+                  <path d="M8 9.05a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                  <path d="M1 1a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h.5a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5.5.5 0 0 1 1 0 .5.5 0 0 0 .5.5h.5a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H6.707L6 1.293A1 1 0 0 0 5.293 1H1Zm0 1h4.293L6 2.707A1 1 0 0 0 6.707 3H15v10h-.085a1.5 1.5 0 0 0-2.4-.63C11.885 11.223 10.554 10 8 10c-2.555 0-3.886 1.224-4.514 2.37a1.5 1.5 0 0 0-2.4.63H1V2Z"/>
+                </svg>
+                <p>
+                  Manajemen Akun
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('register') }}" class="nav-link">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus-fill nav-icon" viewBox="0 0 16 16">
+                  <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                  <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                </svg>
+                <p>
+                  Tambah Akun Baru
+                </p>
+              </a>
+            </li>
+          @endif  
+          <!-- End of Super Admin -->
+
+          @if (auth()->user()->role === 'admin')
+          <!-- Admin -->
+          <li class="nav-header">ADMIN</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-folder"></i>
@@ -149,7 +189,8 @@
             </a>
           </li>
           <!-- End of Admin -->
-
+          @endif
+          @if (auth()->user()->role === 'mahasiswa')
           <!-- Mahasiswa -->
           <li class="nav-header">MAHASISWA</li>
           <li class="nav-item">
@@ -223,7 +264,7 @@
             </a>
           </li>
           <!-- End of Mahasiswa -->
-
+          @endif
           <!-- Dekan -->
           <li class="nav-header">DEKAN</li>
           <li class="nav-item">
@@ -249,15 +290,19 @@
               </li>
             </ul>
             <!-- End of Dekan -->
-
-          <li class="nav-item">
-            <a href="../kanban.html" class="nav-link">
-              <i class="nav-icon fas fa-columns"></i>
-              <p>
-                Keluar
-              </p>
-            </a>
-          </li>
+         
+            <li class="nav-item">
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf 
+                <a href="{{route('logout')}}" onclick="event.preventDefault();this.closest('form').submit();" class="nav-link" >
+                  <i class="nav-icon fas fa-columns"></i>
+                  
+                  
+                    {{ ('Keluar') }}
+                
+                </a>
+              </form>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

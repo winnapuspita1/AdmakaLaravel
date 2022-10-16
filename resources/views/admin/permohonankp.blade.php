@@ -72,8 +72,6 @@
                                   </button>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/kp/'.$item['id'] . '/Diterima')}}', 'Terima Permohonan Surat', 'Surat dialihkan ke bagian diterima?')">Diterima</a></li>
-                                    <li><a class="dropdown-item" href="#">Proses</a></li>
-                                    <li><a class="dropdown-item" href="#">Selesai</a></li>
                                   </ul>
                                 </div>
                               </td>
@@ -123,7 +121,6 @@
                                         </svg>
                                       </button>
                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Diterima</a></li>
                                         <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/kp/'.$item['id'] . '/Proses Pengerjaan')}}', 'Proses Surat', 'Proses permohonan surat mahasiswa?')">Proses</a></li>
                                         <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/kp/'.$item['id'] . '/Selesai')}}', 'Surat Selesai', 'Permohonan surat akan dialihkan ke bagian draft.')">Selesai</a></li>
                                       </ul>
@@ -210,8 +207,8 @@
     } );
     
     function myFunction(link,heading,body) {    
-      staticBackdropLabel.innerText = heading;
-      modal_body.innerText = body;  
+      document.getElementById('staticBackdropLabel').innerText = heading;
+      document.getElementById('modal_body').innerText = body;  
       var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
       var btn = document.getElementById('selesaiBtn').href = link; 
       myModal.toggle();

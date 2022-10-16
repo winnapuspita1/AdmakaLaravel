@@ -9,6 +9,7 @@ use App\Models\SuratKPModel;
 use App\Models\SuratMagangModel;
 use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,6 +44,7 @@ class PelayananMahasiswaController extends Controller
             'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
             'keperluan' => $validated['keperluan'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -86,6 +88,7 @@ class PelayananMahasiswaController extends Controller
             'alamat_surat' => $validated['alamat_surat'],
             'tanggal_mulai' => $validated['tanggal_mulai'],
             'tanggal_selesai' => $validated['tanggal_selesai'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -129,6 +132,7 @@ class PelayananMahasiswaController extends Controller
             'alamat_surat' => $validated['alamat_surat'],
             'tanggal_mulai' => $validated['tanggal_mulai'],
             'tanggal_selesai' => $validated['tanggal_selesai'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -174,6 +178,7 @@ class PelayananMahasiswaController extends Controller
             'tanggal_mulai' => $validated['tanggal_mulai'],
             'tanggal_selesai' => $validated['tanggal_selesai'],            
             'judul_skripsi' => $validated['judul_skripsi'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -211,6 +216,7 @@ class PelayananMahasiswaController extends Controller
             'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
             'keperluan' => $validated['keperluan'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -248,6 +254,7 @@ class PelayananMahasiswaController extends Controller
             'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
             'keperluan' => $validated['keperluan'],
+            'id_mahasiswa' => auth()->user()->id,
             'created_at' => date('y-m-d h:i:s'),
             'updated_at' => date('y-m-d h:i:s')
 
@@ -274,10 +281,72 @@ class PelayananMahasiswaController extends Controller
         $validated = $validator->validated();
 
         KritikSaranModel::insert([
-            'nama' => 'belum login',
+            'nama' => auth()->user()->name,
             'kritik_saran' => $validated['kritik_saran']
         ]);
         
         return back()->with('success', 'Data Tersimpan!');
+    }
+
+    public function StatusSuratMahasiswa()
+    {
+        $id = auth()->user()->id;
+        $data = [
+            'number' => 0,
+            'aktif_kuliah' => SuratAktifKuliahModel::where('id', $id)->get(),
+            'kp' => SuratKPModel::where('id', $id)->get(),
+            'magang' => SuratMagangModel::where('id', $id)->get(),
+            'pengambilan_data' => SuratPengambilanDataModel::where('id', $id)->get(),
+            'transkrip_nilai' => PermohonanTranskripNilaiModel::where('id', $id)->get(),
+            'rekomendasi' => SuratRekomendasiModel::where('id', $id)->get(),
+        ];
+        return view('mahasiswa/statussurat', $data);
+        
+    }
+    public function DownloadSuratMahasiswa($jenis_surat, $nama_surat)
+    {
+        $id = auth()->user()->id;
+        $headers = [
+            'Content-type' => 'application/pdf',
+        ];
+        if ($jenis_surat === "aktif_kuliah") {
+            $status_surat = SuratAktifKuliahModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratAktifKuliah/'. $nama_surat;
+                return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } elseif ($jenis_surat === "kp") {
+            $status_surat = SuratKPModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratKP/'. $nama_surat;
+                return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } elseif ($jenis_surat === "magang") {
+            $status_surat = SuratMagangModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratMagang/'. $nama_surat;
+                return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } elseif ($jenis_surat === "pengambilan_data") {
+            $status_surat = SuratPengambilanDataModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratPengambilanData/'. $nama_surat;
+                return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } elseif ($jenis_surat === "transkrip_nilai") {
+            $status_surat = PermohonanTranskripNilaiModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratTranskripNilai/'. $nama_surat;
+                return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } elseif ($jenis_surat === "rekomendasi") {
+            $status_surat = SuratRekomendasiModel::select('status_surat')->where('nama_surat', $nama_surat)->where('id_mahasiswa', $id)->get();
+            if ($status_surat[0]['status_surat'] === 'Selesai') {
+                $pathToFile = storage_path('app').'/SuratRekomendasi/'. $nama_surat;
+                 return response()->download($pathToFile, $nama_surat , $headers);
+            }
+        } 
+
+        return back()->with('failed', 'Gagal Mendownload data!');
     }
 }

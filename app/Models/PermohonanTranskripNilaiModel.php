@@ -22,6 +22,7 @@ class PermohonanTranskripNilaiModel extends Model
         'program_studi',
         'tempat_lahir',
         'tanggal_lahir',
-        'keperluan'
+        'keperluan',
+        'id_mahasiswa'
     ];
 }

@@ -26,6 +26,7 @@ class SuratPengambilanDataModel extends Model
         'alamat_surat' ,
         'tanggal_mulai' ,
         'tanggal_selesai' ,
-        'judul_skripsi'
+        'judul_skripsi',
+        'id_mahasiswa'
     ];
 }

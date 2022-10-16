@@ -9,6 +9,7 @@ use App\Models\SuratKPModel;
 use App\Models\SuratMagangModel;
 use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,6 +38,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_aktif_kuliah_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -76,6 +80,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_kp_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -114,6 +121,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_magang_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -152,6 +162,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_pengambilan_data_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -190,6 +203,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_transkrip_nilai_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -228,6 +244,9 @@ class PelayananAdminController extends Controller
         if (! empty($request->dokumen))
         {
             $extension = $request->dokumen->getClientOriginalExtension();
+            if ($extension !== 'pdf') {
+                return back()->with('failed', 'Silahkan Upload File PDF');
+            }
             $date = date('Y-m-d');
             $filename = 'surat_rekomendasi_'.$request->nim.'_'.$date.'.'.$extension;
             $path = $request->file('dokumen')->storeAs(
@@ -432,4 +451,23 @@ class PelayananAdminController extends Controller
 
         return back()->with('success', 'Berhasil Update Data!');
     }
+
+    public function ManajemenAkun()
+    {
+        $data = [
+
+            'data' => User::get(),
+            'number' => 0
+
+        ];
+
+        return view('super_admin.manajemen_akun', $data);
+    }
+
+    public function HapusAkun($id)
+    {
+        User::where('id', $id)->delete();
+        return back()->with('success', 'Berhasil Hapus Akun!');
+    }
+    
 }

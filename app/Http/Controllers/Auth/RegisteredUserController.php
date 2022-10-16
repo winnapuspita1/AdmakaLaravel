@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class RegisteredUserController extends Controller
 {
@@ -43,7 +45,7 @@ class RegisteredUserController extends Controller
             'required' => 'Form Tidak Boleh Kosong!',
             'role.in' => 'Silahkan Pilih Role!'
         ]
-    );
+        );
 
         $user = User::create([
             'name' => $request->name,
@@ -57,6 +59,69 @@ class RegisteredUserController extends Controller
         //Auth::login($user);
 
         $request->session()->flash('success', 'Berhasil Mendaftarkan Akun!!');
+
+        return redirect()->back();
+    }
+
+    public function update(Request $request)
+    {
+        $request->session()->flash('failed', 'Gagal Update Data!');
+        if ($request->password !== null) {
+            $request->validate([
+                'id' => ['required', 'integer'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($request->id),
+                    'string', 'email', 'max:255'
+                ],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'role' => ['required', 'in:superadmin,admin,mahasiswa'],
+            ],
+            [
+                'required' => 'Form Tidak Boleh Kosong!',
+                'role.in' => 'Silahkan Pilih Role!',
+                '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!',
+                'password.confirmed' => 'Konfirmasi Password Salah!'
+            ]);
+
+            $user = User::where('id', $request->id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role
+            ]);
+
+        } else {
+            $request->validate([
+                'id' => ['required', 'integer'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    Rule::unique('users')->ignore($request->id),
+                    'string', 'email', 'max:255'
+                ],
+                'role' => ['required', 'in:superadmin,admin,mahasiswa'],
+            ],
+            [
+                'required' => 'Form Tidak Boleh Kosong!',
+                'role.in' => 'Silahkan Pilih Role!',
+                '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!'
+            ]
+            );
+
+            $user = User::where('id', $request->id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role
+            ]);
+        } 
+
+        // event(new Registered($user));
+        //auto login user
+        //Auth::login($user);
+        $request->session()->forget('failed');
+        $request->session()->flash('success', 'Berhasil Update Data Akun!!');
 
         return redirect()->back();
     }
