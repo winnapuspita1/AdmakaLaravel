@@ -16,19 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.dashboard');
-})->middleware(['auth'])->name('dashboard');;
+Route::get('/', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth']);
 
-Route::view('/surat_selesai_dekan','dekan/suratselesai');
-Route::view('/surat_tandatangan_dekan','dekan/surattandatangan');
-Route::view('/tandatangan_dekan','dekan/tandatangan');
+
 //superadmin
 Route::middleware(['auth','can:isSuperAdmin'])->group(function () {
     Route::get('manajemen-akun', [PelayananAdminController::class, 'ManajemenAkun']);
     Route::post('update-akun', [RegisteredUserController::class, 'update']);
     Route::get('hapus-akun/{id}', [PelayananAdminController::class, 'HapusAkun']);
 });
+
 //admin
 Route::middleware(['auth','can:isAdmin'])->group(function () {
     Route::get('draft_surat/{jenis_surat}/{nama_surat}', [PelayananAdminController::class, 'DraftSurat']);
@@ -77,6 +74,7 @@ Route::middleware(['auth','can:isAdmin'])->group(function () {
     Route::get('/draft_transkrip_nilai', [PelayananAdminController::class, 'DraftTranskripNilai']);
     Route::get('/draft_surat_rekomendasi', [PelayananAdminController::class, 'DraftRekomendasi']);
 });
+
 //mahasiswa
 Route::middleware(['auth','can:isMahasiswa'])->group(function () {
     Route::view('/aktif_kuliah_mahasiswa','mahasiswa/aktivkuliah');

@@ -15,6 +15,47 @@ use Illuminate\Support\Facades\Storage;
 
 class PelayananAdminController extends Controller
 {
+    public function DashboardAdmin()
+    {
+        if (auth()->user()->role === 'mahasiswa'){
+            return view('mahasiswa.dashboard');
+        }
+
+        $akun_mhs = User::where('role','mahasiswa')->count();
+
+        $belum = 0 + PermohonanTranskripNilaiModel::where('status_surat', null)->count() +
+        SuratAktifKuliahModel::where('status_surat', null)->count() +
+        SuratKPModel::where('status_surat', null)->count() +
+        SuratMagangModel::where('status_surat', null)->count() +
+        SuratPengambilanDataModel::where('status_surat', null)->count() +
+        SuratRekomendasiModel::where('status_surat', null)->count();
+
+        $proses = 0 + PermohonanTranskripNilaiModel::where('status_surat', 'Proses Pengerjaan')->count() +
+        SuratAktifKuliahModel::where('status_surat', 'Proses Pengerjaan')->count() +
+        SuratKPModel::where('status_surat', 'Proses Pengerjaan')->count() +
+        SuratMagangModel::where('status_surat', 'Proses Pengerjaan')->count() +
+        SuratPengambilanDataModel::where('status_surat', 'Proses Pengerjaan')->count() +
+        SuratRekomendasiModel::where('status_surat', 'Proses Pengerjaan')->count();
+
+        $selesai = 0 + PermohonanTranskripNilaiModel::where('status_surat', 'Selesai')->count() +
+        SuratAktifKuliahModel::where('status_surat', 'Selesai')->count() +
+        SuratKPModel::where('status_surat', 'Selesai')->count() +
+        SuratMagangModel::where('status_surat', 'Selesai')->count() +
+        SuratPengambilanDataModel::where('status_surat', 'Selesai')->count() +
+        SuratRekomendasiModel::where('status_surat', 'Selesai')->count();
+
+        $data = [
+            'akun_mhs' => $akun_mhs,
+            'total_belum_proses' => $belum,
+            'total_proses' => $proses,
+            'total_selesai' => $selesai
+        ];
+        if (auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin') {
+            return view('admin.dashboard', $data);
+        } 
+        return url('/login');
+    }
+
     public function SuratAktifKuliah()
     {
         $data = [

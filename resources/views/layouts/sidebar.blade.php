@@ -21,22 +21,10 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <h3><i class="bi bi-person-circle"></i></h3>
         </div>
         <div class="info">
           <a href="#" class="d-block">{{auth()->user()->name}}</a>
-        </div>
-      </div>
-
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
         </div>
       </div>
 
@@ -82,7 +70,7 @@
           @endif  
           <!-- End of Super Admin -->
 
-          @if (auth()->user()->role === 'admin')
+          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin')
           <!-- Admin -->
           <li class="nav-header">ADMIN</li>
           <li class="nav-item">
@@ -265,31 +253,7 @@
           </li>
           <!-- End of Mahasiswa -->
           @endif
-          <!-- Dekan -->
-          <li class="nav-header">DEKAN</li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-check"></i>
-              <p>
-                Daftar Surat
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/surat_selesai_dekan" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Surat Selesai</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/surat_tandatangan_dekan" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Surat Tandatangan</p>
-                </a>
-              </li>
-            </ul>
-            <!-- End of Dekan -->
+          
          
             <li class="nav-item">
               <form method="POST" action="{{ route('logout') }}">
@@ -298,7 +262,7 @@
                   <i class="nav-icon fas fa-columns"></i>
                   
                   
-                    {{ ('Keluar') }}
+                    <p>Keluar</p>
                 
                 </a>
               </form>
