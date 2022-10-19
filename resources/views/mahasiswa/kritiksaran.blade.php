@@ -24,7 +24,7 @@
 <div class="mb-1 mx-1">
 <td>
 <button type="submit" class="btn btn-primary">Simpan</button>
-<button type="submit" class="btn btn-outline-primary">Batal</button>
+<button type="button" onclick="myFunctionDelete()" class="btn btn-outline-primary">Batal</button>
 </td>
 </div>
 </form>
@@ -57,5 +57,8 @@
       }
     }
 
+    function myFunctionDelete() {
+      document.getElementById('exampleFormControlTextarea1').value = "";
+    }
   </script>
 @endsection

@@ -282,7 +282,9 @@ class PelayananMahasiswaController extends Controller
 
         KritikSaranModel::insert([
             'nama' => auth()->user()->name,
-            'kritik_saran' => $validated['kritik_saran']
+            'kritik_saran' => $validated['kritik_saran'],
+            'created_at' => date('y-m-d h:i:s'),
+            'updated_at' => date('y-m-d h:i:s')
         ]);
         
         return back()->with('success', 'Data Tersimpan!');

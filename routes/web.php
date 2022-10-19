@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth']);
+Route::get('/', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth'])->name('dashboard');
 
 
 //superadmin
