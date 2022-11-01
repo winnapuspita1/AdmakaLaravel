@@ -75,6 +75,7 @@ class RegisteredUserController extends Controller
                     Rule::unique('users')->ignore($request->id),
                     'string', 'email', 'max:255'
                 ],
+                'nomor_hp' => ['required', 'string'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'role' => ['required', 'in:superadmin,admin,mahasiswa'],
             ],
@@ -88,6 +89,7 @@ class RegisteredUserController extends Controller
             $user = User::where('id', $request->id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'nomor_hp' => $request->nomor_hp,
                 'password' => Hash::make($request->password),
                 'role' => $request->role
             ]);
@@ -101,6 +103,7 @@ class RegisteredUserController extends Controller
                     Rule::unique('users')->ignore($request->id),
                     'string', 'email', 'max:255'
                 ],
+                'nomor_hp' => ['required', 'string'],
                 'role' => ['required', 'in:superadmin,admin,mahasiswa'],
             ],
             [
@@ -112,6 +115,7 @@ class RegisteredUserController extends Controller
 
             $user = User::where('id', $request->id)->update([
                 'name' => $request->name,
+                'nomor_hp' => $request->nomor_hp,
                 'email' => $request->email,
                 'role' => $request->role
             ]);

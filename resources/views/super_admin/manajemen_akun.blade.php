@@ -32,6 +32,7 @@
                             <th scope="col">No.</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Nomor Hp</th>
                             <th scope="col">Role</th>
                             <th scope="col">Aksi</th>
                         </tr>
@@ -54,6 +55,7 @@
                                 <th scope="row">{{ $number+=1 }}</th>
                                 <td>{{ $item['name'] }}</td>
                                 <td>{{ $item['email'] }}</td>
+                                <td>{{ $item['nomor_hp']}}</td>
                                 <td>{{ $item['role'] }}</td>
                                 <td>
                                 <div class="dropdown">
@@ -64,7 +66,7 @@
                                     </svg>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#" onclick="editForm('{{$item['id']}}', '{{$item['name']}}','{{$item['email']}}',{{$role}})">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="editForm('{{$item['id']}}', '{{$item['name']}}','{{$item['email']}}','{{$role}}','{{$item['nomor_hp']}}')">Edit</a></li>
                                     <li><a class="dropdown-item" href="#" onclick="myFunctionDelete('{{ url('hapus-akun/'.$item['id']) }}')">Hapus Akun</a></li>
                                     </ul>
                                 </div>
@@ -104,7 +106,15 @@
             @endforeach
             </div>
   
-  
+            <!-- Nomor Hp -->
+            <div>
+              <x-label for="nomor_hp" :value="__('nomor_hp')" />
+
+              <x-input id="nomor_hp" class="form-control" type="text" name="nomor_hp" :value="old('nomor_hp')" required autofocus />
+              @foreach ($errors->get('nomor_hp') as $msg)
+                  <p class="text-danger font-size:2px">{{ $msg }}</p>
+              @endforeach
+          </div>
   
             <!-- Email Address -->
             <div class="mt-4">
@@ -193,10 +203,11 @@
         });
     } );
     
-    function editForm(id,nama,email,role) { 
+    function editForm(id,nama,email,role,no_hp) { 
         document.getElementById("id_user").value = id;
         document.getElementById("name").value = nama;
         document.getElementById("email").value = email;
+        document.getElementById("nomor_hp").value = no_hp;
         document.getElementById('role').selectedIndex = role;
         var myModal = new bootstrap.Modal(document.getElementById('staticBackdropEdit'));
         myModal.toggle();

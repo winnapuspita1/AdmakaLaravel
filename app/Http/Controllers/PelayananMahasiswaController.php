@@ -19,7 +19,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -57,7 +57,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -101,7 +101,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -145,7 +145,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -191,7 +191,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
@@ -229,7 +229,7 @@ class PelayananMahasiswaController extends Controller
         
         $validator = Validator::make($request->all(), [
             'nama' => 'required|max:255',
-            'nim' => 'required|max:255',
+            'nim' => 'required|integer|max:255',
             'program_studi' => 'required|max:255',
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required|date',
