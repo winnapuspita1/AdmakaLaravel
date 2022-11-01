@@ -510,5 +510,31 @@ class PelayananAdminController extends Controller
         User::where('id', $id)->delete();
         return back()->with('success', 'Berhasil Hapus Akun!');
     }
+
+    public function PreviewDraftSurat($jenis_surat, $id_permohonan)
+    {
+        
+
+        if ($jenis_surat === "aktif_kuliah") {
+            $surat = SuratAktifKuliahModel::where('id', $id_permohonan)->get();
+            $data = [
+                'data' => $surat,
+            ];
+            return view('admin.previewDraftAktifKuliah', $data);
+        } elseif ($jenis_surat === "kp") {
+            
+        } elseif ($jenis_surat === "magang") {
+            
+        } elseif ($jenis_surat === "pengambilan_data") {
+            
+        } elseif ($jenis_surat === "transkrip_nilai") {
+            
+        } elseif ($jenis_surat === "rekomendasi") {
+            
+        } 
+        
+        return back()->with('failed', 'Gagal Mengambil Data!');
+        
+    }
     
 }
