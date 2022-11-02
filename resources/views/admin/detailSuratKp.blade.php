@@ -88,7 +88,7 @@
                             <div class="col-sm-10">
                                 <p id="formFile">: {{$data[0]['nama_surat']}}</p>
                             </div>
-                        </div>
+                    </div>
                         <div class="mb-3">
                             <input type="hidden" name="id" value="{{$data[0]['id']}}">
                             <input type="hidden" name="nim" value="{{$data[0]['nim']}}">                            
@@ -96,10 +96,11 @@
                         </div>
                         <div class="">
                             @if ($edit === false)
-                        <button type="submit" class="btn btn-primary">Upload File</button>
-                    @else
-                        <button type="submit" class="btn btn-primary">Edit File</button>
-                    @endif
+                                <button type="submit" class="btn btn-primary">Upload File</button>
+                            @else
+                                <button type="submit" class="btn btn-primary">Edit File</button>
+                            @endif
+                            <a class="btn btn-success" href="{{url('preview_draft_surat/kp/'.$data[0]['id'])}}">Preview Draft</a>
                         </div>
                     
                 </form>

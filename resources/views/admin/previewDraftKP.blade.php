@@ -13,27 +13,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-
-  {{-- <style>
-    table.table-fit {
-      width: auto !important;
-      table-layout: auto !important;
-    }
-    table.table-fit thead th, table.table-fit tfoot th {
-        width: auto !important;
-    }
-    table.table-fit tbody td, table.table-fit tfoot td {
-        width: auto !important;
-    }
-  </style> --}}
 </head>
 <body>
-
-    <div class="container" style="width: 750px">
-        
-            <div class="d-flex flex-row mx-auto mt-2">
+    <div class="sticky-top">
+        <a class="btn btn-primary ms-3 mt-3" href="{{url('detail_permohonan_kp/'.$data[0]['id'])}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+    </div>
+    <div class="container shadow p-5 mb-5 rounded" style="width: 800px;">
+            <div class="d-flex flex-row mx-auto">        
                 <div class="d-flex flex-column me-4">
-                    <img src="{{asset('assets/dist/img/logo-umrah.png')}}" class="ms-4 me-5 mt-3" style="width: 120px;" alt="">
+                    <img src="{{asset('assets/dist/img/logo-umrah.png')}}" class="ms-3 me-4 mt-3" style="width: 120px;" alt="">
                 </div>
                 <div class="d-flex flex-column text-center">
                     <div>
@@ -49,56 +37,71 @@
             </div>
             <hr style="color: #000000 !important; border:2px solid currentcolor !important; opacity:1;">
             <div class="d-flex flex-row mx-auto mt-5">
-                <div class="container text-center">
-                    <p class="fst-italic fw-bold text-decoration-underline my-0">SURAT KETERANGAN</p>
-                    <p class="my-0">No : ……/UN53.4/KM/{{date('Y')}}</p>
-                </div>
-                
+                <div class="d-flex flex-column">
+                    <p class="my-0">No &emsp;</p>
+                    <p class="my-0">Hal &emsp;</p>
+                </div> 
+                <div class="d-flex flex-column">
+                    <div class="d-flex">
+                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/2022</p>
+                        <p class="my-0">{{date('d F Y')}}</p>
+                    </div>
+                    <p>: Permohonan Praktik Kerja</p>
+                </div>     
             </div>
+            
             <div class="d-flex flex-row mx-auto mt-5">
-                <div class="">
-                    <p>Dekan Fakultas Teknik Universitas Maritim Raja Ali Haji dengan ini menerangkan :</p>
-                </div>                
-            </div>
-            <div >
-                <div class="d-flex flex-row mx-auto mt-3">
-                    <div class="d-flex flex-column me-1">
-                        <p>Nama</p>
-                        <p>NIM</p>
-                        <p>Tempat, Tanggal Lahir</p>
-                        <p>Program Studi/Jenjang</p>
-                        <p>Semester/Tahun Akademik</p>
-                        <p>Nomor Hp</p>
-                    </div>
-                    <div class="d-flex flex-column">
-                        @foreach ($data as $item)
-                            <p>: {{$item['nama']}}</p>
-                            <p>: {{$item['nim']}}</p>
-                            <p>: {{$item['tempat_lahir']. ', ' .$item['tanggal_lahir']}}</p>
-                            <p>: Teknik Informatika/ S-1</p>
-                            <p>: {{'- / T.A ' . date('Y'). '-' .date('Y', strtotime('+1 year'))}}</p>
-                            <p>: {{$no_hp}}</p>
-                        @endforeach
-                    </div>
+                <div class="d-flex flex-column">
+                    <p>Yth. &emsp;</p>
                 </div>
-            </div>            
-            <div class="d-flex flex-row mx-auto mt-3">
-                <div class="">
-                    <p class="my-0">Adalah benar Mahasiswa Aktif di Fakultas Teknik Universitas Maritim Raja Ali Haji</p>
-                    <p class="my-0">Tahun Akademik 2022/2023.</p>
+                <div class="d-flex flex-column">
+                    <p class="my-0"> {{$data[0]->tujuan_surat}}</p>
+                    <p> {{$data[0]->alamat_surat}}</p>
+                </div>            
+            </div>
+            <div class="d-flex flex-row mx-auto mt-4">
+                <p>Dengan Hormat,</p>
+            </div>
+            <div class="d-flex flex-row mx-auto mt-2">
+                <p>Sehubungan dengan pelaksanaan mata kuliah kerja praktik mahasiswa sesuai dengan kurikulum Program Studi yang berada di lingkungan Fakultas Teknik Universitas Maritim Raja Ali Haji, maka dengan ini kami sampaikan mahasiswa berikut ini :</p>
+            </div>
+            <div class="d-flex flex-row mx-auto mt-4">
+                <table class="table table-bordered text-center" style="border-color: #000000;">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>NAMA</th>
+                            <th>NIM</th>
+                            <th>Program Studi</th>
+                            <th>NO.HP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{{$data[0]->nama}}</td>
+                            <td>{{$data[0]->nim}}</td>
+                            <td>{{$data[0]->program_studi}}</td>
+                            <td>{{$no_hp}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div class="d-flex flex-row mx-auto mt-3">
+                    <p>Adapun pelaksanaan waktu Praktik Kerja akan dilaksanakan mulai dari tanggal {{date('d-F-Y',strtotime($data[0]->tanggal_mulai))}} s.d {{date('d-F-Y',strtotime($data[0]->tanggal_selesai))}}. Besar harapan kami untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
                 </div>
             </div>
             <div class="d-flex flex-row mx-auto mt-3 mb-5">
-                <div class="">
-                    <p>Demikian Surat Keterangan ini dibuat, untuk dipergunakan sebagaimana mestinya.</p>
-                </div>
+                <p>
+                    Demikian surat ini disampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.
+                </p>
             </div>
             <div class="d-flex flex-row mx-auto mt-4 mb-5">
                 <div class="container" style="width: 400px">
 
                 </div>
                 <div class="d-flex flex-column">
-                    <p class="my-0">Tanjungpinang, {{date('d-F-Y')}}</p>
                     <p style="margin-bottom: 100px">Dekan,</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
                     <p class="my-0">NIP 198904132015041005</p>
