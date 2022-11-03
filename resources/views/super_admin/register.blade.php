@@ -34,7 +34,7 @@
 
           <!-- Nomor Hp -->
           <div>
-              <x-label for="nomor_hp" :value="__('nomor_hp')" />
+              <x-label for="nomor_hp" :value="__('Nomor Handphone')" />
 
               <x-input id="nomor_hp" class="form-control" type="text" name="nomor_hp" :value="old('nomor_hp')" required autofocus />
               @foreach ($errors->get('nomor_hp') as $msg)
