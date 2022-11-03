@@ -82,6 +82,7 @@
                     @else
                         <button type="submit" class="btn btn-primary">Edit File</button>
                     @endif
+                    <a class="btn btn-success" href="{{url('preview_draft_surat/rekomendasi/'.$data[0]['id'])}}">Preview Draft</a>
                         </div>
                     
                 </form>

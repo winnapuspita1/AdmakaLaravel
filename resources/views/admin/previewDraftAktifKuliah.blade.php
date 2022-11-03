@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="sticky-top">
-        <a class="btn btn-primary ms-3 mt-3" href="{{url('detail_surat_aktif_kuliah/')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+        <a class="btn btn-primary ms-3 mt-3" href="{{url('detail_surat_aktif_kuliah/'.$data[0]['id'])}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     </div>
     <div class="container shadow p-5 mb-5 rounded" style="width: 800px;">
             <div class="d-flex flex-row mx-auto">        
@@ -38,7 +38,7 @@
             <hr style="color: #000000 !important; border:2px solid currentcolor !important; opacity:1;">
             <div class="d-flex flex-row mx-auto mt-5">
                 <div class="container text-center">
-                    <p class="fst-italic fw-bold text-decoration-underline my-0">SURAT KETERANGAN</p>
+                    <p class="fw-bold text-decoration-underline my-0">SURAT KETERANGAN</p>
                     <p class="my-0">No : ……/UN53.4/KM/{{date('Y')}}</p>
                 </div>
                 
@@ -86,7 +86,7 @@
 
                 </div>
                 <div class="d-flex flex-column">
-                    <p class="my-0">Tanjungpinang, {{date('d-F-Y')}}</p>
+                    <p class="my-0">Tanjungpinang, {{date('d F Y')}}</p>
                     <p style="margin-bottom: 100px">Dekan,</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
                     <p class="my-0">NIP 198904132015041005</p>
