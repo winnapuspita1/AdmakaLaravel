@@ -33,7 +33,7 @@
           </div>
 
           <!-- Nomor Hp -->
-          <div>
+          <div class="mt-4">
               <x-label for="nomor_hp" :value="__('Nomor Handphone')" />
 
               <x-input id="nomor_hp" class="form-control" type="text" name="nomor_hp" :value="old('nomor_hp')" required autofocus />
