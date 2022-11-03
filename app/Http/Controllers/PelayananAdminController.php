@@ -558,9 +558,21 @@ class PelayananAdminController extends Controller
             ];
             return view('admin.previewDraftMagang', $data);
         } elseif ($jenis_surat === "pengambilan_data") {
-            
+            $surat = SuratPengambilanDataModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Pengambilan Data',
+            ];
+            return view('admin.previewDraftPengambilanData', $data);
         } elseif ($jenis_surat === "transkrip_nilai") {
-            
+            return back()->with('failed', 'Gagal Mengambil Data!');
         } elseif ($jenis_surat === "rekomendasi") {
             $surat = SuratRekomendasiModel::where('id', $id_permohonan)->get();
            
