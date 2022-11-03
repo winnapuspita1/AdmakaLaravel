@@ -32,7 +32,15 @@
           @endforeach
           </div>
 
+          <!-- Nomor Hp -->
+          <div>
+              <x-label for="nomor_hp" :value="__('nomor_hp')" />
 
+              <x-input id="nomor_hp" class="form-control" type="text" name="nomor_hp" :value="old('nomor_hp')" required autofocus />
+              @foreach ($errors->get('nomor_hp') as $msg)
+                  <p class="text-danger font-size:2px">{{ $msg }}</p>
+              @endforeach
+          </div>
 
           <!-- Email Address -->
           <div class="mt-4">

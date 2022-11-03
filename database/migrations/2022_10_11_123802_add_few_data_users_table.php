@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             
             $table->enum('role', ['superadmin', 'admin', 'mahasiswa'])->default('mahasiswa');
+            $table->string('nomor_hp');
         });
         
         // Insert some stuff
@@ -27,7 +28,7 @@ return new class extends Migration
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),
-            
+               'nomor_hp' => '-',
                'role' => 'superadmin'
            )
         );
@@ -40,7 +41,7 @@ return new class extends Migration
                'email_verified_at' => date('Y-m-d H:i:s'),
                'created_at' => date('Y-m-d H:i:s'),
                'updated_at' => date('Y-m-d H:i:s'),
-            
+               'nomor_hp' => '-',
                'role' => 'admin'
            )
         );

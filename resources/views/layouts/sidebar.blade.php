@@ -101,19 +101,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pengambilan_data" class="nav-link">
+                <a href="/pengambilan_data" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>S.Permohonan Pengambilan Data Penelitian</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="transkrip_nilai" class="nav-link">
+                <a href="/transkrip_nilai" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Transkrip Nilai Sementara</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="surat_rekomendasi" class="nav-link">
+                <a href="/surat_rekomendasi" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>S.Rekomendasi</p>
                 </a>

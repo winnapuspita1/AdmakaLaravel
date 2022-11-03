@@ -73,6 +73,8 @@ Route::middleware(['auth','can:isAdmin'])->group(function () {
     Route::get('/draft_pengambilan_data', [PelayananAdminController::class, 'DraftPengambilanData']);
     Route::get('/draft_transkrip_nilai', [PelayananAdminController::class, 'DraftTranskripNilai']);
     Route::get('/draft_surat_rekomendasi', [PelayananAdminController::class, 'DraftRekomendasi']);
+
+    Route::get('preview_draft_surat/{jenis_surat}/{id_permohonan}', [PelayananAdminController::class, 'PreviewDraftSurat']);
 });
 
 //mahasiswa

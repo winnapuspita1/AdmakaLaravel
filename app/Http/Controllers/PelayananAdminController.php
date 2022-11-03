@@ -510,5 +510,87 @@ class PelayananAdminController extends Controller
         User::where('id', $id)->delete();
         return back()->with('success', 'Berhasil Hapus Akun!');
     }
+
+    public function PreviewDraftSurat($jenis_surat, $id_permohonan)
+    {
+        
+
+        if ($jenis_surat === "aktif_kuliah") {
+            $surat = SuratAktifKuliahModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Aktif Kuliah',
+            ];
+            return view('admin.previewDraftAktifKuliah', $data);
+        } elseif ($jenis_surat === "kp") {
+            $surat = SuratKPModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Praktik Kerja',
+            ];
+            return view('admin.previewDraftKP', $data);
+        } elseif ($jenis_surat === "magang") {
+            $surat = SuratMagangModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Magang',
+            ];
+            return view('admin.previewDraftMagang', $data);
+        } elseif ($jenis_surat === "pengambilan_data") {
+            $surat = SuratPengambilanDataModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Pengambilan Data',
+            ];
+            return view('admin.previewDraftPengambilanData', $data);
+        } elseif ($jenis_surat === "transkrip_nilai") {
+            return back()->with('failed', 'Gagal Mengambil Data!');
+        } elseif ($jenis_surat === "rekomendasi") {
+            $surat = SuratRekomendasiModel::where('id', $id_permohonan)->get();
+           
+            if(count($surat) === 0)
+            {
+                return back()->with('failed', 'Data tidak ditemukan!');
+            }
+            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            $data = [
+                'data' => $surat,
+                'no_hp' => $no_hp[0]->nomor_hp,
+                'title' => 'Draft Surat Rekomendasi',
+            ];
+            return view('admin.previewDraftRekomendasi', $data);
+        } 
+        
+        return back()->with('failed', 'Gagal Mengambil Data!');
+        
+    }
     
 }
