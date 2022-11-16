@@ -23,6 +23,6 @@ class SuratRekomendasiModel extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'keperluan',
-        'id_mahasiswa'
+        'id_mahasiswa',
     ];
 }

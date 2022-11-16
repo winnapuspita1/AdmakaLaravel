@@ -22,10 +22,10 @@ class SuratKPModel extends Model
         'program_studi',
         'tempat_lahir',
         'tanggal_lahir',
-        'tujuan_surat' ,
-        'alamat_surat' ,
-        'tanggal_mulai' ,
+        'tujuan_surat',
+        'alamat_surat',
+        'tanggal_mulai',
         'tanggal_selesai',
-        'id_mahasiswa'
+        'id_mahasiswa',
     ];
 }

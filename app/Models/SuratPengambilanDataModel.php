@@ -22,11 +22,11 @@ class SuratPengambilanDataModel extends Model
         'program_studi',
         'tempat_lahir',
         'tanggal_lahir',
-        'tujuan_surat' ,
-        'alamat_surat' ,
-        'tanggal_mulai' ,
-        'tanggal_selesai' ,
+        'tujuan_surat',
+        'alamat_surat',
+        'tanggal_mulai',
+        'tanggal_selesai',
         'judul_skripsi',
-        'id_mahasiswa'
+        'id_mahasiswa',
     ];
 }

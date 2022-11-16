@@ -9,7 +9,7 @@ class SuratAktifKuliahModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'surat_aktif_Kuliah';
+    protected $table = 'surat_aktif_kuliah';
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +23,6 @@ class SuratAktifKuliahModel extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'keperluan',
-        'id_mahasiswa'
+        'id_mahasiswa',
     ];
 }

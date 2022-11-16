@@ -18,6 +18,6 @@ class KritikSaranModel extends Model
      */
     protected $fillable = [
         'nama',
-        'kritik_saran'
+        'kritik_saran',
     ];
 }

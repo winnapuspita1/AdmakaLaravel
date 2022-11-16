@@ -11,20 +11,19 @@ use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PelayananAdminController extends Controller
 {
     public function DashboardAdmin()
     {
-        if (auth()->user()->role === 'mahasiswa'){
+        if (auth()->user()->role === 'mahasiswa') {
             return view('mahasiswa.dashboard');
         }
 
-        $akun_mhs = User::where('role','mahasiswa')->count();
-
+        $akun_mhs = User::where('role', 'mahasiswa')->count();
+        
         $belum = 0 + PermohonanTranskripNilaiModel::where('status_surat', null)->count() +
-        SuratAktifKuliahModel::where('status_surat', null)->count() +
+        SuratAktifKuliahModel::whereNull('status_surat')->count() +
         SuratKPModel::where('status_surat', null)->count() +
         SuratMagangModel::where('status_surat', null)->count() +
         SuratPengambilanDataModel::where('status_surat', null)->count() +
@@ -48,11 +47,12 @@ class PelayananAdminController extends Controller
             'akun_mhs' => $akun_mhs,
             'total_belum_proses' => $belum,
             'total_proses' => $proses,
-            'total_selesai' => $selesai
+            'total_selesai' => $selesai,
         ];
         if (auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin') {
             return view('admin.dashboard', $data);
-        } 
+        }
+
         return url('/login');
     }
 
@@ -62,6 +62,7 @@ class PelayananAdminController extends Controller
             'data' => SuratAktifKuliahModel::get(),
             'number' => 0,
         ];
+
         return view('admin/aktivkuliah', $data);
     }
 
@@ -69,15 +70,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => SuratAktifKuliahModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailAktifKuliah', $data);
     }
 
     public function SaveSuratAktif(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -90,12 +91,13 @@ class PelayananAdminController extends Controller
                 'local'
             );
             SuratAktifKuliahModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
-        
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function SuratKP()
@@ -104,6 +106,7 @@ class PelayananAdminController extends Controller
             'data' => SuratKPModel::get(),
             'number' => 0,
         ];
+
         return view('admin/permohonankp', $data);
     }
 
@@ -111,15 +114,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => SuratKPModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailSuratKP', $data);
     }
 
     public function SaveSuratKP(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -132,11 +135,13 @@ class PelayananAdminController extends Controller
                 'local'
             );
             SuratKPModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function SuratMagang()
@@ -145,6 +150,7 @@ class PelayananAdminController extends Controller
             'data' => SuratMagangModel::get(),
             'number' => 0,
         ];
+
         return view('admin/permohonanmagang', $data);
     }
 
@@ -152,15 +158,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => SuratMagangModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailSuratMagang', $data);
     }
 
     public function SaveSuratMagang(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -173,11 +179,13 @@ class PelayananAdminController extends Controller
                 'local'
             );
             SuratMagangModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function SuratPengambilanData()
@@ -186,6 +194,7 @@ class PelayananAdminController extends Controller
             'data' => SuratPengambilanDataModel::get(),
             'number' => 0,
         ];
+
         return view('admin/pengambilandata', $data);
     }
 
@@ -193,15 +202,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => SuratPengambilanDataModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailSuratPengambilanData', $data);
     }
 
     public function SaveSuratPengambilanData(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -214,11 +223,13 @@ class PelayananAdminController extends Controller
                 'local'
             );
             SuratPengambilanDataModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function SuratTranskripNilai()
@@ -227,6 +238,7 @@ class PelayananAdminController extends Controller
             'data' => PermohonanTranskripNilaiModel::get(),
             'number' => 0,
         ];
+
         return view('admin/transkripnilai', $data);
     }
 
@@ -234,15 +246,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => PermohonanTranskripNilaiModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailSuratTranskripNilai', $data);
     }
 
     public function SaveSuratTranskripNilai(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -255,11 +267,13 @@ class PelayananAdminController extends Controller
                 'local'
             );
             PermohonanTranskripNilaiModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function SuratRekomendasi()
@@ -268,6 +282,7 @@ class PelayananAdminController extends Controller
             'data' => SuratRekomendasiModel::get(),
             'number' => 0,
         ];
+
         return view('admin/suratrekomendasi', $data);
     }
 
@@ -275,15 +290,15 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => SuratRekomendasiModel::where('id', $id)->get(),
-            'edit' => $edit
+            'edit' => $edit,
         ];
+
         return view('admin/detailSuratRekomendasi', $data);
     }
 
     public function SaveSuratRekomendasi(Request $request)
     {
-        if (! empty($request->dokumen))
-        {
+        if (! empty($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -296,16 +311,18 @@ class PelayananAdminController extends Controller
                 'local'
             );
             SuratRekomendasiModel::where('id', $request->id)->update([
-                'nama_surat' => $filename
+                'nama_surat' => $filename,
             ]);
+
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        return back()->with('failed','Gagal Upload Data!');
+
+        return back()->with('failed', 'Gagal Upload Data!');
     }
 
     public function StatusSurat($jenis_surat, $id, $status_surat)
     {
-        if ($jenis_surat === "aktif_kuliah") {
+        if ($jenis_surat === 'aktif_kuliah') {
             if ($status_surat === 'Selesai') {
                 $surat = SuratAktifKuliahModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -313,9 +330,9 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratAktifKuliahModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
-        } elseif ($jenis_surat === "kp") {
+        } elseif ($jenis_surat === 'kp') {
             if ($status_surat === 'Selesai') {
                 $surat = SuratKPModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -323,9 +340,9 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratKPModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
-        } elseif ($jenis_surat === "magang") {
+        } elseif ($jenis_surat === 'magang') {
             if ($status_surat === 'Selesai') {
                 $surat = SuratMagangModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -333,9 +350,9 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratMagangModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
-        } elseif ($jenis_surat === "pengambilan_data") {
+        } elseif ($jenis_surat === 'pengambilan_data') {
             if ($status_surat === 'Selesai') {
                 $surat = SuratPengambilanDataModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -343,9 +360,9 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratPengambilanDataModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
-        } elseif ($jenis_surat === "transkrip_nilai") {
+        } elseif ($jenis_surat === 'transkrip_nilai') {
             if ($status_surat === 'Selesai') {
                 $surat = PermohonanTranskripNilaiModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -353,9 +370,9 @@ class PelayananAdminController extends Controller
                 }
             }
             PermohonanTranskripNilaiModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
-        } elseif ($jenis_surat === "rekomendasi") {
+        } elseif ($jenis_surat === 'rekomendasi') {
             if ($status_surat === 'Selesai') {
                 $surat = SuratRekomendasiModel::where('id', $id)->get();
                 if ($surat[0]['nama_surat'] === null) {
@@ -363,7 +380,7 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratRekomendasiModel::where('id', $id)->update([
-                'status_surat' => $status_surat
+                'status_surat' => $status_surat,
             ]);
         } else {
             return back()->with('failed', 'Gagal Update Data!');
@@ -374,17 +391,17 @@ class PelayananAdminController extends Controller
 
     public function HapusSurat($jenis_surat, $id)
     {
-        if ($jenis_surat === "aktif_kuliah") {
+        if ($jenis_surat === 'aktif_kuliah') {
             SuratAktifKuliahModel::where('id', $id)->delete();
-        } elseif ($jenis_surat === "kp") {
+        } elseif ($jenis_surat === 'kp') {
             SuratKPModel::where('id', $id)->delete();
-        } elseif ($jenis_surat === "magang") {
+        } elseif ($jenis_surat === 'magang') {
             SuratMagangModel::where('id', $id)->delete();
-        } elseif ($jenis_surat === "pengambilan_data") {
+        } elseif ($jenis_surat === 'pengambilan_data') {
             SuratPengambilanDataModel::where('id', $id)->delete();
-        } elseif ($jenis_surat === "transkrip_nilai") {
+        } elseif ($jenis_surat === 'transkrip_nilai') {
             PermohonanTranskripNilaiModel::where('id', $id)->delete();
-        } elseif ($jenis_surat === "rekomendasi") {
+        } elseif ($jenis_surat === 'rekomendasi') {
             SuratRekomendasiModel::where('id', $id)->delete();
         } else {
             return back()->with('failed', 'Gagal Update Data!');
@@ -397,7 +414,7 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'data' => KritikSaranModel::get(),
-            'number' => 0
+            'number' => 0,
         ];
 
         return view('admin.kritiksaran', $data);
@@ -414,8 +431,9 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'surat' => SuratAktifKuliahModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/draftaktifkuliah', $data);
     }
 
@@ -423,8 +441,9 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'surat' => SuratKPModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/draftpermohonankp', $data);
     }
 
@@ -432,32 +451,39 @@ class PelayananAdminController extends Controller
     {
         $data = [
             'surat' => SuratMagangModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/draftpermohonanmagang', $data);
     }
+
     public function DraftPengambilanData()
     {
         $data = [
             'surat' => SuratPengambilanDataModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/draftpengambilandata', $data);
     }
+
     public function DraftRekomendasi()
     {
         $data = [
             'surat' => SuratRekomendasiModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/draftsuratrekomendasi', $data);
     }
+
     public function DraftTranskripNilai()
     {
         $data = [
             'surat' => PermohonanTranskripNilaiModel::get(),
-            'num' => 0
+            'num' => 0,
         ];
+
         return view('admin/drafttranskripnilai', $data);
     }
 
@@ -467,26 +493,31 @@ class PelayananAdminController extends Controller
             'Content-type' => 'application/pdf',
         ];
 
-        if ($jenis_surat === "aktif_kuliah") {
-            $pathToFile = storage_path('app').'/SuratAktifKuliah/'. $nama_surat;
+        if ($jenis_surat === 'aktif_kuliah') {
+            $pathToFile = storage_path('app').'/SuratAktifKuliah/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } elseif ($jenis_surat === "kp") {
-            $pathToFile = storage_path('app').'/SuratKP/'. $nama_surat;
+        } elseif ($jenis_surat === 'kp') {
+            $pathToFile = storage_path('app').'/SuratKP/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } elseif ($jenis_surat === "magang") {
-            $pathToFile = storage_path('app').'/SuratMagang/'. $nama_surat;
+        } elseif ($jenis_surat === 'magang') {
+            $pathToFile = storage_path('app').'/SuratMagang/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } elseif ($jenis_surat === "pengambilan_data") {
-            $pathToFile = storage_path('app').'/SuratPengambilanData/'. $nama_surat;
+        } elseif ($jenis_surat === 'pengambilan_data') {
+            $pathToFile = storage_path('app').'/SuratPengambilanData/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } elseif ($jenis_surat === "transkrip_nilai") {
-            $pathToFile = storage_path('app').'/SuratTranskripNilai/'. $nama_surat;
+        } elseif ($jenis_surat === 'transkrip_nilai') {
+            $pathToFile = storage_path('app').'/SuratTranskripNilai/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } elseif ($jenis_surat === "rekomendasi") {
-            $pathToFile = storage_path('app').'/SuratRekomendasi/'. $nama_surat;
+        } elseif ($jenis_surat === 'rekomendasi') {
+            $pathToFile = storage_path('app').'/SuratRekomendasi/'.$nama_surat;
+
             return response()->file($pathToFile, $headers);
-        } 
-        else {
+        } else {
             return back()->with('failed', 'Gagal Update Data!');
         }
 
@@ -498,7 +529,7 @@ class PelayananAdminController extends Controller
         $data = [
 
             'data' => User::get(),
-            'number' => 0
+            'number' => 0,
 
         ];
 
@@ -508,18 +539,16 @@ class PelayananAdminController extends Controller
     public function HapusAkun($id)
     {
         User::where('id', $id)->delete();
+
         return back()->with('success', 'Berhasil Hapus Akun!');
     }
 
     public function PreviewDraftSurat($jenis_surat, $id_permohonan)
     {
-        
-
-        if ($jenis_surat === "aktif_kuliah") {
+        if ($jenis_surat === 'aktif_kuliah') {
             $surat = SuratAktifKuliahModel::where('id', $id_permohonan)->get();
-           
-            if(count($surat) === 0)
-            {
+
+            if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
             $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
@@ -528,12 +557,12 @@ class PelayananAdminController extends Controller
                 'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Aktif Kuliah',
             ];
+
             return view('admin.previewDraftAktifKuliah', $data);
-        } elseif ($jenis_surat === "kp") {
+        } elseif ($jenis_surat === 'kp') {
             $surat = SuratKPModel::where('id', $id_permohonan)->get();
-           
-            if(count($surat) === 0)
-            {
+
+            if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
             $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
@@ -542,12 +571,12 @@ class PelayananAdminController extends Controller
                 'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Praktik Kerja',
             ];
+
             return view('admin.previewDraftKP', $data);
-        } elseif ($jenis_surat === "magang") {
+        } elseif ($jenis_surat === 'magang') {
             $surat = SuratMagangModel::where('id', $id_permohonan)->get();
-           
-            if(count($surat) === 0)
-            {
+
+            if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
             $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
@@ -556,12 +585,12 @@ class PelayananAdminController extends Controller
                 'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Magang',
             ];
+
             return view('admin.previewDraftMagang', $data);
-        } elseif ($jenis_surat === "pengambilan_data") {
+        } elseif ($jenis_surat === 'pengambilan_data') {
             $surat = SuratPengambilanDataModel::where('id', $id_permohonan)->get();
-           
-            if(count($surat) === 0)
-            {
+
+            if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
             $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
@@ -570,14 +599,14 @@ class PelayananAdminController extends Controller
                 'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Pengambilan Data',
             ];
+
             return view('admin.previewDraftPengambilanData', $data);
-        } elseif ($jenis_surat === "transkrip_nilai") {
+        } elseif ($jenis_surat === 'transkrip_nilai') {
             return back()->with('failed', 'Gagal Mengambil Data!');
-        } elseif ($jenis_surat === "rekomendasi") {
+        } elseif ($jenis_surat === 'rekomendasi') {
             $surat = SuratRekomendasiModel::where('id', $id_permohonan)->get();
-           
-            if(count($surat) === 0)
-            {
+
+            if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
             $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
@@ -586,11 +615,10 @@ class PelayananAdminController extends Controller
                 'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Rekomendasi',
             ];
+
             return view('admin.previewDraftRekomendasi', $data);
-        } 
-        
+        }
+
         return back()->with('failed', 'Gagal Mengambil Data!');
-        
     }
-    
 }

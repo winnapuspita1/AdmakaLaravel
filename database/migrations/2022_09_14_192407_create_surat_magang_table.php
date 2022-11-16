@@ -15,9 +15,9 @@ class CreateSuratMagangTable extends Migration
     {
         Schema::create('surat_magang', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');            
-            $table->string('nim');            
-            $table->string('program_studi');            
+            $table->string('nama');
+            $table->string('nim');
+            $table->string('program_studi');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('tujuan_surat');

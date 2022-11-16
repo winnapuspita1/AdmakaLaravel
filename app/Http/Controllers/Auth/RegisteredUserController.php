@@ -4,14 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -38,14 +36,14 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'nomor_hp' => ['required','max:255','string'],
+            'nomor_hp' => ['required', 'max:255', 'string'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'in:superadmin,admin,mahasiswa'],
         ],
-        [
-            'required' => 'Form Tidak Boleh Kosong!',
-            'role.in' => 'Silahkan Pilih Role!'
-        ]
+            [
+                'required' => 'Form Tidak Boleh Kosong!',
+                'role.in' => 'Silahkan Pilih Role!',
+            ]
         );
 
         $user = User::create([
@@ -53,7 +51,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'nomor_hp' => $request->nomor_hp,
             'password' => Hash::make($request->password),
-            'role' => $request->role
+            'role' => $request->role,
         ]);
 
         // event(new Registered($user));
@@ -75,27 +73,26 @@ class RegisteredUserController extends Controller
                 'email' => [
                     'required',
                     Rule::unique('users')->ignore($request->id),
-                    'string', 'email', 'max:255'
+                    'string', 'email', 'max:255',
                 ],
                 'nomor_hp' => ['required', 'string'],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'role' => ['required', 'in:superadmin,admin,mahasiswa'],
             ],
-            [
-                'required' => 'Form Tidak Boleh Kosong!',
-                'role.in' => 'Silahkan Pilih Role!',
-                '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!',
-                'password.confirmed' => 'Konfirmasi Password Salah!'
-            ]);
+                [
+                    'required' => 'Form Tidak Boleh Kosong!',
+                    'role.in' => 'Silahkan Pilih Role!',
+                    '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!',
+                    'password.confirmed' => 'Konfirmasi Password Salah!',
+                ]);
 
             $user = User::where('id', $request->id)->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'nomor_hp' => $request->nomor_hp,
                 'password' => Hash::make($request->password),
-                'role' => $request->role
+                'role' => $request->role,
             ]);
-
         } else {
             $request->validate([
                 'id' => ['required', 'integer'],
@@ -103,25 +100,25 @@ class RegisteredUserController extends Controller
                 'email' => [
                     'required',
                     Rule::unique('users')->ignore($request->id),
-                    'string', 'email', 'max:255'
+                    'string', 'email', 'max:255',
                 ],
                 'nomor_hp' => ['required', 'string'],
                 'role' => ['required', 'in:superadmin,admin,mahasiswa'],
             ],
-            [
-                'required' => 'Form Tidak Boleh Kosong!',
-                'role.in' => 'Silahkan Pilih Role!',
-                '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!'
-            ]
+                [
+                    'required' => 'Form Tidak Boleh Kosong!',
+                    'role.in' => 'Silahkan Pilih Role!',
+                    '*.unique' => 'Email Sudah Terdaftar Pada Akun Lain!',
+                ]
             );
 
             $user = User::where('id', $request->id)->update([
                 'name' => $request->name,
                 'nomor_hp' => $request->nomor_hp,
                 'email' => $request->email,
-                'role' => $request->role
+                'role' => $request->role,
             ]);
-        } 
+        }
 
         // event(new Registered($user));
         //auto login user
