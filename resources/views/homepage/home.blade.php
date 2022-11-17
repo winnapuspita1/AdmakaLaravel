@@ -21,6 +21,7 @@
                 @foreach ($surat_availables as $surat)
                     <div>
                         @include('homepage.components.card', [
+                            'id' => $surat['id'],
                             'title' => $surat['title'],
                             'description' => $surat['description'],
                         ])

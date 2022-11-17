@@ -18,6 +18,7 @@ class SuratAktifKuliahModel extends Model
      */
     protected $fillable = [
         'nama',
+        'email',
         'nim',
         'program_studi',
         'tempat_lahir',

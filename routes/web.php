@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomepageController::class, 'index'])->name('landingpage');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [HomepageController::class, 'index'])->name('landingpage');
+    Route::get('request/{id_type}', [HomepageController::class, 'requestSurat'])->name('request.type');
+    Route::post('request', [HomepageController::class, 'storeSurat'])->name('store.surat');
+});
 
 Route::get('/dashboard', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth'])->name('dashboard');
 
