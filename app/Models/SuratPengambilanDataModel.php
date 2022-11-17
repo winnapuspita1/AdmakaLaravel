@@ -19,6 +19,7 @@ class SuratPengambilanDataModel extends Model
     protected $fillable = [
         'nama',
         'nim',
+        'email',
         'program_studi',
         'tempat_lahir',
         'tanggal_lahir',

@@ -16,6 +16,7 @@
         <h3 class="text-xl font-semibold mb-4">Form Isian :</h3>
         <div id="div-message"></div>
         <form id="suratAktifKuliah">
+            <input type="hidden" name="type" value="{{ $type }}">
             <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
                 <div>
                     <div class="mb-6">
@@ -75,13 +76,31 @@
                     </div>
                 </div>
             </div>
-            <div class="mb-6">
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Keperluan
-                </label>
-                <textarea name="keperluan" id="editor"></textarea>
-                <span id="keperluan" class="text-sm text-red-500"></span>
-            </div>
+            @if ($type == 2 || $type == 3)
+                @include('homepage.components.form.surat-kp-or-magang')
+            @endif
+
+            @if ($type == 4)
+                @include('homepage.components.form.surat-kp-or-magang')
+
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Judul Skripsi
+                    </label>
+                    <textarea name="judul_skripsi" id="editor"></textarea>
+                    <span id="judul_skripsi" class="text-sm text-red-500"></span>
+                </div>
+            @endif
+
+            @if ($type == 1 || $type == 5 || $type == 6)
+                <div class="mb-6">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Keperluan
+                    </label>
+                    <textarea name="keperluan" id="editor"></textarea>
+                    <span id="keperluan" class="text-sm text-red-500"></span>
+                </div>
+            @endif
             <div class="text-center">
                 <button type="submit"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
@@ -115,7 +134,7 @@
                 success: function(response) {
                     $('#div-message').append(`
                         @include('homepage.components.success-alert', [
-                            'message' => '${response.message}'
+                            'message' => '${response.message}',
                         ])
                     `)
                     $('#suratAktifKuliah')[0].reset();

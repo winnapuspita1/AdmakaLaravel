@@ -4,6 +4,13 @@ namespace App\Models;
 
 class SuratAvailable
 {
+    const SURAT_AKTIF_KULIAH = 1;
+    const SURAT_KERJA_PRAKTIK = 2;
+    const SURAT_PERMOHONAN_MAGANG = 3;
+    const SURAT_PENGAMBILAN_DATA = 4;
+    const TRANSKRIP_NILAI = 5;
+    const SURAT_REKOMENDASI = 6;
+
     const SURAT_AVAILABLE = [
         [
             'id' => 1,
