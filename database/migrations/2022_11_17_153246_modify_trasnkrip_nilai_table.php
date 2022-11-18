@@ -14,7 +14,7 @@ class ModifyTrasnkripNilaiTable extends Migration
     public function up()
     {
         Schema::table('permohonan_transkrip_nilai', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });
@@ -28,7 +28,7 @@ class ModifyTrasnkripNilaiTable extends Migration
     public function down()
     {
         Schema::table('permohonan_transkrip_nilai', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });

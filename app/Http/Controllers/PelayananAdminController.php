@@ -21,7 +21,7 @@ class PelayananAdminController extends Controller
         }
 
         $akun_mhs = User::where('role', 'mahasiswa')->count();
-        
+
         $belum = 0 + PermohonanTranskripNilaiModel::where('status_surat', null)->count() +
         SuratAktifKuliahModel::whereNull('status_surat')->count() +
         SuratKPModel::where('status_surat', null)->count() +

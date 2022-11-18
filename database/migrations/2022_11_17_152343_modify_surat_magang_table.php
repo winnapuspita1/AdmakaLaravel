@@ -14,7 +14,7 @@ class ModifySuratMagangTable extends Migration
     public function up()
     {
         Schema::table('surat_magang', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });
@@ -28,7 +28,7 @@ class ModifySuratMagangTable extends Migration
     public function down()
     {
         Schema::table('surat_magang', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });

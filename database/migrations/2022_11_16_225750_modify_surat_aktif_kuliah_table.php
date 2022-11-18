@@ -14,7 +14,7 @@ class ModifySuratAktifKuliahTable extends Migration
     public function up()
     {
         Schema::table('surat_aktif_kuliah', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });
@@ -28,7 +28,7 @@ class ModifySuratAktifKuliahTable extends Migration
     public function down()
     {
         Schema::table('surat_aktif_kuliah', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->change();
             $table->dropColumn('email');
         });

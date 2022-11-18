@@ -5,10 +5,15 @@ namespace App\Models;
 class SuratAvailable
 {
     const SURAT_AKTIF_KULIAH = 1;
+
     const SURAT_KERJA_PRAKTIK = 2;
+
     const SURAT_PERMOHONAN_MAGANG = 3;
+
     const SURAT_PENGAMBILAN_DATA = 4;
+
     const TRANSKRIP_NILAI = 5;
+
     const SURAT_REKOMENDASI = 6;
 
     const SURAT_AVAILABLE = [
@@ -47,49 +52,49 @@ class SuratAvailable
             'title' => 'SURAT REKOMENDASI',
             'description' => 'Form pelayanan surat rekomendasi',
             'uri' => '',
-        ]
+        ],
     ];
 
     const TEMPLATE = [
         [
             'id' => 1,
             'name' => 'Surat Persetujuan Sidang Skripsi',
-            'file' => 'FORM_AKADEMIK/BO.FT.01_SURAT_PERSETUJUAN_SIDANG_SKRIPSI.docx'
+            'file' => 'FORM_AKADEMIK/BO.FT.01_SURAT_PERSETUJUAN_SIDANG_SKRIPSI.docx',
         ],
         [
             'id' => 2,
             'name' => 'Form Permohonan Sidang Skripsi',
-            'file' => 'FORM_AKADEMIK/BO.FT.02 FORM PERMOHONAN SIDANG SKRIPSI.docx'
+            'file' => 'FORM_AKADEMIK/BO.FT.02 FORM PERMOHONAN SIDANG SKRIPSI.docx',
         ],
         [
             'id' => 3,
             'name' => 'Form Permohonan Seminar Proposal Skripsi',
-            'file' =>  'FORM_AKADEMIK/BO.FT.03 FORM PERMOHONAN SEMINAR PROPOSAL SKRIPSI.docx'
+            'file' => 'FORM_AKADEMIK/BO.FT.03 FORM PERMOHONAN SEMINAR PROPOSAL SKRIPSI.docx',
         ],
         [
             'id' => 4,
             'name' => 'Surat Persetujuan Seminar Proposal Skripsi',
-            'file' =>  'FORM_AKADEMIK/BO.FT.04 SURAT PERSETUJUAN SEMINAR PROPOSAL SKRIPSI.docx'
+            'file' => 'FORM_AKADEMIK/BO.FT.04 SURAT PERSETUJUAN SEMINAR PROPOSAL SKRIPSI.docx',
         ],
         [
             'id' => 5,
             'name' => 'Form Cuti Akademik',
-            'file' =>  'FORM_AKADEMIK/Borang Pengurusan Mahasiswa Cuti_Pindah.docx'
+            'file' => 'FORM_AKADEMIK/Borang Pengurusan Mahasiswa Cuti_Pindah.docx',
         ],
         [
             'id' => 6,
             'name' => 'Borang Laporan Permasalahan SIPA',
-            'file' =>  'FORM_AKADEMIK/Borang Permasalahan SIPA.pdf'
+            'file' => 'FORM_AKADEMIK/Borang Permasalahan SIPA.pdf',
         ],
         [
             'id' => 7,
             'name' => 'Formulir Pengurusan KTM',
-            'file' =>  'FORM_AKADEMIK/FORMULIR PENGURUSAN KTM.docx'
+            'file' => 'FORM_AKADEMIK/FORMULIR PENGURUSAN KTM.docx',
         ],
         [
             'id' => 8,
             'name' => 'Permohonan Mengikuti MBKM',
-            'file' =>  'FORM_AKADEMIK/PERMOHONAN MENGIKUTI KEGIATAN MBKM.docx'
-        ]
+            'file' => 'FORM_AKADEMIK/PERMOHONAN MENGIKUTI KEGIATAN MBKM.docx',
+        ],
     ];
 }

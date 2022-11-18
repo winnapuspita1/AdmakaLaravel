@@ -14,7 +14,7 @@ class ModifySuratPengambilanDataTable extends Migration
     public function up()
     {
         Schema::table('surat_pengambilan_data', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });
@@ -28,7 +28,7 @@ class ModifySuratPengambilanDataTable extends Migration
     public function down()
     {
         Schema::table('surat_pengambilan_data', function (Blueprint $table) {
-            # code
+            // code
             $table->integer('id_mahasiswa')->nullable()->change();
             $table->string('email')->nullable()->after('nim');
         });
