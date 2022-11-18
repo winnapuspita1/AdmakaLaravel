@@ -302,7 +302,7 @@ class PelayananMahasiswaController extends Controller
             'rekomendasi' => SuratRekomendasiModel::where('id_mahasiswa', $id)->get(),
         ];
 
-        return view('mahasiswa/statussurat', $data);
+        return view('mahasiswa.statussurat', $data);
     }
 
     public function DownloadSuratMahasiswa($jenis_surat, $nama_surat)

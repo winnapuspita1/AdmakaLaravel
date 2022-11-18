@@ -109,8 +109,9 @@
             </div>
         </form>
     </div>
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+@push('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
     <script>
         ClassicEditor
@@ -133,10 +134,10 @@
                 data: form,
                 success: function(response) {
                     $('#div-message').append(`
-                        @include('homepage.components.success-alert', [
-                            'message' => '${response.message}',
-                        ])
-                    `)
+                    @include('homepage.components.success-alert', [
+                        'message' => '${response.message}',
+                    ])
+                `)
                     $('#suratAktifKuliah')[0].reset();
                     setTimeout(() => {
                         $('#success-alert').remove()
@@ -164,4 +165,4 @@
             }, 3000);
         }
     </script>
-@endsection
+@endpush

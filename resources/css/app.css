@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .inactive {
+        @apply text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700
+    }
+
+    .active {
+        @apply text-white bg-blue-700 md:bg-transparent md:text-blue-700
+    }
+
+    .display {
+        @apply w-full text-sm text-left text-gray-500 dark:text-gray-400
+    }
+}
