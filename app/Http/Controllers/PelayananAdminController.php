@@ -551,12 +551,16 @@ class PelayananAdminController extends Controller
             if (count($surat) === 0) {
                 return back()->with('failed', 'Data tidak ditemukan!');
             }
-            $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+            
+           
             $data = [
                 'data' => $surat,
-                'no_hp' => $no_hp[0]->nomor_hp,
                 'title' => 'Draft Surat Aktif Kuliah',
             ];
+            if($surat[0]->id_mahasiswa){
+                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
+                $data['no_hp'] = $no_hp[0]->nomor_hp;
+            }
 
             return view('admin.previewDraftAktifKuliah', $data);
         } elseif ($jenis_surat === 'kp') {

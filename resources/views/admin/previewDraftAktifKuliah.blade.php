@@ -65,7 +65,7 @@
                             <p>: {{$item['tempat_lahir']. ', ' .$item['tanggal_lahir']}}</p>
                             <p>: {{$item['program_studi']}} / S-1</p>
                             <p>: {{'- / T.A ' . date('Y'). '-' .date('Y', strtotime('+1 year'))}}</p>
-                            <p>: {{$no_hp}}</p>
+                            <p>: {{$no_hp ?? ''}}</p>
                         @endforeach
                     </div>
                 </div>
