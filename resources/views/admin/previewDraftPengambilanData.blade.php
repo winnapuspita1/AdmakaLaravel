@@ -80,7 +80,7 @@
                             <p class="my-0">: {{$item['tempat_lahir']. ', ' .$item['tanggal_lahir']}}</p>
                             <p class="my-0">: {{$item['nim']}}</p>
                             <p class="my-0">: {{$item['program_studi']}}</p>
-                            <p class="my-0">: {{$no_hp}}</p>
+                            <p class="my-0">: {{$no_hp ?? ''}}</p>
                         @endforeach
                     </div>
                 </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="d-flex flex-row mx-auto mt-3">
                 <div class="container">
-                    <p class="text-center"><b><q>{{$data[0]->judul_skripsi}}</q></b></p>
+                    <p class="text-center"><b>{!! $data[0]->judul_skripsi !!}</b></p>
                 </div>
             </div>
             <div>

@@ -17,14 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', [HomepageController::class, 'index'])->name('landingpage');
-    Route::get('request/{id_type}', [HomepageController::class, 'requestSurat'])->name('landingpage.type');
-    Route::post('request', [HomepageController::class, 'storeSurat'])->name('store.surat');
+Route::get('/', [HomepageController::class, 'index'])->name('landingpage');
+Route::get('request/{id_type}', [HomepageController::class, 'requestSurat'])->name('landingpage.type');
+Route::post('request', [HomepageController::class, 'storeSurat'])->name('store.surat');
+Route::post('kritik', [HomepageController::class, 'kotakSaran'])->name('kotak-saran');
 
-    Route::get('cek-status', [HomepageController::class, 'cekStatus'])->name('cekstatus');
-    Route::get('download/{jenis_surat}/{id_surat}', [HomepageController::class, 'downloadSurat'])->name('downloadSurat');
-});
+Route::get('cek-status', [HomepageController::class, 'cekStatus'])->name('cekstatus');
+Route::get('download/{jenis_surat}/{id_surat}', [HomepageController::class, 'downloadSurat'])->name('downloadSurat');
 
 Route::get('/dashboard', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth'])->name('dashboard');
 
@@ -109,4 +108,4 @@ Route::middleware(['auth', 'can:isMahasiswa'])->group(function () {
     Route::get('surat-mahasiswa/{jenis_surat}/{nama_surat}', [PelayananMahasiswaController::class, 'DownloadSuratMahasiswa']);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

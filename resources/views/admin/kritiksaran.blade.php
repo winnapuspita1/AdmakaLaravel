@@ -27,7 +27,7 @@
                           <tr>
                             <th scope="row">{{$number+=1}}</th>
                             <td>{{$item['nama']}}</td>
-                            <td>{{$item['kritik_saran']}}</td>
+                            <td>{!! $item['kritik_saran'] !!}</td>
                             <td>
                             <a onclick="myFunctionDelete('{{url('delete_kritik_saran_admin/'.$item['id'])}}')" class="btn btn-danger"><i class="nav-icon fas fa-trash"></i> Delete</a>
                             </td>

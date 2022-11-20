@@ -134,10 +134,10 @@
                 data: form,
                 success: function(response) {
                     $('#div-message').append(`
-                    @include('homepage.components.success-alert', [
-                        'message' => '${response.message}',
-                    ])
-                `)
+                        @include('homepage.components.success-alert', [
+                            'message' => '${response.message}',
+                        ])
+                    `)
                     $('#suratAktifKuliah')[0].reset();
                     setTimeout(() => {
                         $('#success-alert').remove()

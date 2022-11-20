@@ -82,7 +82,7 @@
                             <td>{{$data[0]->nama}}</td>
                             <td>{{$data[0]->nim}}</td>
                             <td>{{$data[0]->program_studi}}</td>
-                            <td>{{$no_hp}}</td>
+                            <td>{{$no_hp ?? ''}}</td>
                         </tr>
                     </tbody>
                 </table>

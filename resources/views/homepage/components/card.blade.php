@@ -1,4 +1,4 @@
-<div class="w-auto h-full p-6 bg-white border border-gray-200 rounded-lg hover:shadow-md">
+<div class="w-auto h-full p-6 bg-white rounded-lg hover:shadow-md">
     <a href="{{ Route('landingpage.type', $id) }}">
         <h5 class="mb-2 text-lg sm:text-xl font-bold tracking-tight text-gray-900 dark:text-white">
             {{ $title ?? '' }}

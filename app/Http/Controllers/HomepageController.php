@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KritikSaranModel;
 use App\Models\PermohonanTranskripNilaiModel;
 use App\Models\SuratAktifKuliahModel;
 use App\Models\SuratAvailable;
@@ -10,6 +11,7 @@ use App\Models\SuratMagangModel;
 use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Yajra\DataTables\DataTables;
 
 class HomepageController extends Controller
@@ -19,6 +21,7 @@ class HomepageController extends Controller
         $data = [
             'surat_availables' => collect(SuratAvailable::SURAT_AVAILABLE),
             'surat_templates' => collect(SuratAvailable::TEMPLATE),
+            'count_kritik'   => KritikSaranModel::count()
         ];
 
         return view('homepage.home', $data);
@@ -147,42 +150,42 @@ class HomepageController extends Controller
             $data = [];
             if ($request->search) {
                 // code...
-                $suratAktifKuliah = SuratAktifKuliahModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $suratAktifKuliah = SuratAktifKuliahModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($suratAktifKuliah as $key => $value) {
                     $value['title'] = 'Surat Aktif Kuliah';
                     $value['jenis'] = 'aktif_kuliah';
                     $data[] = $value->toArray();
                 }
 
-                $suratKp = SuratKPModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $suratKp = SuratKPModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($suratKp as $key => $value) {
                     $value['title'] = 'Surat Kerja Praktik';
                     $value['jenis'] = 'kp';
                     $data[] = $value->toArray();
                 }
 
-                $suratMagang = SuratMagangModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $suratMagang = SuratMagangModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($suratMagang as $key => $value) {
                     $value['title'] = 'Surat Magang';
                     $value['jenis'] = 'magang';
                     $data[] = $value->toArray();
                 }
 
-                $suratPengambilanData = SuratPengambilanDataModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $suratPengambilanData = SuratPengambilanDataModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($suratPengambilanData as $key => $value) {
                     $value['title'] = 'Surat Pengambilan Data';
                     $value['jenis'] = 'pengambilan_data';
                     $data[] = $value->toArray();
                 }
 
-                $suratRekomendasi = SuratRekomendasiModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $suratRekomendasi = SuratRekomendasiModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($suratRekomendasi as $key => $value) {
                     $value['title'] = 'Surat Rekomendasi';
                     $value['jenis'] = 'rekomendasi';
                     $data[] = $value->toArray();
                 }
 
-                $permohonanTranskripNilai = PermohonanTranskripNilaiModel::where('nim', 'like', '%'.$request->search.'%')->get();
+                $permohonanTranskripNilai = PermohonanTranskripNilaiModel::where('nim', 'like', '%' . $request->search . '%')->get();
                 foreach ($permohonanTranskripNilai as $key => $value) {
                     $value['title'] = 'Permohononan Transkrip Nilai';
                     $value['jenis'] = 'transkrip_nilai';
@@ -206,7 +209,7 @@ class HomepageController extends Controller
                         $url = Route('downloadSurat', ['jenis_surat' => $items['jenis'], 'id_surat' => $items['id']]);
 
                         return '
-                            <a href="'.$url.'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2">
+                            <a href="' . $url . '" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2">
                                 Download
                             </a>
                         ';
@@ -221,6 +224,21 @@ class HomepageController extends Controller
         return view('homepage.cek-status');
     }
 
+    public function kotakSaran(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required',
+            'kritik_saran' => 'required'
+        ]);
+
+        KritikSaranModel::create($validated);
+
+        $response = [
+            'message' => 'Terima kasih ' . $validated['nama'] . ' telah memberikan saran'
+        ];
+        return response()->json($response, 201);
+    }
+
     public function downloadSurat($type, $suratId)
     {
         $headers = [
@@ -229,32 +247,32 @@ class HomepageController extends Controller
 
         if ($type === 'aktif_kuliah') {
             $suratAktifKuliah = SuratAktifKuliahModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratAktifKuliah/'.$suratAktifKuliah->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratAktifKuliah/' . $suratAktifKuliah->nama_surat;
 
             return response()->download($pathToFile, $suratAktifKuliah->nama_surat, $headers);
         } elseif ($type === 'kp') {
             $suratKp = SuratKPModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratKP/'.$suratKp->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratKP/' . $suratKp->nama_surat;
 
             return response()->download($pathToFile, $suratKp->nama_surat, $headers);
         } elseif ($type === 'magang') {
             $suratMagang = SuratMagangModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratMagang/'.$suratMagang->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratMagang/' . $suratMagang->nama_surat;
 
             return response()->download($pathToFile, $suratMagang->nama_surat, $headers);
         } elseif ($type === 'pengambilan_data') {
             $suratPengambilanData = SuratPengambilanDataModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratPengambilanData/'.$suratPengambilanData->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratPengambilanData/' . $suratPengambilanData->nama_surat;
 
             return response()->download($pathToFile, $suratPengambilanData->nama_surat, $headers);
         } elseif ($type === 'transkrip_nilai') {
             $transkripNilai = PermohonanTranskripNilaiModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratTranskripNilai/'.$transkripNilai->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratTranskripNilai/' . $transkripNilai->nama_surat;
 
             return response()->download($pathToFile, $transkripNilai->nama_surat, $headers);
         } elseif ($type === 'rekomendasi') {
             $suratRekomendasi = SuratRekomendasiModel::find($suratId);
-            $pathToFile = storage_path('app').'/SuratRekomendasi/'.$suratRekomendasi->nama_surat;
+            $pathToFile = storage_path('app') . '/SuratRekomendasi/' . $suratRekomendasi->nama_surat;
 
             return response()->download($pathToFile, $suratRekomendasi->nama_surat, $headers);
         }
