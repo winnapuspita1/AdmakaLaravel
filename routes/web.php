@@ -83,6 +83,8 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::get('/draft_surat_rekomendasi', [PelayananAdminController::class, 'DraftRekomendasi']);
 
     Route::get('preview_draft_surat/{jenis_surat}/{id_permohonan}', [PelayananAdminController::class, 'PreviewDraftSurat']);
+
+    Route::get('sidebar-status', [PelayananAdminController::class, 'sidebarStatus']);
 });
 
 //mahasiswa

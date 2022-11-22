@@ -88,37 +88,39 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="/aktif_kuliah" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="aktif_kuliah"></i>
                                     <p>S.Aktif Kuliah</p>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/permohonan_kp" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>S.Permohonan KP</p>
+                                    <i id="kp"></i>
+                                    <p> S.Permohonan KP</p>
+                                    
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/permohonan_magang" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="magang"></i>
                                     <p>S.Permohonan Magang</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/pengambilan_data" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="pengambilanData"></i>
                                     <p>S.Permohonan Pengambilan Data Penelitian</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/transkrip_nilai" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="transkrip"></i>
                                     <p>Transkrip Nilai Sementara</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/surat_rekomendasi" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i id="rekomendasi"></i>
                                     <p>S.Rekomendasi</p>
                                 </a>
                             </li>
@@ -279,3 +281,79 @@
     <!-- /.sidebar -->
 
 </aside>
+
+    <script>
+         window.addEventListener("load", getData); 
+    async function getData()
+    {
+        var formdata = new FormData();
+                var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+                };
+
+                var response = await fetch('{{url('sidebar-status')}}', requestOptions);
+                var result =  await response.json();  
+                if (result.aktifKuliah>0) {
+                    document.getElementById("aktif_kuliah").classList.add("bi");
+                    document.getElementById("aktif_kuliah").classList.add("bi-exclamation-circle");
+                    document.getElementById("aktif_kuliah").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("aktif_kuliah").classList.add("far");
+                    document.getElementById("aktif_kuliah").classList.add("fa-circle");
+                    document.getElementById("aktif_kuliah").classList.add("nav-icon");
+                }
+                if (result.kp>0) {
+                    document.getElementById("kp").classList.add("bi");
+                    document.getElementById("kp").classList.add("bi-exclamation-circle");
+                    document.getElementById("kp").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("kp").classList.add("far");
+                    document.getElementById("kp").classList.add("fa-circle");
+                    document.getElementById("kp").classList.add("nav-icon");
+                }
+                if (result.magang>0) {
+                    document.getElementById("magang").classList.add("bi");
+                    document.getElementById("magang").classList.add("bi-exclamation-circle");
+                    document.getElementById("magang").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("magang").classList.add("far");
+                    document.getElementById("magang").classList.add("fa-circle");
+                    document.getElementById("magang").classList.add("nav-icon");
+                }
+                if (result.pengambilanData>0) {
+                    document.getElementById("pengambilanData").classList.add("bi");
+                    document.getElementById("pengambilanData").classList.add("bi-exclamation-circle");
+                    document.getElementById("pengambilanData").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("pengambilanData").classList.add("far");
+                    document.getElementById("pengambilanData").classList.add("fa-circle");
+                    document.getElementById("pengambilanData").classList.add("nav-icon");
+                }
+                if (result.transkrip>0) {
+                    document.getElementById("transkrip").classList.add("bi");
+                    document.getElementById("transkrip").classList.add("bi-exclamation-circle");
+                    document.getElementById("transkrip").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("transkrip").classList.add("far");
+                    document.getElementById("transkrip").classList.add("fa-circle");
+                    document.getElementById("transkrip").classList.add("nav-icon");
+                }
+                if (result.rekomendasi>0) {
+                    document.getElementById("rekomendasi").classList.add("bi");
+                    document.getElementById("rekomendasi").classList.add("bi-exclamation-circle");
+                    document.getElementById("rekomendasi").classList.add("mx-1");
+                } else
+                {
+                    document.getElementById("rekomendasi").classList.add("far");
+                    document.getElementById("rekomendasi").classList.add("fa-circle");
+                    document.getElementById("rekomendasi").classList.add("nav-icon");
+                }
+                
+    }
+    </script>

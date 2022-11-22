@@ -631,4 +631,25 @@ class PelayananAdminController extends Controller
 
         return back()->with('failed', 'Gagal Mengambil Data!');
     }
+
+    public function sidebarStatus()
+    {
+        $transkrip = PermohonanTranskripNilaiModel::where('status_surat', null)->count();
+        $aktifKuliah = SuratAktifKuliahModel::whereNull('status_surat')->count();
+        $kp = SuratKPModel::where('status_surat', null)->count();
+        $magang = SuratMagangModel::where('status_surat', null)->count();
+        $pengambilanData = SuratPengambilanDataModel::where('status_surat', null)->count();
+        $rekomendasi = SuratRekomendasiModel::where('status_surat', null)->count();
+
+        $data = [
+            'aktifKuliah' => $aktifKuliah,
+            'transkrip' => $transkrip,
+            'kp' => $kp,
+            'magang' => $magang,
+            'pengambilanData' => $pengambilanData,
+            'rekomendasi' => $rekomendasi
+        ];
+
+        return response()->json($data, 200);
+    }
 }
