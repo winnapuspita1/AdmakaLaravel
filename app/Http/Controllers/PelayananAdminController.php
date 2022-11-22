@@ -553,13 +553,9 @@ class PelayananAdminController extends Controller
             }           
             $data = [
                 'data' => $surat,
+                'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Aktif Kuliah',
             ];
-            if($surat[0]->id_mahasiswa){
-                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
-                $data['no_hp'] = $no_hp[0]->nomor_hp;
-            }
-
             return view('admin.previewDraftAktifKuliah', $data);
         } elseif ($jenis_surat === 'kp') {
             $surat = SuratKPModel::where('id', $id_permohonan)->get();
@@ -569,13 +565,9 @@ class PelayananAdminController extends Controller
             }
             $data = [
                 'data' => $surat,
+                'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Praktik Kerja',
             ];
-            if($surat[0]->id_mahasiswa){
-                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
-                $data['no_hp'] = $no_hp[0]->nomor_hp;
-            }
-
             return view('admin.previewDraftKP', $data);
         } elseif ($jenis_surat === 'magang') {
             $surat = SuratMagangModel::where('id', $id_permohonan)->get();
@@ -585,13 +577,9 @@ class PelayananAdminController extends Controller
             }
             $data = [
                 'data' => $surat,
+                'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Magang',
             ];
-            if($surat[0]->id_mahasiswa){
-                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
-                $data['no_hp'] = $no_hp[0]->nomor_hp;
-            }
-
             return view('admin.previewDraftMagang', $data);
         } elseif ($jenis_surat === 'pengambilan_data') {
             $surat = SuratPengambilanDataModel::where('id', $id_permohonan)->get();
@@ -601,13 +589,9 @@ class PelayananAdminController extends Controller
             }
             $data = [
                 'data' => $surat,
+                'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Pengambilan Data',
             ];
-            if($surat[0]->id_mahasiswa){
-                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
-                $data['no_hp'] = $no_hp[0]->nomor_hp;
-            }
-
             return view('admin.previewDraftPengambilanData', $data);
         } elseif ($jenis_surat === 'transkrip_nilai') {
             return back()->with('failed', 'Gagal Mengambil Data!');
@@ -619,13 +603,9 @@ class PelayananAdminController extends Controller
             }
             $data = [
                 'data' => $surat,
+                'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Rekomendasi',
             ];
-            if($surat[0]->id_mahasiswa){
-                $no_hp = User::select('nomor_hp')->where('id', $surat[0]->id_mahasiswa)->get();
-                $data['no_hp'] = $no_hp[0]->nomor_hp;
-            }
-
             return view('admin.previewDraftRekomendasi', $data);
         }
 

@@ -17,6 +17,7 @@ class SuratAktifKuliahModel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'no_hp',
         'nama',
         'email',
         'nim',

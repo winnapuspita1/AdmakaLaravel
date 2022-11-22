@@ -17,6 +17,7 @@ class SuratMagangModel extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'no_hp',
         'nama',
         'nim',
         'email',

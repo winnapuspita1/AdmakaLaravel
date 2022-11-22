@@ -1,4 +1,4 @@
-<div class="grid gap-4 grid-cols-1 sm:grid-cols-2 mb-6">
+<div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
     <div>
         <div class="mb-6">
             <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">

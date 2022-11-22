@@ -45,6 +45,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -54,6 +55,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -63,6 +65,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -72,6 +75,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -81,6 +85,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -90,6 +95,7 @@ class HomepageController extends Controller
                 'email' => $validated['email'],
                 'nim' => $validated['nim'],
                 'status_surat' => null,
+                'no_hp' => $validated['no_hp'],
             ], $validated);
         }
 
@@ -101,6 +107,7 @@ class HomepageController extends Controller
     protected function suratAktifKuliahTranskripRekomendasi(Request $request)
     {
         return $request->validate([
+            'no_hp' => 'required|numeric|digits_between:1,11',
             'email' => 'required|email',
             'nim' => 'required',
             'nama' => 'required',
@@ -114,6 +121,7 @@ class HomepageController extends Controller
     protected function suratPengambilanData(Request $request)
     {
         return $request->validate([
+            'no_hp' => 'required|numeric|digits_between:1,11',
             'email' => 'required|email',
             'nim' => 'required',
             'nama' => 'required',
@@ -131,6 +139,7 @@ class HomepageController extends Controller
     protected function suratKpMagang(Request $request)
     {
         return $request->validate([
+            'no_hp' => 'required|numeric|digits_between:1,11',
             'email' => 'required|email',
             'nim' => 'required',
             'nama' => 'required',
