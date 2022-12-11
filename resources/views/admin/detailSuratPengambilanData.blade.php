@@ -97,8 +97,13 @@
                         </div>
                         <div class="mb-3">
                             <input type="hidden" name="id" value="{{$data[0]['id']}}">
-                            <input type="hidden" name="nim" value="{{$data[0]['nim']}}">                            
+                            <input type="hidden" name="nim" value="{{$data[0]['nim']}}">       
+                            <input type="hidden" name="edit" value="{{$edit}}">                     
                             <input class="form-control" type="file" id="" name="dokumen">
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_surat">Nomor Surat</label>
+                            <input id="no_surat" type="text" class="form-control" name="no_surat" value="{{$data[0]['no_surat']}}">
                         </div>
                         <div class="">
                             @if ($edit === false)

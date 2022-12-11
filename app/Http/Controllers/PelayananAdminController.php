@@ -90,14 +90,23 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratAktifKuliahModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            SuratAktifKuliahModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+            return back()->with('success', 'Berhasil Upload Data!');
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function SuratKP()
@@ -134,14 +143,23 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratKPModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            SuratKPModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+            return back()->with('success', 'Berhasil Upload Data!');
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function SuratMagang()
@@ -178,14 +196,22 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratMagangModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            SuratMagangModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function SuratPengambilanData()
@@ -222,14 +248,23 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratPengambilanDataModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            SuratPengambilanDataModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+            return back()->with('success', 'Berhasil Upload Data!');
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function SuratTranskripNilai()
@@ -266,14 +301,23 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             PermohonanTranskripNilaiModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            PermohonanTranskripNilaiModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+            return back()->with('success', 'Berhasil Upload Data!');
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function SuratRekomendasi()
@@ -310,14 +354,23 @@ class PelayananAdminController extends Controller
                 $filename,
                 'local'
             );
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratRekomendasiModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
+                'no_surat' => $no_surat,
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
+        if (! isset($request->dokumen) && $request->edit === 'true') {
+            $no_surat = (isset($request->no_surat))?$request->no_surat:'';
+            SuratRekomendasiModel::where('id', $request->id)->update([
+                'no_surat' => $no_surat,
+            ]);
+            return back()->with('success', 'Berhasil Upload Data!');
+        }
 
-        return back()->with('failed', 'Gagal Upload Data!');
+        return back()->with('failed', 'Gagal Upload Data!. Pastikan File Surat dan Nomor Surat Terisi!');
     }
 
     public function StatusSurat($jenis_surat, $id, $status_surat)

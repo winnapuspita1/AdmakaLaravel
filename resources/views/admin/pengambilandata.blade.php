@@ -94,6 +94,7 @@
                             <th scope="col">Nama</th>
                             <th scope="col">Tanggal Surat Masuk</th>
                             <th scope="col">Tanggal Surat Selesai</th>
+                            <th scope="col">Nomor Surat</th>
                             <th scope="col">Status Surat</th>
                             <th scope="col">Aksi</th>
                             <th scope="col">Detail</th>
@@ -111,6 +112,7 @@
                               <td>{{ $item['nama'] }}</td>
                               <td>{{ $item['created_at']->format('d-m-Y') }}</td>
                               <td>{{ ($item['status_surat'] === 'Selesai')? $item['updated_at']->format('d-m-Y') : '-' }}</td>
+                              <td>{{ $item['no_surat'] }}</td>
                               <td>{{ $item['status_surat']}}</td>
                               <td>
                                 <div class="dropdown">
