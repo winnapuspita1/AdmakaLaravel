@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'AKUN Super Admin',
                 'email' => 'superadmin@superadmin.com',
-                'password' => Hash::make('12341234'),
+                'password' => Hash::make('123412345'),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'AKUN Admin',
                 'email' => 'admin@admin.com',
-                'password' => Hash::make('12341234'),
+                'password' => Hash::make('123412345'),
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
