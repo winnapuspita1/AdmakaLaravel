@@ -4,8 +4,10 @@
 
 @section('content')
     <div class="container mx-auto px-2 sm:px-4 py-2.5 mb-5">
+
         <h3 class="text-center text-xl font-semibold sm:text-3xl">Halo, Selamat Datang di <span
                 class="text-sky-700">Pelayanan Akademik Teknik Informatika</span></h3>
+
         <p class="text-center mt-2">
             Semua jadi lebih mudah, ringan dan cepat.
             Pantau status request di halaman
