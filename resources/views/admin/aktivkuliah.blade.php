@@ -113,7 +113,18 @@
                                     <td>{{ $item['created_at']->format('d-m-Y') }}</td>
                                     <td>{{ ($item['status_surat'] === 'Selesai')? $item['updated_at']->format('d-m-Y') : '-' }}</td>
                                     <td>{{ $item['no_surat'] }}</td>
-                                    <td>{{ $item['status_surat']}}</td>
+                                    <td>
+                                      @if($item['status_surat'] === 'Selesai')
+                                      <p class="text-success">{{$item['status_surat']}}</p>
+                                      @endif
+                                      @if($item['status_surat'] === 'Diterima')
+                                      <p class="text-primary">{{$item['status_surat']}}</p>
+                                      @endif
+                                      @if($item['status_surat'] === 'Proses Pengerjaan')
+                                      <p class="text-warning">{{$item['status_surat']}}</p>
+                                      @endif
+                                    </td>
+
                                     <td>
                                       <div class="dropdown">
                                         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
