@@ -31,7 +31,7 @@
                         <p class="my-0 fw-bold h5">FAKULTAS TEKNIK</p>
                         <p class="my-0">Jl. Politeknik Senggarang Telp. (0771)4500097; Fax. (0771)4500097</p>
                         <p class="my-0">PO. BOX 155, Tanjungpinang 29100</p>
-                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : teknik@umrah.ac.id</p>
+                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : ft@umrah.ac.id</p>
                     </div>
                 </div>
             </div>
@@ -63,8 +63,8 @@
                             <p>: {{$item['nama']}}</p>
                             <p>: {{$item['nim']}}</p>
                             <p>: {{$item['tempat_lahir']. ', ' .$item['tanggal_lahir']}}</p>
-                            <p>: {{$item['program_studi']}} / S-1</p>
-                            <p>: {{'- / T.A ' . date('Y'). '-' .date('Y', strtotime('+1 year'))}}</p>
+                            <p>: {{$item['program_studi']}} / Strata 1</p>
+                            <p>: {{'- / T.A ' . date('Y'). '/' .date('Y', strtotime('+1 year'))}}</p>
                             <p>: {{$no_hp ?? ''}}</p>
                         @endforeach
                     </div>
@@ -73,7 +73,7 @@
             <div class="d-flex flex-row mx-auto mt-3">
                 <div class="">
                     <p class="my-0">Adalah benar Mahasiswa <b>Aktif</b> di Fakultas Teknik Universitas Maritim Raja Ali Haji</p>
-                    <p class="my-0">Tahun Akademik 2022/2023.</p>
+                    <p class="my-0">Tahun Akademik {{date('Y')}}/2023.</p>
                 </div>
             </div>
             <div class="d-flex flex-row mx-auto mt-3 mb-5">
@@ -89,7 +89,7 @@
                     <p class="my-0">Tanjungpinang, {{date('d F Y')}}</p>
                     <p style="margin-bottom: 100px">Dekan,</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
-                    <p class="my-0">NIP 198904132015041005</p>
+                    <p class="my-0">NIP. 198904132015041005</p>
                 </div>
             </div>
             

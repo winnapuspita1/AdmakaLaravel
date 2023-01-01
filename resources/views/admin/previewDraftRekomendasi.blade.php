@@ -31,7 +31,7 @@
                         <p class="my-0 fw-bold h5">FAKULTAS TEKNIK</p>
                         <p class="my-0">Jl. Politeknik Senggarang Telp. (0771)4500097; Fax. (0771)4500097</p>
                         <p class="my-0">PO. BOX 155, Tanjungpinang 29100</p>
-                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : teknik@umrah.ac.id</p>
+                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : ft@umrah.ac.id</p>
                     </div>
                 </div>
             </div>
@@ -58,11 +58,11 @@
                         <p>&emsp;&emsp;No Tlp / Whatsapp</p>
                     </div>
                     <div class="d-flex flex-column">
-                        <p class="my-0">: ….………</p>
-                        <p class="my-0">: ….………</p>
-                        <p class="my-0">: ….………</p>
-                        <p class="my-0">: ….………</p>
-                        <p>: ….………</p>
+                        <p class="my-0">&emsp;&emsp;: ….………</p>
+                        <p class="my-0">&emsp;&emsp;: ….………</p>
+                        <p class="my-0">&emsp;&emsp;: ….………</p>
+                        <p class="my-0">&emsp;&emsp;: ….………</p>
+                        <p>&emsp;&emsp;: ….………</p>
                     </div>
                 </div>
             </div>            
@@ -92,14 +92,14 @@
                     </div>
                 </div>
             </div>  
-            <div class="d-flex flex-row mx-auto mt-2">
+            <div class="d-flex flex-row mx-auto mt-2" >
                 <div class="d-flex flex-column">
-                    <p class="my-0">Untuk menjadi peserta Program Kampus Merdeka - Studi Independen Bersertifikat Tahun 2022 yang diselenggarakan oleh Kemendikbud Ristek.</p>
-                <p class="my-0">Dengan ini kami menyatakan bahwa yang bersangkutan benar-benar terdaftar sebagai mahasiswa aktif pada program studi <b>Teknik Informatika</b>, Fakultas Teknik Tahun Akademik 2022/2023.</p>
+                    <p class="my-0" >Untuk menjadi peserta Program Kampus Merdeka - Studi Independen Bersertifikat Tahun {{date('Y')}} yang diselenggarakan oleh Kemendikbud Ristek.</p>
+                <p class="my-0">Dengan ini kami menyatakan bahwa yang bersangkutan benar-benar terdaftar sebagai mahasiswa aktif pada program studi <b>Teknik Informatika</b>, Fakultas Teknik Tahun Akademik {{date('Y')}}/{{date('Y', strtotime('+1 year'))}}.</p>
                 <p class="my-0">Kami menyatakan kesediaan untuk: </p>
-                <p class="my-0">1.	Memberikan dukungan sepenuhnya serta bertanggung jawab bilamana terjadi sesuatu hal selama mengikuti program Studi Independen Bersertifikat Tahun 2022 sejak awal sampai akhir program</p>
-                <p class="my-0">2.	Mendukung proses belajar mahasiswa/i kami melalui pengalaman Studi Independen Bersertifikat Tahun 2022</p>
-                <p class="my-0">3.	Memberikan pengakuan dan konversi 20 sks dalam sistem akademik yang berlaku di Universitas Maritim Raja Ali Haji sesuai peraturan dari Kemendikbud Ristek untuk dapat berpartisipasi dalam program Studi Independen Bersertifikat tahun 2022.</p>
+                <p class="my-0">1.	Memberikan dukungan sepenuhnya serta bertanggung jawab bilamana terjadi sesuatu hal selama mengikuti program Studi Independen Bersertifikat Tahun {{date('Y')}} sejak awal sampai akhir program</p>
+                <p class="my-0">2.	Mendukung proses belajar mahasiswa/i kami melalui pengalaman Studi Independen Bersertifikat Tahun {{date('Y')}}</p>
+                <p class="my-0">3.	Memberikan pengakuan dan konversi 20 sks dalam sistem akademik yang berlaku di Universitas Maritim Raja Ali Haji sesuai peraturan dari Kemendikbud Ristek untuk dapat berpartisipasi dalam program Studi Independen Bersertifikat tahun {{date('Y')}}.</p>
                 </div>
             </div>
             <div class="d-flex flex-row mx-auto mt-3 mb-5">
@@ -113,7 +113,7 @@
                     <p class="my-0">Tanjungpinang, {{date('d F Y')}}</p>
                     <p style="margin-bottom: 100px">Dekan Fakultas Teknik</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
-                    <p class="my-0">NIP 198904132015041005</p>
+                    <p class="my-0">NIP. 198904132015041005</p>
                 </div>
             </div>
             

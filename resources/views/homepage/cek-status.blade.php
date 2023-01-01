@@ -92,6 +92,7 @@
                 info: false,
                 lengthChange: false,
                 paging: false,
+                order: [[2, 'desc']]
             });
 
             $('form').on('submit', function(e){

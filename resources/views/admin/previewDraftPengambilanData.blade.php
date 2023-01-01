@@ -31,7 +31,7 @@
                         <p class="my-0 fw-bold h5">FAKULTAS TEKNIK</p>
                         <p class="my-0">Jl. Politeknik Senggarang Telp. (0771)4500097; Fax. (0771)4500097</p>
                         <p class="my-0">PO. BOX 155, Tanjungpinang 29100</p>
-                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : teknik@umrah.ac.id</p>
+                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : ft@umrah.ac.id</p>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 </div> 
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/2022</p>
+                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/{{date('Y')}}</p>
                         <p class="my-0">{{date('d F Y')}}</p>
                     </div>
                     <p>: Permohonan Pengambilan Data</p>
@@ -60,7 +60,7 @@
                 </div>            
             </div>
             <div class="d-flex flex-row mx-auto mt-4">
-                <p>Dengan Hormat,</p>
+                <p>Dengan hormat,</p>
             </div>
             <div class="d-flex flex-row mx-auto mt-2">
                 <p>Kami menginformasikan bahwa Mahasiswa Fakultas Teknik Universitas Maritim Raja Ali Haji sebagai berikut :</p>
@@ -90,13 +90,11 @@
                     <p>Akan mengadakan penelitian sebagai salah satu syarat menyelesaikan penyusunan skripsi dengan judul:</p>
                 </div>
             </div>
-            <div class="d-flex flex-row mx-auto mt-3">
-                <div class="container">
+            <div class="d-flex flex-row mx-auto mt-1">
                     <p class="text-center"><b>{!! $data[0]->judul_skripsi !!}</b></p>
-                </div>
             </div>
             <div>
-                <div class="d-flex flex-row mx-auto mt-3">
+                <div class="d-flex flex-row mx-auto mt-1">
                     <p>Berhubungan dengan ini, diharapkan untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
                 </div>
             </div>

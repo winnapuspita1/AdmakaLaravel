@@ -24,8 +24,8 @@
         @endif
 
         <div class="card-body">
-            <div class="ps-5 pe-5">
-                <div class="ps-5 pe-5">
+            <div class="">
+                <div class="" style="overflow:auto">
                     <table id="table_id" class="display table shadow table-bordered rounded-1" style="width:100%">
                         <thead>
                         <tr>

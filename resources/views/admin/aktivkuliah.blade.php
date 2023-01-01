@@ -39,8 +39,8 @@
           <div class="tab-content mt-5" id="pills-tabContent">
             <!-- Menu Belum Diterima -->
             <div class="tab-pane fade" id="pills-belum-diterima" role="tabpanel" aria-labelledby="pills-belum-diterima-tab">
-                <div class="ps-5 pe-5">
-                    <div class="ps-5 pe-5">
+                <div class="">
+                    <div class="" style="overflow:auto">
                         <table id="table_id" class="display table shadow table-bordered rounded-1" style="width:100%">
                           <thead>
                             <tr>
@@ -86,7 +86,7 @@
             <!-- Menu Diterima -->
             <div class="tab-pane fade" id="pills-diterima" role="tabpanel" aria-labelledby="pills-diterima-tab">
                 <div class="">
-                    <div class="">
+                    <div class="" style="overflow:auto">
                         <table id="table_id2" class="display table shadow table-bordered rounded-1" style="width:100%">
                           <thead>
                             <tr>

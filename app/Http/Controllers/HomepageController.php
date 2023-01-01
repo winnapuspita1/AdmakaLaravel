@@ -226,7 +226,6 @@ class HomepageController extends Controller
 
                     return '-';
                 })
-                ->rawColumns(['action'])
                 ->toJson();
         }
 

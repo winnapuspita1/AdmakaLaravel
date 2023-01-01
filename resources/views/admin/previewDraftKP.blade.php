@@ -31,7 +31,7 @@
                         <p class="my-0 fw-bold h5">FAKULTAS TEKNIK</p>
                         <p class="my-0">Jl. Politeknik Senggarang Telp. (0771)4500097; Fax. (0771)4500097</p>
                         <p class="my-0">PO. BOX 155, Tanjungpinang 29100</p>
-                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : teknik@umrah.ac.id</p>
+                        <p class="my-0">Website : <a href="https://ft.umrah.ac.id">https://ft.umrah.ac.id</a> e-mail : ft@umrah.ac.id</p>
                     </div>
                 </div>
             </div>
@@ -43,10 +43,10 @@
                 </div> 
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/2022</p>
+                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/{{date('Y')}}</p>
                         <p class="my-0">{{date('d F Y')}}</p>
                     </div>
-                    <p>: Permohonan Praktik Kerja</p>
+                    <p>: Permohonan Kerja Praktik </p>
                 </div>     
             </div>
             
@@ -60,7 +60,7 @@
                 </div>            
             </div>
             <div class="d-flex flex-row mx-auto mt-4">
-                <p>Dengan Hormat,</p>
+                <p>Dengan hormat,</p>
             </div>
             <div class="d-flex flex-row mx-auto mt-2">
                 <p>Sehubungan dengan pelaksanaan mata kuliah kerja praktik mahasiswa sesuai dengan kurikulum Program Studi yang berada di lingkungan Fakultas Teknik Universitas Maritim Raja Ali Haji, maka dengan ini kami sampaikan mahasiswa berikut ini :</p>
@@ -89,7 +89,8 @@
             </div>
             <div>
                 <div class="d-flex flex-row mx-auto mt-3">
-                    <p>Adapun pelaksanaan waktu Praktik Kerja akan dilaksanakan mulai dari tanggal {{date('d-F-Y',strtotime($data[0]->tanggal_mulai))}} s.d {{date('d-F-Y',strtotime($data[0]->tanggal_selesai))}}. Besar harapan kami untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
+                    <p>Adapun pelaksanaan waktu kerja praktik akan dilaksanakan mulai dari tanggal 
+                        {{date('d F Y',strtotime($data[0]->tanggal_mulai))}} s.d {{date('d F Y',strtotime($data[0]->tanggal_selesai))}}. Besar harapan kami untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
                 </div>
             </div>
             <div class="d-flex flex-row mx-auto mt-3 mb-5">
@@ -104,7 +105,7 @@
                 <div class="d-flex flex-column">
                     <p style="margin-bottom: 100px">Dekan,</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
-                    <p class="my-0">NIP 198904132015041005</p>
+                    <p class="my-0">NIP. 198904132015041005</p>
                 </div>
             </div>
             

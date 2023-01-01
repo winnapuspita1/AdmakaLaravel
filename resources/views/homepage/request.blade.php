@@ -41,7 +41,7 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Nama
                         </label>
-                        <input name="nama" type="text"
+                        <input name="nama" id="nama"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Nama Anda">
                         <span id="nama" class="text-sm text-red-500"></span>
@@ -52,16 +52,22 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Program Studi
                         </label>
-                        <input name="program_studi" type="text"
+                        <select name="program_studi" id="program_studi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option disabled selected >Pilih Program Studi</option>
+                        <option value="Teknik Informatika">Teknik Informatika</option>
+                        <option value="Teknik Elektro">Teknik Elektro</option>
+                        <option value="Teknik Perkapalan">Teknik Perkapalan</option>
+                        </select>
+                        <!-- <input name="program_studi" type="text"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="teknik informatika">
-                        <span id="program_studi" class="text-sm text-red-500"></span>
+                            placeholder="teknik informatika">-->
+                        <span id="program_studi" class="text-sm text-red-500"></span> 
                     </div>
                     <div class="mb-6">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tempat Lahir
                         </label>
-                        <input name="tempat_lahir" type="text"
+                        <input name="tempat_lahir" type="text" id="tempat_lahir"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="tanjung pinang">
                         <span id="tempat_lahir" class="text-sm text-red-500"></span>
@@ -129,6 +135,22 @@
 
 @push('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.0/classic/ckeditor.js"></script>
+
+    <script>
+        document.getElementById("nama").addEventListener("input", forceLower);
+        document.getElementById("tempat_lahir").addEventListener("input", forceLower);
+        document.getElementById("alamat_surat").addEventListener("input", forceLower);
+
+        function forceLower(evt) {
+        var words = evt.target.value.toLowerCase().split(/\s+/g);
+        
+        var newWords = words.map(function(element){   
+            return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
+        });
+        
+        evt.target.value = newWords.join(" "); 
+        }
+    </script>
     <script>
         ClassicEditor
             .create(document.querySelector('#editor'))
