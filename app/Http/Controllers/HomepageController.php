@@ -11,6 +11,7 @@ use App\Models\SuratMagangModel;
 use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Yajra\DataTables\DataTables;
 
@@ -106,23 +107,30 @@ class HomepageController extends Controller
 
     protected function suratAktifKuliahTranskripRekomendasi(Request $request)
     {
-        return $request->validate([
+        return Validator::make($request->all(),[
             'no_hp' => 'required|numeric|digits_between:1,25',
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/(.*)@student\.umrah\.ac\.id/i',
             'nim' => 'required',
             'nama' => 'required',
             'program_studi' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
             'keperluan' => 'required',
-        ]);
+        ],
+        [
+            'email.regex' => "Gunakan email UMRAH!",
+            'required' => 'Form tidak boleh kosong!',
+            'numeric' => 'Hanya angka!',
+            'email.email' => 'Format email salah!',
+            'digits_between' => ' Nomor 1-25 Digit!',
+        ])->safe()->all();;
     }
 
     protected function suratPengambilanData(Request $request)
     {
-        return $request->validate([
+        return Validator::make($request->all(),[
             'no_hp' => 'required|numeric|digits_between:1,25',
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/(.*)@student\.umrah\.ac\.id/i',
             'nim' => 'required',
             'nama' => 'required',
             'program_studi' => 'required',
@@ -133,14 +141,21 @@ class HomepageController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
             'judul_skripsi' => 'required',
-        ]);
+        ],
+        [
+            'email.regex' => "Gunakan email UMRAH!",
+            'required' => 'Form tidak boleh kosong!',
+            'numeric' => 'Hanya angka!',
+            'email.email' => 'Format email salah!',
+            'digits_between' => ' Nomor 1-25 Digit!',
+        ])->safe()->all();;
     }
 
     protected function suratKpMagang(Request $request)
     {
-        return $request->validate([
+        return Validator::make($request->all(),[
             'no_hp' => 'required|numeric|digits_between:1,25',
-            'email' => 'required|email',
+            'email' => 'required|email|regex:/(.*)@student\.umrah\.ac\.id/i',
             'nim' => 'required',
             'nama' => 'required',
             'program_studi' => 'required',
@@ -150,7 +165,14 @@ class HomepageController extends Controller
             'alamat_surat' => 'required',
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required',
-        ]);
+        ],
+        [
+            'email.regex' => "Gunakan email UMRAH!",
+            'required' => 'Form tidak boleh kosong!',
+            'numeric' => 'Hanya angka!',
+            'email.email' => 'Format email salah!',
+            'digits_between' => ' Nomor 1-25 Digit!',
+        ])->safe()->all();;
     }
 
     public function cekStatus(Request $request)
