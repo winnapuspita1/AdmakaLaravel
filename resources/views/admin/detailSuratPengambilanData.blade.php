@@ -107,11 +107,12 @@
                         </div>
                         <div class="">
                             @if ($edit === false)
-                        <button type="submit" class="btn btn-primary">Upload File</button>
-                    @else
-                        <button type="submit" class="btn btn-primary">Edit File</button>
-                    @endif
-                    <a class="btn btn-success" href="{{url('preview_draft_surat/pengambilan_data/'.$data[0]['id'])}}">Preview Draft</a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        @else
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        @endif
+                        <a class="btn btn-success" href="{{url('preview_draft_surat/pengambilan_data/'.$data[0]['id'])}}">Preview Draft</a>
+                        <a class="btn btn-info" href="{{url('download_surat/pengambilan_data/'.$data[0]['id'].'/download')}}">Download Surat</a>
                         </div>
                     
                 </form>

@@ -13,8 +13,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    div{
+        font-family: "Times New Roman", Times, serif;
+    }
+  </style>
 </head>
 <body>
+    @php
+        $fmt= new IntlDateFormatter(
+        'id_ID',
+        IntlDateFormatter::LONG,
+        IntlDateFormatter::NONE,
+        'Asia/Jakarta',
+        IntlDateFormatter::GREGORIAN,
+        );
+    @endphp
     <div class="sticky-top">
         <a class="btn btn-primary ms-3 mt-3" href="{{url('detail_surat_pengambilan_data/'.$data[0]['id'])}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     </div>
@@ -43,8 +57,8 @@
                 </div> 
                 <div class="d-flex flex-column">
                     <div class="d-flex">
-                        <p class="my-0" style="width: 500px">: ………/UN53.4/KM/{{date('Y')}}</p>
-                        <p class="my-0">{{date('d F Y')}}</p>
+                        <p class="my-0" style="width: 500px">: {{(isset($data[0]->no_surat))?$data[0]->no_surat:'………'}}/UN53.4/KM/{{date('Y')}}</p>
+                        <p class="my-0">{{$fmt->format(Carbon\Carbon::now())}}</p>
                     </div>
                     <p>: Permohonan Pengambilan Data</p>
                 </div>     
@@ -63,7 +77,7 @@
                 <p>Dengan hormat,</p>
             </div>
             <div class="d-flex flex-row mx-auto mt-2">
-                <p>Kami menginformasikan bahwa Mahasiswa Fakultas Teknik Universitas Maritim Raja Ali Haji sebagai berikut :</p>
+                <p style="text-align: justify;text-justify: inter-word;">Kami menginformasikan bahwa Mahasiswa Fakultas Teknik Universitas Maritim Raja Ali Haji sebagai berikut :</p>
             </div>
             <div >
                 <div class="d-flex flex-row mx-auto">
@@ -77,7 +91,7 @@
                     <div class="d-flex flex-column">
                         @foreach ($data as $item)
                             <p class="my-0">: {{$item['nama']}}</p>
-                            <p class="my-0">: {{$item['tempat_lahir']. ', ' .$item['tanggal_lahir']}}</p>
+                            <p class="my-0">: {{$item['tempat_lahir']. ', ' .$fmt->format(strtotime($item['tanggal_lahir']))}}</p>
                             <p class="my-0">: {{$item['nim']}}</p>
                             <p class="my-0">: {{$item['program_studi']}}</p>
                             <p class="my-0">: {{$no_hp ?? ''}}</p>
@@ -87,15 +101,15 @@
             </div>     
             <div>
                 <div class="d-flex flex-row mx-auto mt-3">
-                    <p>Akan mengadakan penelitian sebagai salah satu syarat menyelesaikan penyusunan skripsi dengan judul:</p>
+                    <p style="text-align: justify;text-justify: inter-word;">Akan mengadakan penelitian sebagai salah satu syarat menyelesaikan penyusunan skripsi dengan judul:</p>
                 </div>
             </div>
-            <div class="d-flex flex-row mx-auto mt-1">
-                    <p class="text-center"><b>{!! $data[0]->judul_skripsi !!}</b></p>
+            <div class="d-flex flex-row fw-bold">
+                    <div class="mx-auto"><q>{{ strip_tags($data[0]->judul_skripsi) }}</q></div>
             </div>
             <div>
                 <div class="d-flex flex-row mx-auto mt-1">
-                    <p>Berhubungan dengan ini, diharapkan untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
+                    <p style="text-align: justify;text-justify: inter-word;">Berhubungan dengan ini, diharapkan untuk dapat memberikan kesempatan serta membantu memfasilitasi mahasiswa sesuai dengan kondisi yang ada.</p>
                 </div>
             </div>
             <div>

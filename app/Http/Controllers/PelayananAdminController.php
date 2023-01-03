@@ -10,7 +10,11 @@ use App\Models\SuratMagangModel;
 use App\Models\SuratPengambilanDataModel;
 use App\Models\SuratRekomendasiModel;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use IntlDateFormatter;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class PelayananAdminController extends Controller
 {
@@ -78,7 +82,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratAktif(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -98,7 +102,7 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratAktifKuliahModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
@@ -131,7 +135,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratKP(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -151,7 +155,7 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratKPModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
@@ -184,7 +188,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratMagang(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -204,11 +208,12 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratMagangModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
             ]);
+            return back()->with('success', 'Berhasil Upload Data!');
         }
 
         return back()->with('failed', 'Gagal Upload Data! Pastikan File Surat dan Nomor Surat Terisi!');
@@ -236,7 +241,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratPengambilanData(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -256,7 +261,7 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratPengambilanDataModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
@@ -289,7 +294,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratTranskripNilai(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -309,7 +314,7 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             PermohonanTranskripNilaiModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
@@ -342,7 +347,7 @@ class PelayananAdminController extends Controller
 
     public function SaveSuratRekomendasi(Request $request)
     {
-        if (! empty($request->dokumen)) {
+        if (isset($request->dokumen)) {
             $extension = $request->dokumen->getClientOriginalExtension();
             if ($extension !== 'pdf') {
                 return back()->with('failed', 'Silahkan Upload File PDF');
@@ -362,7 +367,7 @@ class PelayananAdminController extends Controller
 
             return back()->with('success', 'Berhasil Upload Data!');
         }
-        if (! isset($request->dokumen) && $request->edit === 'true') {
+        if (! isset($request->dokumen)) {
             $no_surat = (isset($request->no_surat))?$request->no_surat:'';
             SuratRekomendasiModel::where('id', $request->id)->update([
                 'no_surat' => $no_surat,
@@ -596,8 +601,15 @@ class PelayananAdminController extends Controller
         return back()->with('success', 'Berhasil Hapus Akun!');
     }
 
-    public function PreviewDraftSurat($jenis_surat, $id_permohonan)
+    public function PreviewDraftSurat($jenis_surat, $id_permohonan, $download = false)
     {
+        $fmt= new IntlDateFormatter(
+            'id_ID',
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::NONE,
+            'Asia/Jakarta',
+            IntlDateFormatter::GREGORIAN,
+            );
         if ($jenis_surat === 'aktif_kuliah') {
             $surat = SuratAktifKuliahModel::where('id', $id_permohonan)->get();
 
@@ -609,6 +621,22 @@ class PelayananAdminController extends Controller
                 'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Aktif Kuliah',
             ];
+            if ($download === 'download') {
+                $templateProcessor = new TemplateProcessor(storage_path('app/template/aktifKuliah.docx'));
+                $templateProcessor->setValues([
+                    'noSurat' => $surat[0]->no_surat,
+                    'dateNow' => $fmt->format(Carbon::now()),
+                    'yearNow' => date('Y'),
+                    'name' => $surat[0]->nama,
+                    'nim' => $surat[0]->nim,
+                    'ttl' => $surat[0]->tempat_lahir.', '.$fmt->format(strtotime($surat[0]->tanggal_lahir)),
+                    'programStudi' => $surat[0]->program_studi,
+                    'noHp' => $surat[0]->no_hp,
+                    'tahunAkademik' => date('Y'). '/' .date('Y', strtotime('+1 year')),
+                ]);
+                $templateProcessor->saveAs(storage_path('app/template/SuratAktifKuliah_'. $surat[0]->nim .'.docx'));
+                return response()->download(storage_path('app/template/SuratAktifKuliah_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
+            }
             return view('admin.previewDraftAktifKuliah', $data);
         } elseif ($jenis_surat === 'kp') {
             $surat = SuratKPModel::where('id', $id_permohonan)->get();
@@ -621,6 +649,24 @@ class PelayananAdminController extends Controller
                 'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Praktik Kerja',
             ];
+            if ($download === 'download') {
+                $templateProcessor = new TemplateProcessor(storage_path('app/template/kp.docx'));
+                $templateProcessor->setValues([
+                    'noSurat' => $surat[0]->no_surat,
+                    'dateNow' => $fmt->format(Carbon::now()),
+                    'yearNow' => date('Y'),
+                    'name' => $surat[0]->nama,
+                    'nim' => $surat[0]->nim,
+                    'programStudi' => $surat[0]->program_studi,
+                    'noHp' => $surat[0]->no_hp,
+                    'tujuan' => $surat[0]->tujuan_surat,
+                    'alamat' => $surat[0]->alamat_surat,
+                    'startDate' => $surat[0]->tanggal_mulai,
+                    'endDate' => $surat[0]->tanggal_selesai,
+                ]);
+                $templateProcessor->saveAs(storage_path('app/template/SuratKP_'. $surat[0]->nim .'.docx'));
+                return response()->download(storage_path('app/template/SuratKP_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
+            }
             return view('admin.previewDraftKP', $data);
         } elseif ($jenis_surat === 'magang') {
             $surat = SuratMagangModel::where('id', $id_permohonan)->get();
@@ -633,6 +679,24 @@ class PelayananAdminController extends Controller
                 'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Magang',
             ];
+            if ($download === 'download') {
+                $templateProcessor = new TemplateProcessor(storage_path('app/template/magang.docx'));
+                $templateProcessor->setValues([
+                    'noSurat' => $surat[0]->no_surat,
+                    'dateNow' => $fmt->format(Carbon::now()),
+                    'yearNow' => date('Y'),
+                    'name' => $surat[0]->nama,
+                    'nim' => $surat[0]->nim,
+                    'programStudi' => $surat[0]->program_studi,
+                    'noHp' => $surat[0]->no_hp,
+                    'tujuan' => $surat[0]->tujuan_surat,
+                    'alamat' => $surat[0]->alamat_surat,
+                    'startDate' => $surat[0]->tanggal_mulai,
+                    'endDate' => $surat[0]->tanggal_selesai,
+                ]);
+                $templateProcessor->saveAs(storage_path('app/template/SuratMagang_'. $surat[0]->nim .'.docx'));
+                return response()->download(storage_path('app/template/SuratMagang_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
+            }
             return view('admin.previewDraftMagang', $data);
         } elseif ($jenis_surat === 'pengambilan_data') {
             $surat = SuratPengambilanDataModel::where('id', $id_permohonan)->get();
@@ -645,6 +709,24 @@ class PelayananAdminController extends Controller
                 'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Pengambilan Data',
             ];
+            if ($download === 'download') {
+                $templateProcessor = new TemplateProcessor(storage_path('app/template/pengambilanData.docx'));
+                $templateProcessor->setValues([
+                    'noSurat' => $surat[0]->no_surat,
+                    'dateNow' => $fmt->format(Carbon::now()),
+                    'yearNow' => date('Y'),
+                    'name' => $surat[0]->nama,
+                    'nim' => $surat[0]->nim,
+                    'ttl' => $surat[0]->tempat_lahir.', '.$fmt->format(strtotime($surat[0]->tanggal_lahir)),
+                    'programStudi' => $surat[0]->program_studi,
+                    'noHp' => $surat[0]->no_hp,
+                    'tujuan' => $surat[0]->tujuan_surat,
+                    'alamat' => $surat[0]->alamat_surat,
+                    'judul' => strip_tags($surat[0]->judul_skripsi),
+                ]);
+                $templateProcessor->saveAs(storage_path('app/template/SuratPengambilanData_'. $surat[0]->nim .'.docx'));
+                return response()->download(storage_path('app/template/SuratPengambilanData_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
+            }
             return view('admin.previewDraftPengambilanData', $data);
         } elseif ($jenis_surat === 'transkrip_nilai') {
             return back()->with('failed', 'Gagal Mengambil Data!');
@@ -659,6 +741,20 @@ class PelayananAdminController extends Controller
                 'no_hp' => $surat[0]->no_hp,
                 'title' => 'Draft Surat Rekomendasi',
             ];
+            if ($download === 'download') {
+                $templateProcessor = new TemplateProcessor(storage_path('app/template/rekomendasi.docx'));
+                $templateProcessor->setValues([
+                    'noSurat' => $surat[0]->no_surat,
+                    'dateNow' => $fmt->format(Carbon::now()),
+                    'yearNow' => date('Y'),
+                    'name' => $surat[0]->nama,
+                    'nim' => $surat[0]->nim,
+                    'programStudi' => $surat[0]->program_studi,
+                    'tahunAkademik' => date('Y'). '/' .date('Y', strtotime('+1 year')),
+                ]);
+                $templateProcessor->saveAs(storage_path('app/template/SuratRekomendasi_'. $surat[0]->nim .'.docx'));
+                return response()->download(storage_path('app/template/SuratRekomendasi_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
+            }
             return view('admin.previewDraftRekomendasi', $data);
         }
 

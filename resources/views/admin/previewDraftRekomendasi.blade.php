@@ -13,8 +13,22 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    div{
+        font-family: "Times New Roman", Times, serif;
+    }
+  </style>
 </head>
 <body>
+    @php
+        $fmt= new IntlDateFormatter(
+        'id_ID',
+        IntlDateFormatter::LONG,
+        IntlDateFormatter::NONE,
+        'Asia/Jakarta',
+        IntlDateFormatter::GREGORIAN,
+        );
+    @endphp
     <div class="sticky-top">
         <a class="btn btn-primary ms-3 mt-3" href="{{url('detail_surat_rekomendasi/'.$data[0]['id'])}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
     </div>
@@ -39,7 +53,7 @@
             <div class="d-flex flex-row mx-auto mt-5">
                 <div class="container text-center">
                     <p class="fw-bold text-decoration-underline my-0">SURAT REKOMENDASI</p>
-                    <p class="my-0">No : ……/UN53.4/TU/{{date('Y')}}</p>
+                    <p class="my-0">No : {{(isset($data[0]->no_surat))?$data[0]->no_surat:'……'}}/UN53.4/TU/{{date('Y')}}</p>
                 </div>
                 
             </div>
@@ -68,7 +82,7 @@
             </div>            
             <div class="d-flex flex-row mx-auto mt-3">
                 <div class="">
-                    <p class="my-0">Dengan ini memberikan rekomendasi dan persetujuan kepada mahasiswa/i kami :</p>
+                    <p class="my-0" style="text-align: justify;text-justify: inter-word;">Dengan ini memberikan rekomendasi dan persetujuan kepada mahasiswa/i kami :</p>
                     
                 </div>
             </div>
@@ -94,12 +108,12 @@
             </div>  
             <div class="d-flex flex-row mx-auto mt-2" >
                 <div class="d-flex flex-column">
-                    <p class="my-0" >Untuk menjadi peserta Program Kampus Merdeka - Studi Independen Bersertifikat Tahun {{date('Y')}} yang diselenggarakan oleh Kemendikbud Ristek.</p>
-                <p class="my-0">Dengan ini kami menyatakan bahwa yang bersangkutan benar-benar terdaftar sebagai mahasiswa aktif pada program studi <b>Teknik Informatika</b>, Fakultas Teknik Tahun Akademik {{date('Y')}}/{{date('Y', strtotime('+1 year'))}}.</p>
+                    <p class="my-0"  style="text-align: justify;text-justify: inter-word;">Untuk menjadi peserta Program Kampus Merdeka - Studi Independen Bersertifikat Tahun {{date('Y')}} yang diselenggarakan oleh Kemendikbud Ristek.</p>
+                <p class="my-0" style="text-align: justify;text-justify: inter-word;">Dengan ini kami menyatakan bahwa yang bersangkutan benar-benar terdaftar sebagai mahasiswa aktif pada program studi <b>Teknik Informatika</b>, Fakultas Teknik Tahun Akademik {{date('Y')}}/{{date('Y', strtotime('+1 year'))}}.</p>
                 <p class="my-0">Kami menyatakan kesediaan untuk: </p>
-                <p class="my-0">1.	Memberikan dukungan sepenuhnya serta bertanggung jawab bilamana terjadi sesuatu hal selama mengikuti program Studi Independen Bersertifikat Tahun {{date('Y')}} sejak awal sampai akhir program</p>
-                <p class="my-0">2.	Mendukung proses belajar mahasiswa/i kami melalui pengalaman Studi Independen Bersertifikat Tahun {{date('Y')}}</p>
-                <p class="my-0">3.	Memberikan pengakuan dan konversi 20 sks dalam sistem akademik yang berlaku di Universitas Maritim Raja Ali Haji sesuai peraturan dari Kemendikbud Ristek untuk dapat berpartisipasi dalam program Studi Independen Bersertifikat tahun {{date('Y')}}.</p>
+                <p class="my-0" style="text-align: justify;text-justify: inter-word;">1.	Memberikan dukungan sepenuhnya serta bertanggung jawab bilamana terjadi sesuatu hal selama mengikuti program Studi Independen Bersertifikat Tahun {{date('Y')}} sejak awal sampai akhir program</p>
+                <p class="my-0" style="text-align: justify;text-justify: inter-word;">2.	Mendukung proses belajar mahasiswa/i kami melalui pengalaman Studi Independen Bersertifikat Tahun {{date('Y')}}</p>
+                <p class="my-0" style="text-align: justify;text-justify: inter-word;">3.	Memberikan pengakuan dan konversi 20 sks dalam sistem akademik yang berlaku di Universitas Maritim Raja Ali Haji sesuai peraturan dari Kemendikbud Ristek untuk dapat berpartisipasi dalam program Studi Independen Bersertifikat tahun {{date('Y')}}.</p>
                 </div>
             </div>
             <div class="d-flex flex-row mx-auto mt-3 mb-5">
@@ -110,7 +124,7 @@
 
                 </div>
                 <div class="d-flex flex-column">
-                    <p class="my-0">Tanjungpinang, {{date('d F Y')}}</p>
+                    <p class="my-0">Tanjungpinang, {{$fmt->format(Carbon\Carbon::now())}}</p>
                     <p style="margin-bottom: 100px">Dekan Fakultas Teknik</p>
                     <p class="my-0">Ir. Sapta Nugraha, S.T., M. Eng.</p>
                     <p class="my-0">NIP. 198904132015041005</p>

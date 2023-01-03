@@ -83,9 +83,9 @@
                         </div>
                         <div class="">
                             @if ($edit === false)
-                        <button type="submit" class="btn btn-primary">Upload File</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     @else
-                        <button type="submit" class="btn btn-primary">Edit File</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     @endif
                         </div>
                     
