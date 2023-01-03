@@ -661,8 +661,8 @@ class PelayananAdminController extends Controller
                     'noHp' => $surat[0]->no_hp,
                     'tujuan' => $surat[0]->tujuan_surat,
                     'alamat' => $surat[0]->alamat_surat,
-                    'startDate' => $surat[0]->tanggal_mulai,
-                    'endDate' => $surat[0]->tanggal_selesai,
+                    'startDate' => $fmt->format(strtotime($surat[0]->tanggal_mulai)),
+                    'endDate' => $fmt->format(strtotime($surat[0]->tanggal_selesai)),
                 ]);
                 $templateProcessor->saveAs(storage_path('app/template/SuratKP_'. $surat[0]->nim .'.docx'));
                 return response()->download(storage_path('app/template/SuratKP_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
@@ -691,8 +691,8 @@ class PelayananAdminController extends Controller
                     'noHp' => $surat[0]->no_hp,
                     'tujuan' => $surat[0]->tujuan_surat,
                     'alamat' => $surat[0]->alamat_surat,
-                    'startDate' => $surat[0]->tanggal_mulai,
-                    'endDate' => $surat[0]->tanggal_selesai,
+                    'startDate' => $fmt->format(strtotime($surat[0]->tanggal_mulai)),
+                    'endDate' => $fmt->format(strtotime($surat[0]->tanggal_selesai)),
                 ]);
                 $templateProcessor->saveAs(storage_path('app/template/SuratMagang_'. $surat[0]->nim .'.docx'));
                 return response()->download(storage_path('app/template/SuratMagang_'. $surat[0]->nim .'.docx'))->deleteFileAfterSend(true);
