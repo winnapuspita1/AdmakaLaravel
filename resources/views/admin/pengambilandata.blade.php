@@ -106,14 +106,24 @@
                           @endphp
                           @if (isset($data[0]['status_surat']) === true)
                           @foreach ($data as $item)
-                            @if ($item['status_surat'] === 'Proses Pengerjaan' || $item['status_surat'] === 'Diterima' || $item['status_surat'] === 'Selesai')
+                            @if (isset($item['status_surat']))
                               <tr>
                               <th scope="row">{{ $number+=1 }}</th>
                               <td>{{ $item['nama'] }}</td>
                               <td>{{ $item['created_at']->format('d-m-Y') }}</td>
                               <td>{{ ($item['status_surat'] === 'Selesai')? $item['updated_at']->format('d-m-Y') : '-' }}</td>
                               <td>{{ $item['no_surat'] }}</td>
-                              <td>{{ $item['status_surat']}}</td>
+                              <td>
+                                @if($item['status_surat'] === 'Selesai')
+                                <p class="text-success">{{$item['status_surat']}}</p>
+                                @elseif($item['status_surat'] === 'Diterima')
+                                <p class="text-primary">{{$item['status_surat']}}</p>
+                                @elseif($item['status_surat'] === 'Proses Pengerjaan')
+                                <p class="text-warning">{{$item['status_surat']}}</p>
+                                @else
+                                <p class="text-danger">{{$item['status_surat']}}</p>
+                                @endif
+                              </td>
                               <td>
                                 <div class="dropdown">
                                   <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -125,6 +135,7 @@
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/pengambilan_data/'.$item['id'] . '/Proses Pengerjaan')}}', 'Proses Surat', 'Proses permohonan surat mahasiswa?')">Proses</a></li>
                                     <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/pengambilan_data/'.$item['id'] . '/Selesai')}}', 'Surat Selesai', 'Permohonan surat akan dialihkan ke bagian draft.')">Selesai</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="myFunctionTolak('{{url('tolak_surat/pengambilan_data/'.$item['id'])}}')">Tolak</a></li>
                                   </ul>
                                 </div>
                               </td>
@@ -167,11 +178,11 @@
   </div>
 </div>
 <!-- Modal Delete-->
-<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Hapus Data</h5>
+        <h5 class="modal-title" id="staticBackdropLabel2">Hapus Data</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -180,6 +191,31 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
         <a id="selesaiBtn2" href="" class="btn btn-danger">Ya</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Ditolak-->
+<div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel3">Tolak Permohonan Surat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="formTolak" method="POST">
+          @csrf
+          <label class="fw-normal" for="tolak">Alasan Permohonan Ditolak :</label>
+          <input type="text" id="tolak" name="tolak" class="form-control" required>
+          @foreach($errors->get('tolak') as $msg)
+            <p class="text-danger font-size:2px">{{ $msg }}</p>
+          @endforeach
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" form="formTolak" class="btn btn-primary">Upload</button>
       </div>
     </div>
   </div>
@@ -213,6 +249,12 @@
       document.getElementById('modal_body').innerText = body;
       var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
       var btn = document.getElementById('selesaiBtn').href = link; 
+      myModal.toggle();
+    }
+    
+    function myFunctionTolak(link) {
+      var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop3'));
+      var btn = document.getElementById('formTolak').action = link; 
       myModal.toggle();
     }
 

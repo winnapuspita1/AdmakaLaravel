@@ -13,6 +13,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use IntlDateFormatter;
 use PhpOffice\PhpWord\TemplateProcessor;
 
@@ -780,5 +781,51 @@ class PelayananAdminController extends Controller
         ];
 
         return response()->json($data, 200);
+    }
+
+    public function tolakSurat(Request $request, $jenis_surat, $id_permohonan)
+    {
+        $validator = Validator::make($request->all(), [
+            'tolak' => 'required|string|max:255',
+        ],['required'=>'Silahkan Isi!']);
+
+        if ($validator->fails()) {
+            return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        // Retrieve the validated input...
+        $validated = $validator->validated();
+
+        if ($jenis_surat === 'aktif_kuliah') {
+            SuratAktifKuliahModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } elseif ($jenis_surat === 'kp') {
+            SuratKPModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } elseif ($jenis_surat === 'magang') {
+            SuratMagangModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } elseif ($jenis_surat === 'pengambilan_data') {
+            SuratPengambilanDataModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } elseif ($jenis_surat === 'transkrip_nilai') {
+            PermohonanTranskripNilaiModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } elseif ($jenis_surat === 'rekomendasi') {
+            SuratRekomendasiModel::where('id', $id_permohonan)->update([
+                'status_surat' => 'Ditolak | '.$validated['tolak'],
+            ]);
+        } else {
+            return back()->with('failed', 'Gagal Update Data!');
+        }
+        return back()->with('success', 'Berhasil Update Data!');
     }
 }

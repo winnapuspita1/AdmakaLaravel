@@ -69,6 +69,8 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::post('/save-surat-rekomendasi-admin', [PelayananAdminController::class, 'SaveSuratRekomendasi']);
     //status surat selesai
     Route::get('status_surat/{jenis_surat}/{id}/{status_surat}', [PelayananAdminController::class, 'StatusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
+    //tolak surat
+    Route::post('/tolak_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'tolakSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
     //hapus permohonan surat
     Route::get('hapus_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'HapusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 
