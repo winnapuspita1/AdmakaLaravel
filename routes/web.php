@@ -26,7 +26,10 @@ Route::get('cek-status', [HomepageController::class, 'cekStatus'])->name('ceksta
 Route::get('download/{jenis_surat}/{id_surat}', [HomepageController::class, 'downloadSurat'])->name('downloadSurat');
 
 Route::get('/dashboard', [PelayananAdminController::class, 'DashboardAdmin'])->middleware(['auth'])->name('dashboard');
-
+//dekan
+Route::get('cek-status-surat', function(){
+    return view('homepage.cek-status-dekan');
+});
 //superadmin
 Route::middleware(['auth', 'can:isSuperAdmin'])->group(function () {
     Route::get('manajemen-akun', [PelayananAdminController::class, 'ManajemenAkun']);

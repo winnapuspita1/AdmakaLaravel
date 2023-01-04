@@ -60,7 +60,7 @@
                 <div class="row mb-3">
                     <label for="kep" class="col-sm-2">Keperluan</label>
                     <div class="col-sm-10">
-                        <p id="kep">: {{$data[0]['keperluan']}}</p>
+                        <p id="kep">: {{strip_tags($data[0]['keperluan'])}}</p>
                     </div>
                 </div>
                 <form action="{{url('save-surat-transkrip-nilai-admin')}}" method="POST"  enctype="multipart/form-data">

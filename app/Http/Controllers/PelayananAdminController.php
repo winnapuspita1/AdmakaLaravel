@@ -56,9 +56,11 @@ class PelayananAdminController extends Controller
         ];
         if (auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin') {
             return view('admin.dashboard', $data);
+        } elseif (auth()->user()->role === 'dekan') {
+            return redirect('/cek-status-surat');
         }
 
-        return url('/login');
+        return back();
     }
 
     public function SuratAktifKuliah()

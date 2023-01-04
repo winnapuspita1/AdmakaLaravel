@@ -40,5 +40,19 @@ class DatabaseSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+
+        DB::table('users')->insert(
+            [
+                'name' => 'Dekan',
+                'email' => 'dekanft@umrah.ac.id',
+                'password' => Hash::make('123412345'),
+                'email_verified_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+                'nomor_hp' => '-',
+                'role' => 'dekan',
+            ]
+        );
+        
     }
 }

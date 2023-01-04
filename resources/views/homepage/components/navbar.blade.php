@@ -26,14 +26,28 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ Route('cekstatus') }}" class="block py-2 pl-3 pr-4 rounded md:p-0 {{ Route::is('cekstatus') ? 'active' : 'inactive' }}">
+                    <a href="{{ (auth()->check())?url('cek-status-surat'):Route('cekstatus') }}" class="block py-2 pl-3 pr-4 rounded md:p-0 {{ Route::is('cekstatus') ? 'active' : 'inactive' }}">
                         Cek Status
                     </a>
                 </li>
                 <li>
                     <a href="{{ Route('dashboard') }}"
                         class="block py-2 pl-3 pr-4 rounded md:p-0 inactive">
-                        {{ auth()->check() ? 'Admin Dashboard' : 'Login' }}
+                        @if (auth()->check())
+                            @if (auth()->user()->role === 'dekan')
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();this.closest('form').submit();" class="nav-link">
+                                    <i class="nav-icon fas fa-columns"></i>Logout
+                                </a>
+                            </form>                            
+                            @elseif (auth()->user()->role === 'admin' || auth()->user()->role === 'superadmin')
+                            {{'Admin Dashboard'}}
+                            @endif
+                        @else
+                        {{'Login'}}
+                        @endif
                     </a>
                 </li>
             </ul>

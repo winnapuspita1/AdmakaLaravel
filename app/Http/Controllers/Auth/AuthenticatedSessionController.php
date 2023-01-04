@@ -30,7 +30,9 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+        if (auth()->user()->role === 'dekan') {
+            return redirect('cek-status-surat');
+        }
         return redirect('/');
     }
 
