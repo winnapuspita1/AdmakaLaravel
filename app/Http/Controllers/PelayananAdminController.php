@@ -15,6 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use IntlDateFormatter;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class PelayananAdminController extends Controller
@@ -829,5 +831,126 @@ class PelayananAdminController extends Controller
             return back()->with('failed', 'Gagal Update Data!');
         }
         return back()->with('success', 'Berhasil Update Data!');
+    }
+
+    public function rekapSurat()
+    {
+        $aktifKuliah = SuratAktifKuliahModel::get();
+        $kp = SuratKPModel::get();
+        $magang = SuratMagangModel::get();
+        $pengambilanData = SuratPengambilanDataModel::get();
+        $transkrip = PermohonanTranskripNilaiModel::get();
+        $rekomendasi = SuratRekomendasiModel::get();
+        $number = 1;
+        $rowNumber = 2;
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setCellValueByColumnAndRow(1, 1, 'No');
+        $sheet->setCellValueByColumnAndRow(2,1,'Nama Mahasiswa');
+        $sheet->setCellValueByColumnAndRow(3,1,'Tanggal Surat Masuk');
+        $sheet->setCellValueByColumnAndRow(4,1,'Tanggal Surat Selesai');
+        $sheet->setCellValueByColumnAndRow(5,1,'Nomor Surat');
+        $sheet->setCellValueByColumnAndRow(6,1,'Jenis Surat');
+        foreach ($aktifKuliah as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Aktif Kuliah');
+
+            $rowNumber+=1;
+        }
+        foreach ($kp as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan KP');
+
+            $rowNumber+=1;
+        }
+        foreach ($magang as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Magang');
+
+            $rowNumber+=1;
+        }
+        foreach ($pengambilanData as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Pengambilan Data');
+
+            $rowNumber+=1;
+        }
+        foreach ($transkrip as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Transkrip Sementara');
+
+            $rowNumber+=1;
+        }
+        foreach ($rekomendasi as $item) {
+            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+            if ($item['status_surat'] === 'Selesai') {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+            } elseif ($item['status_surat'] === null) {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+            } else {
+                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+            }
+            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Rekomendasi');
+
+            $rowNumber+=1;
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save(storage_path('/app/template/'.'RekapPermohonanSurat_'.date('d-m-Y').'.xlsx'));
+        return response()->download(storage_path('/app/template/'.'RekapPermohonanSurat_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
+
     }
 }

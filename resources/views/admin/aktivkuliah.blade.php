@@ -33,7 +33,9 @@
       </ul>
       </div>
       <!-- /.card-header -->
-
+      <div class="text-end mt-4 me-4">
+        <a href ="{{url('rekap_surat')}}" class="btn btn-sm btn-primary"><i class="nav-icon fas fa-download"></i> Rekap Permohonan Surat</a>
+      </div>
       <div class="card-body">
         <div class="tab-content">
           <div class="tab-content mt-5" id="pills-tabContent">

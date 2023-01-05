@@ -76,7 +76,8 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     Route::post('/tolak_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'tolakSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
     //hapus permohonan surat
     Route::get('hapus_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'HapusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
-
+    //rekap surat
+    Route::get('/rekap_surat', [PelayananAdminController::class, 'rekapSurat']);
     Route::get('/kritik_saran_admin', [PelayananAdminController::class, 'KritikSaran']);
     Route::get('/delete_kritik_saran_admin/{id}', [PelayananAdminController::class, 'DeleteKritikSaran'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 
