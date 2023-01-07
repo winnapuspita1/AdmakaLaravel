@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="container mx-auto px-2 sm:px-4 py-2.5 mb-5">
+    {{-- <div class="container mx-auto px-2 sm:px-4 py-2.5 mb-5">
         <form>
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
             <div class="relative">
@@ -34,7 +34,7 @@
                     class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
         </form>
-    </div>
+    </div> --}}
 
     <div class="container mx-auto px-2 sm:px-4 py-1 mb-5">
         <h3 class="text-md font-semibold sm:text-lg mb-3">
@@ -60,10 +60,11 @@
     <script>
         $(document).ready(function() {
             let table = $('#myTable').DataTable({
+                pageLength:15,
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: `{{ Route('cekstatus') }}`,
+                    url: `{{ Route('status-surat') }}`,
                     data: function(e){
                         e.search = $('#search').val()
 
@@ -87,7 +88,7 @@
                 searching: false,
                 info: false,
                 lengthChange: false,
-                paging: false,
+                paging: true,
                 order: [[2, 'desc']]
             });
 

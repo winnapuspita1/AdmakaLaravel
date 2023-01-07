@@ -30,6 +30,7 @@ Route::get('/dashboard', [PelayananAdminController::class, 'DashboardAdmin'])->m
 Route::get('cek-status-surat', function(){
     return view('homepage.cek-status-dekan');
 });
+Route::get('cek-status-surat-dekan', [HomepageController::class, 'statusSurat'])->name('status-surat');
 //superadmin
 Route::middleware(['auth', 'can:isSuperAdmin'])->group(function () {
     Route::get('manajemen-akun', [PelayananAdminController::class, 'ManajemenAkun']);
@@ -77,7 +78,8 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function () {
     //hapus permohonan surat
     Route::get('hapus_surat/{jenis_surat}/{id}', [PelayananAdminController::class, 'HapusSurat'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
     //rekap surat
-    Route::get('/rekap_surat', [PelayananAdminController::class, 'rekapSurat']);
+    Route::get('/rekap_surat/{tipe}', [PelayananAdminController::class, 'rekapSurat']);
+
     Route::get('/kritik_saran_admin', [PelayananAdminController::class, 'KritikSaran']);
     Route::get('/delete_kritik_saran_admin/{id}', [PelayananAdminController::class, 'DeleteKritikSaran'])->where(['id' => '([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9]|[1-9][0-9][0-9][0-9][0-9][0-9])']);
 

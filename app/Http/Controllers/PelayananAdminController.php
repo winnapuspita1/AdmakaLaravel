@@ -833,14 +833,8 @@ class PelayananAdminController extends Controller
         return back()->with('success', 'Berhasil Update Data!');
     }
 
-    public function rekapSurat()
+    public function rekapSurat($tipe)
     {
-        $aktifKuliah = SuratAktifKuliahModel::get();
-        $kp = SuratKPModel::get();
-        $magang = SuratMagangModel::get();
-        $pengambilanData = SuratPengambilanDataModel::get();
-        $transkrip = PermohonanTranskripNilaiModel::get();
-        $rekomendasi = SuratRekomendasiModel::get();
         $number = 1;
         $rowNumber = 2;
         $spreadsheet = new Spreadsheet();
@@ -851,106 +845,140 @@ class PelayananAdminController extends Controller
         $sheet->setCellValueByColumnAndRow(4,1,'Tanggal Surat Selesai');
         $sheet->setCellValueByColumnAndRow(5,1,'Nomor Surat');
         $sheet->setCellValueByColumnAndRow(6,1,'Jenis Surat');
-        foreach ($aktifKuliah as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        if($tipe === 'aktif-kuliah'){
+            $aktifKuliah = SuratAktifKuliahModel::get();
+            foreach ($aktifKuliah as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Aktif Kuliah');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Aktif Kuliah');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratAktifKuliah_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratAktifKuliah_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-        foreach ($kp as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        elseif ($tipe === 'kp'){
+            $kp = SuratKPModel::get();
+            foreach ($kp as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan KP');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan KP');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratKP_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratKP_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-        foreach ($magang as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        elseif ($tipe === 'magang'){
+            $magang = SuratMagangModel::get();        
+            foreach ($magang as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Magang');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Magang');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratMagang_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratMagang_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-        foreach ($pengambilanData as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        elseif ($tipe === 'pengambilan-data'){
+            $pengambilanData = SuratPengambilanDataModel::get();        
+            foreach ($pengambilanData as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Pengambilan Data');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Permohonan Pengambilan Data');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratPengambilanData_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratPengambilanData_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-        foreach ($transkrip as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        elseif ($tipe === 'transkrip'){
+            $transkrip = PermohonanTranskripNilaiModel::get();
+            foreach ($transkrip as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Transkrip Sementara');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Transkrip Sementara');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratTranskrip_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratTranskrip_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-        foreach ($rekomendasi as $item) {
-            $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
-            $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
-            $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
-            if ($item['status_surat'] === 'Selesai') {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
-            } elseif ($item['status_surat'] === null) {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
-            } else {
-                $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+        elseif ($tipe === 'rekomendasi'){
+            $rekomendasi = SuratRekomendasiModel::get();
+            foreach ($rekomendasi as $item) {
+                $sheet->setCellValueByColumnAndRow(1,$rowNumber,$number++);
+                $sheet->setCellValueByColumnAndRow(2,$rowNumber,$item['nama']);
+                $sheet->setCellValueByColumnAndRow(3,$rowNumber,$item['created_at']);
+                if ($item['status_surat'] === 'Selesai') {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['updated_at']);
+                } elseif ($item['status_surat'] === null) {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,'Belum Diproses');
+                } else {
+                    $sheet->setCellValueByColumnAndRow(4,$rowNumber,$item['status_surat']);
+                }
+                $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
+                $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Rekomendasi');
+
+                $rowNumber+=1;
             }
-            $sheet->setCellValueByColumnAndRow(5,$rowNumber,$item['no_surat']);
-            $sheet->setCellValueByColumnAndRow(6,$rowNumber,'Surat Rekomendasi');
-
-            $rowNumber+=1;
+            $writer = new Xlsx($spreadsheet);
+            $writer->save(storage_path('/app/template/'.'RekapPermohonanSuratRekomendasi_'.date('d-m-Y').'.xlsx'));
+            return response()->download(storage_path('/app/template/'.'RekapPermohonanSuratRekomendasi_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
         }
-
-        $writer = new Xlsx($spreadsheet);
-        $writer->save(storage_path('/app/template/'.'RekapPermohonanSurat_'.date('d-m-Y').'.xlsx'));
-        return response()->download(storage_path('/app/template/'.'RekapPermohonanSurat_'.date('d-m-Y').'.xlsx'))->deleteFileAfterSend(true);
-
+        else {
+            return redirect('dashboard')->with('failed', 'Error! Data tidak ditemukan');
+        }
     }
 }

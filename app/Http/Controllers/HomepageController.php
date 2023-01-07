@@ -254,6 +254,85 @@ class HomepageController extends Controller
         return view('homepage.cek-status');
     }
 
+    public function statusSurat(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = [];
+            if (! $request->search) {
+                // code...
+                $suratAktifKuliah = SuratAktifKuliahModel::get();
+                foreach ($suratAktifKuliah as $key => $value) {
+                    $value['title'] = 'Surat Aktif Kuliah';
+                    $value['jenis'] = 'aktif_kuliah';
+                    $data[] = $value->toArray();
+                }
+
+                $suratKp = SuratKPModel::get();
+                foreach ($suratKp as $key => $value) {
+                    $value['title'] = 'Surat Kerja Praktik';
+                    $value['jenis'] = 'kp';
+                    $data[] = $value->toArray();
+                }
+
+                $suratMagang = SuratMagangModel::get();
+                foreach ($suratMagang as $key => $value) {
+                    $value['title'] = 'Surat Magang';
+                    $value['jenis'] = 'magang';
+                    $data[] = $value->toArray();
+                }
+
+                $suratPengambilanData = SuratPengambilanDataModel::get();
+                foreach ($suratPengambilanData as $key => $value) {
+                    $value['title'] = 'Surat Pengambilan Data';
+                    $value['jenis'] = 'pengambilan_data';
+                    $data[] = $value->toArray();
+                }
+
+                $suratRekomendasi = SuratRekomendasiModel::get();
+                foreach ($suratRekomendasi as $key => $value) {
+                    $value['title'] = 'Surat Rekomendasi';
+                    $value['jenis'] = 'rekomendasi';
+                    $data[] = $value->toArray();
+                }
+
+                $permohonanTranskripNilai = PermohonanTranskripNilaiModel::get();
+                foreach ($permohonanTranskripNilai as $key => $value) {
+                    $value['title'] = 'Permohononan Transkrip Nilai';
+                    $value['jenis'] = 'transkrip_nilai';
+                    $data[] = $value->toArray();
+                }
+            }
+
+            $items = collect($data);
+
+            return DataTables::of($items)
+                ->editColumn('created_at', function ($items) {
+                    return date('M d, Y H:i', strtotime($items['created_at']));
+                })
+                ->addColumn('status', function ($items) {
+                    $status = $items['status_surat'] ? $items['status_surat'] : 'Menunggu di cek';
+
+                    return $status;
+                })
+                ->addColumn('action', function ($items) {
+                    if ($items['status_surat'] == 'Selesai') {
+                        $url = Route('downloadSurat', ['jenis_surat' => $items['jenis'], 'id_surat' => $items['id']]);
+
+                        return '
+                            <a href="' . $url . '" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2">
+                                Download
+                            </a>
+                        ';
+                    }
+
+                    return '-';
+                })
+                ->toJson();
+        }
+
+        return view('homepage.cek-status');
+    }
+
     public function kotakSaran(Request $request)
     {
         $validated = $request->validate([

@@ -7,6 +7,16 @@
        <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        @if(session('success'))
+        <div class="alert alert-success mt-2 mb-2">
+            {!! session('success') !!}
+        </div>
+        @endif 
+        @if(session('failed'))
+        <div class="alert alert-danger mt-2 mb-2">
+            {!! session('failed') !!}
+        </div>
+        @endif
         <!-- Small boxes (Stat box) -->
         <div class="row">
           @if (auth()->user()->role === 'superadmin')
