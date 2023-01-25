@@ -103,6 +103,8 @@ class PelayananAdminController extends Controller
             SuratAktifKuliahModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
+
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -156,6 +158,7 @@ class PelayananAdminController extends Controller
             SuratKPModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -209,6 +212,7 @@ class PelayananAdminController extends Controller
             SuratMagangModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -262,6 +266,7 @@ class PelayananAdminController extends Controller
             SuratPengambilanDataModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -315,6 +320,7 @@ class PelayananAdminController extends Controller
             PermohonanTranskripNilaiModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -368,6 +374,7 @@ class PelayananAdminController extends Controller
             SuratRekomendasiModel::where('id', $request->id)->update([
                 'nama_surat' => $filename,
                 'no_surat' => $no_surat,
+                'status_surat' => "Selesai",
             ]);
 
             return back()->with('success', 'Berhasil Upload Data!');
@@ -393,7 +400,8 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratAktifKuliahModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } elseif ($jenis_surat === 'kp') {
             if ($status_surat === 'Selesai') {
@@ -403,7 +411,8 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratKPModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } elseif ($jenis_surat === 'magang') {
             if ($status_surat === 'Selesai') {
@@ -413,7 +422,8 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratMagangModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } elseif ($jenis_surat === 'pengambilan_data') {
             if ($status_surat === 'Selesai') {
@@ -423,7 +433,8 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratPengambilanDataModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } elseif ($jenis_surat === 'transkrip_nilai') {
             if ($status_surat === 'Selesai') {
@@ -433,7 +444,8 @@ class PelayananAdminController extends Controller
                 }
             }
             PermohonanTranskripNilaiModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } elseif ($jenis_surat === 'rekomendasi') {
             if ($status_surat === 'Selesai') {
@@ -443,7 +455,8 @@ class PelayananAdminController extends Controller
                 }
             }
             SuratRekomendasiModel::where('id', $id)->update([
-                'status_surat' => $status_surat,
+                //'status_surat' => $status_surat,
+                'status_surat' => "Proses Pengerjaan",
             ]);
         } else {
             return back()->with('failed', 'Gagal Update Data!');

@@ -135,9 +135,15 @@
                                         </svg>
                                       </button>
                                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/transkrip_nilai/'.$item['id'] . '/Proses Pengerjaan')}}', 'Proses Surat', 'Proses permohonan surat mahasiswa?')">Proses</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/transkrip_nilai/'.$item['id'] . '/Selesai')}}', 'Surat Selesai', 'Permohonan surat akan dialihkan ke bagian draft.')">Selesai</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="myFunctionTolak('{{url('tolak_surat/transkrip_nilai/'.$item['id'])}}')">Tolak</a></li>
+                                        <!-- <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/transkrip_nilai/'.$item['id'] . '/Proses Pengerjaan')}}', 'Proses Surat', 'Proses permohonan surat mahasiswa?')">Proses</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="myFunction('{{url('status_surat/transkrip_nilai/'.$item['id'] . '/Selesai')}}', 'Surat Selesai', 'Permohonan surat akan dialihkan ke bagian draft.')">Selesai</a></li> -->
+                                        <li>
+                                              @if($item['status_surat'] === 'Selesai')
+                                                  <a class="dropdown-item disabled" href="#" onclick="myFunctionTolak('{{url('tolak_surat/transkrip_nilai/'.$item['id'])}}')">Tolak</a>
+                                               @else
+                                                  <a class="dropdown-item" href="#" onclick="myFunctionTolak('{{url('tolak_surat/transkrip_nilai/'.$item['id'])}}')">Tolak</a>
+                                               @endif
+                                          </li>
                                       </ul>
                                     </div>
                                   </td>
